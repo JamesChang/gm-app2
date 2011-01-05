@@ -1,0 +1,9 @@
+#!/bin/sh
+
+#Default values
+#export GMAPP_HOME=/opt/gmapp/current
+#export GMAPP_USER=gamemate
+#export JAVA_HOME=/opt/java/1.6.0
+#export GMAPP_CONSOLE=${GMAPP_HOME}/logs/consoleout.log
+
+export JAVA_OPTIONS="-server -Xms300m -Xmx1g -Xss256k -XX:PermSize=128m -XX:MaxPermSize=128m"

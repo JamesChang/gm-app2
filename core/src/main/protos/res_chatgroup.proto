@@ -1,0 +1,15 @@
+option java_package = "proto.response";
+
+option optimize_for = CODE_SIZE;
+
+import "res_user.proto";
+
+message ChatGroupModel{
+  required uint32 id = 1;
+  repeated UserModel users = 2;  
+}
+
+message ChatGroupList{
+  repeated ChatGroupModel chatGroups = 1;
+  optional uint32 placeholder =15;
+}

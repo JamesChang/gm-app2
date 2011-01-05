@@ -1,0 +1,7 @@
+option java_package = "proto.msg";
+
+option optimize_for = CODE_SIZE;
+
+message AlertJoiningClanMessage {
+}
+

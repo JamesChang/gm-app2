@@ -1,0 +1,10 @@
+option java_package = "proto.msg";
+
+option optimize_for = CODE_SIZE;
+
+message GroupChat{
+  optional uint32 groupID =1;
+  optional uint32 senderID = 2;
+  optional uint32 receiverID = 3;
+  optional string content = 4;
+}

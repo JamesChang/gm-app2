@@ -1,0 +1,33 @@
+option java_package = "proto.res";
+
+option optimize_for = CODE_SIZE;
+
+import "res_war3detail.proto";
+import "util.proto";
+
+message BattleMessage{
+	required string uuid = 1;
+        optional War3Detail war3 = 2;
+        optional string text = 3;
+	//optional LogicalGame logicalGame = 2;
+	//optional PhysicalGame physicalGame = 3;
+	//optional Map map = 4;
+	//optional string status = 5;
+	//repeated BattlePlayer players =6;
+	//optional StringDictItem attributes = 7;
+	optional uint32 startTime = 8;
+	//optional uint32 endTime = 9;
+        optional string eventName = 10;
+        optional string replay_file = 11; 	
+}
+
+message BattleList{
+  repeated BattleMessage battles=1;
+}
+
+//message BattlePlayer{
+//	optional UserModel user = 1;
+//	optional uint32 position = 2;
+//	optional uint32 forceid = 3;
+//	repeated StringDictItem attributes = 4;
+//}

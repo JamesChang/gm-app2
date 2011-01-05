@@ -1,0 +1,62 @@
+option java_package = "proto.response";
+
+option optimize_for = CODE_SIZE;
+
+import "res_listbase.proto";
+
+message LogicalGame{
+  optional uint32 id = 1;
+  optional string name = 2;
+  repeated string modes = 3;
+}
+
+message LogicalGameList{
+  repeated LogicalGame logicalGames = 1;
+}
+
+message PhysicalGame{
+  optional uint32 id = 1;
+  optional string name = 2;
+  //optional string mappath = 20;
+  
+  //only one of the two appears below
+  repeated PhysicalGameVersion versions = 3;
+  optional PhysicalGameVersion version = 4;
+}
+
+message PhysicalGameList{
+	repeated PhysicalGame physicalGames = 1;
+}
+
+message PhysicalGameVersion{
+  optional string code = 1;
+  optional string display = 2;
+  optional string file = 3;
+  optional string digest = 4;
+}
+
+message Map{
+	optional uint32 id = 1;
+	optional string name = 2;
+	optional string version = 3;
+	optional uint32 physicalGameID = 4;
+	optional string physicalGameVersionLimit = 5;
+	optional string digest = 6;
+	optional string downloadLink = 7;
+	optional uint32 fileSize = 8;
+    optional string thumbnail = 9; // 缩略图
+	
+}
+message MapList{
+	repeated Map maps = 1;
+	optional ListParams params = 2;
+}
+
+message EventGet{
+  optional uint32 id = 1;
+  optional string name = 2;
+  optional PhysicalGame physical_game = 3;
+  repeated Map required_maps = 4;
+  repeated Map optional_maps = 5;
+
+}

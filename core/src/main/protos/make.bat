@@ -1,0 +1,1 @@
+protoc *.proto --python_out=python --java_out=java -I=.

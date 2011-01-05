@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+
+	
+	<!-- =========================================================== -->
+	<!-- Set handler Collection Structure -->
+	<!-- =========================================================== -->
+	<Set name="handler">
+		<New id="handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
+			<Set name="handlers">
+				<Array type="org.eclipse.jetty.server.Handler">
+					<Item>
+						<New id="contexts"
+							class="org.eclipse.jetty.server.handler.ContextHandlerCollection">
+						</New>
+					</Item>
+					<Item>
+						<New id="defaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler" />
+					</Item>
+					<Item>
+						<New id="requestLog" class="org.eclipse.jetty.server.handler.RequestLogHandler" />
+					</Item>
+				</Array>
+			</Set>
+		</New>
+	</Set>
+
+
+	<!-- =========================================================== -->
+	<!-- Configure Request Log -->
+	<!-- =========================================================== -->
+	<Ref id="requestLog">
+		<Set name="requestLog">
+			<New id="requestLogImpl" class="ch.qos.logback.access.jetty.v7.RequestLogImpl">
+			<Set name="fileName">./src/main/resources/logback-access.xml</Set>
+			</New>
+		</Set>
+	</Ref>
+</Configure>

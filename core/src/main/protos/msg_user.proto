@@ -1,0 +1,60 @@
+option java_package = "proto.msg";
+
+option optimize_for = CODE_SIZE;
+
+import "res_user.proto";
+
+message BecameFriendMessage {
+  optional UserModel targetUser=1;
+}
+
+message FriendStatusChangedMessage{
+  optional uint32 userID=1;
+  optional string status =2;
+}
+
+message FriendDataChangedMessage{
+  optional uint32 userID=1;
+  optional UserModel user = 2;
+}
+
+message MakeFriendMessage{
+  optional UserModel fromUser = 1;
+  optional uint32 toUserID = 2;
+  optional string reason = 3;
+}
+
+message WhisperMessage{
+  optional uint32 fromUserID=1;
+  optional uint32 toUserID=2;
+  optional string content=3;
+}
+
+message AlertValidateEmailMessage{  
+}
+
+message UserAccepted{
+  optional uint32 answeredMsgID = 1;
+  optional string text = 2;
+}
+
+message UserDeclined{
+  optional uint32 answeredMsgID = 1;
+  optional string text = 2;
+}
+
+message MakeFriendAccepted{
+	optional uint32 fromUserID = 1;
+	optional UserModel toUser = 2;
+	
+}
+message MakeFriendDeclined{
+	optional uint32 fromUserID = 1;
+	optional UserModel toUser = 2;
+}
+message UserStatusUpdate{
+  optional UserModel user = 1;
+}
+
+
+

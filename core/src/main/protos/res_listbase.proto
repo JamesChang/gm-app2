@@ -1,0 +1,1 @@
+option java_package = "proto.response";option optimize_for = CODE_SIZE;message ListParams{  required bool isPaginated = 2;   optional uint32 hits =3;    optional uint32 page = 4;   optional uint32 perpage = 5;   optional uint32 pages = 6;   }// put this to seperate file to prevent recursively import

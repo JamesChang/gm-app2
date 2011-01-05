@@ -1,0 +1,28 @@
+option java_package = "proto.res";
+
+option optimize_for = CODE_SIZE;
+
+
+message ChoiceFieldList{
+	repeated ChoiceField choiceFields = 1;
+	repeated StringField stringFields = 2;
+}
+
+message ChoiceField{
+	optional bool isRequired = 1;
+	optional string label =2;
+	optional string name =3;
+	repeated ChoiceFieldOption options =4;
+	
+}
+
+message ChoiceFieldOption{
+	optional string label = 1;
+	optional string value = 2;
+}
+
+message StringField{
+	optional bool isRequired = 1;
+	optional string label =2;
+	optional string name =3;
+}

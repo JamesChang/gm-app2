@@ -1,0 +1,72 @@
+option java_package = "proto.msg";
+
+option optimize_for = CODE_SIZE;
+
+import "res_team.proto";
+
+message TeamJoined {
+  optional uint32 teamID = 1;
+  optional TeamGetResponse team = 2;
+}
+
+message TeamLeaved{
+  required TeamGetResponse team = 1;
+}
+
+message UserJoinedTeam{
+  optional uint32 teamID = 1;
+  optional uint32 userID = 2;
+  optional string userName = 3;
+  optional string userPortrait = 4;
+  optional string userStatus = 5;
+}
+
+message UserLeavedTeam{
+  optional uint32 teamID =1;
+  optional uint32 userID = 2;
+}
+
+
+
+message TeamInvitation{
+  optional uint32 operatorID = 1;
+  optional string operatorName = 2;
+  optional string operatorPortrait = 3;
+  optional TeamGetResponse team = 4;
+  optional uint32 targetUserID = 5;
+}
+
+message TeamJoiningApplicationMessage{
+  optional uint32 userID = 2;
+  optional string reason = 3;
+  optional string userName = 4;
+  optional string userPortrait = 5;
+  optional TeamGetResponse team =1;
+  optional uint32 ca05_order = 6;
+}
+
+
+message TeamMemberStatusUpdated{
+  optional uint32 teamID = 1;
+  optional uint32 userID = 2;
+  optional string userStatus = 3;
+  optional bool isAssistant = 4;
+  optional bool isLeader = 5;
+}
+
+message TeamJoiningApplicationAccepted{
+	optional TeamGetResponse team = 1;
+}
+
+message TeamJoiningApplicationDeclined{
+	optional TeamGetResponse team = 1;
+}
+
+message TeamDisbanded{
+   required TeamGetResponse team = 1;
+}
+
+message TeamLeaderChanged{
+   required TeamGetResponse team = 1;
+}
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.access.PatternLayout">
+			<Pattern>%h %l %u %user %date "%r" %s %b</Pattern>
+		</layout>
+	</appender>
+	<appender name="REQUEST" class="ch.qos.logback.core.FileAppender">
+		<file>request.log</file>
+		<layout class="ch.qos.logback.access.PatternLayout">
+			<Pattern>%h %l %u %user %date "%r" %s %b</Pattern>
+		</layout>
+	</appender>
+
+	<!-- <appender-ref ref="STDOUT" /> -->
+	<appender-ref ref="REQUEST" />
+</configuration>

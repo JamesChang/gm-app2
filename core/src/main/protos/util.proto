@@ -1,0 +1,8 @@
+option java_package = "proto.util";
+
+option optimize_for = CODE_SIZE;
+
+message StringDictItem{
+	required string key = 1;
+	required string value = 2;
+}

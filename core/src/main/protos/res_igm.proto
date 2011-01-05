@@ -1,0 +1,27 @@
+option java_package = "proto.response";
+option optimize_for = CODE_SIZE;
+
+import "res_user.proto";
+
+
+message User
+{
+	required uint32 userId = 1;
+	required string userName = 2;
+	optional uint32 level = 3;
+	optional uint32 vipLevel = 4;
+}
+message Chat
+{
+	required User from = 1;
+	required User to = 2;
+	required string message = 3;
+	required string time = 4;
+	optional string way = 5;
+	optional uint32 arenaID = 6;
+}
+
+message FriendList
+{ 
+	repeated User list = 1;
+}

@@ -1,0 +1,9 @@
+option java_package = "proto.response";
+
+option optimize_for = CODE_SIZE;
+
+message Tag{
+  required string cls=1;
+  required string text = 2;
+
+}

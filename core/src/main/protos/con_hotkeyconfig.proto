@@ -1,0 +1,24 @@
+option java_package = "proto.config";
+option optimize_for = CODE_SIZE;
+
+message HotKeyConfig
+{
+	optional HotKey IGM_Key = 1;  //游戏中呼出IGM  用 modifyKey 属性表示
+	repeated HotKey hotkeys = 2;
+	optional int32 showLifeLine = 3; //是否显示血条 1 不显示 2 显示全部血条 3 只显示友方血条 4 只显示敌方血条
+	optional bool winKeyEnabled = 4; //是否屏蔽windows按键
+	
+	message HotKey
+	{
+		//原始键值
+		optional int32 originalKey =1;
+		//映射键值
+		optional int32 modifyKey =2;
+		//是否按下shift 
+		optional int32 shiftDown = 3; // 1 按下 2 不按下 
+		//是否按下ctrl 
+		optional int32 ctrlDown = 4; // 1 按下 2 不按下 
+		//是否按下alt 
+		optional int32 altDown = 5; // 1 按下 2 不按下 
+	}
+}

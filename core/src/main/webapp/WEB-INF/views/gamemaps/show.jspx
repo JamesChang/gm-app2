@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_cn_gamemate_app_domain_game_GameMap" object="${gamemap}" path="/gamemaps" z="EQiPjsAECAj+DD42Hh4+76oNzZg=">
+        <field:display field="name" id="s_cn_gamemate_app_domain_game_GameMap_name" object="${gamemap}" z="VAm/fPK18KVche9Mp4hLpi0P4u4="/>
+        <field:display field="digest" id="s_cn_gamemate_app_domain_game_GameMap_digest" object="${gamemap}" z="lHYBUHkcQs5GmIxJrZPavQO/1O8="/>
+        <field:display field="fileSize" id="s_cn_gamemate_app_domain_game_GameMap_fileSize" object="${gamemap}" z="02aFJFZm5hnY9NwckCGQSCkI670="/>
+        <field:display field="fileLink" id="s_cn_gamemate_app_domain_game_GameMap_fileLink" object="${gamemap}" z="imJIPpjjEtoiG9iXHCl18vA4MLM="/>
+        <field:display field="attrsInJson" id="s_cn_gamemate_app_domain_game_GameMap_attrsInJson" object="${gamemap}" z="QcD2kOHxTSYwKDHCsBckVM9At2k="/>
+    </page:show>
+</div>

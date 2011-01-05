@@ -1,0 +1,134 @@
+option java_package = "proto.msg";
+
+option optimize_for = CODE_SIZE;
+
+import "msg_user.proto";
+import "msg_clan.proto";
+import "msg_team.proto";
+import "msg_chat.proto";
+import "msg_party.proto";
+import "msg_chatgroup.proto";
+import "msg_arena.proto";
+import "msg_campus_arena.proto";
+import "res_inet.proto";
+import "msg_alert.proto";
+
+message Msg{
+  optional uint32 id = 1;
+  required uint32 code=2;
+  optional string text=3;
+  optional uint32 ttl=4;
+  optional string subMsg=5;
+  optional string answer=6;
+  optional uint32 last_modified = 7;
+  
+  optional bool canAnswerYesNo = 8;  
+  optional string uuid = 9;
+  optional bool flagA=10;  
+  optional bool flagP=11;
+  optional bool flagU=12;
+  optional fixed32 expires = 14; // Server Only
+  optional string data=15;  
+  optional string uniqueKey=19;
+  optional string category =16;
+  optional string subcategory=20;
+  
+  
+  //basic
+  optional StringData stringData = 31;
+  
+  //Chat
+  optional WhisperMessage whisper=40;
+  optional GroupChat groupChat = 41;
+  
+  //User Messages,50-99
+  optional BecameFriendMessage becameFriend=50;
+  optional FriendStatusChangedMessage friendStatusChanged=51;
+  optional FriendDataChangedMessage friendDataChanged=52;
+  optional MakeFriendMessage makeFriend=53;
+  optional AlertValidateEmailMessage alertValidateEmail=55;
+  optional UserAccepted userAccepted = 56;
+  optional UserDeclined userDeclined = 57;
+  optional MakeFriendAccepted makeFriendAccepted = 58;
+  optional MakeFriendDeclined makeFriendDeclined = 59;
+  optional AlertValidateEmailMessage alertUserFillProfile=60;
+  optional BecameFriendMessage notFriendAnyMore = 61;
+  optional UserStatusUpdate userStatusUpdate = 62;
+  
+  //Clan Messages, 100-149
+  optional AlertJoiningClanMessage alertJoiningClan=100;
+  
+  //Team Message, 150-199
+  optional TeamJoiningApplicationMessage teamJoiningApplication=150;
+  optional TeamJoined teamJoined = 151;
+  optional TeamLeaved teamLeaved = 152;
+  optional UserJoinedTeam userJoinedTeam = 153;
+  optional UserLeavedTeam userLeavedTeam = 154;
+  optional TeamMemberStatusUpdated teamMemberStatusUpdated = 155;
+  optional TeamInvitation teamInvitation = 156;
+  optional TeamJoiningApplicationAccepted teamJoiningApplicationAccepted = 157;
+  optional TeamJoiningApplicationDeclined teamJoiningApplicationDeclined = 158;
+  optional TeamDisbanded teamDisbanded = 159;
+  optional TeamLeaderChanged teamLeaderChanged = 160;
+  
+  //Party Message 200 - 250
+  optional PartyJoined partyJoined = 200;
+  optional PartyLeaved partyLeaved = 201;
+  optional UserJoinedParty userJoinedParty = 202;
+  optional UserLeavedParty userLeavedParty = 203;
+  optional PartyMemberStatusUpdated partyMemberStatusUpdated = 204;
+  optional PartyInvitation partyInvitation = 205;
+  optional PartyInvitationDeclined partyInvitationDeclined = 206;
+  optional PartyLeaderChanged partyLeaderChanged = 207;
+  optional EventInvitation eventInvitation = 208;
+  optional EventInvitationDeclined eventInvitationDeclined = 209;
+  
+  //ChatGroup Message 251-299
+  optional ChatGroupJoined chatGroupJoined = 251;
+  optional ChatGroupLeaved chatGroupLeaved = 252;
+  optional UserJoinedChatGroup userJoinedChatGroup = 253;
+  optional UserLeavedChatGroup userLeavedChatGroup = 254;
+  optional ChatGroupMemberUpdated chatGroupMemberUpdated = 255;
+  optional ArenaInChatGroup arenaCreatedInChatGroup = 256;
+  optional ArenaInChatGroup arenaRemovedInChatGroup = 257;
+  optional ArenaInChatGroup arenaUpdatedInChatGroup = 258;
+  
+  //Arena Messages 300-349
+  optional ArenaJoined arenaJoined = 300;
+  optional ArenaLeaved arenaLeaved = 301;
+  optional UserJoinedArena userJoinedArena = 302;
+  optional UserLeavedArena userLeavedArena = 303;
+  optional ArenaMemberUpdated arenaMemberUpdated = 304;
+  optional ArenaInvitation arenaInvitation = 305;
+  optional ArenaForceStatusUpdated arenaForceStatusUpdated = 306;
+  optional ArenaStart arenaStart = 307;
+  optional ArenaStatusUpdated arenaStatusUpdated = 308;
+  optional ArenaEnded arenaEnded = 309;
+  optional ArenaUserAttributeUpdated arenaUserAttributeUpdated = 310;
+  optional ArenaLeaderChanged arenaLeaderChanged = 311;
+  optional ArenaSlotLockUpdated arenaSlotLockUpdated = 312;
+  
+  //campus arena 350-370
+  optional CaQueue joinedCaGroupingQueue = 350;
+  optional CaQueue leavedCaGroupingQueue = 351;
+  optional CaQueue joinedCaBattleQueue = 352;
+  optional CaQueue leavedCaBattleQueue = 353;
+  
+  
+  //internet cafe
+  optional GroupChat inetcafePublicChat = 371;
+  optional InetTable inetcafeTableUpdated = 372;
+
+  //alert code
+  optional AlertMessage alert = 401;
+  
+}
+
+message StringData{
+    optional string data = 1;
+}
+
+message MsgList{
+  repeated Msg messages = 1;
+  optional uint32 last_read = 2; //last time you read these message, added on version 0.3.2
+}

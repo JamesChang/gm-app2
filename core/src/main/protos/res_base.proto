@@ -1,0 +1,114 @@
+option java_package = "proto.response";
+
+option optimize_for = CODE_SIZE;
+
+
+
+import "res_captcha.proto";
+import "res_user.proto";
+import "res_activity.proto";
+import "res_clan.proto";
+import "msg_base.proto";
+import "res_team.proto";
+import "res_party.proto";
+import "res_game.proto";
+import "res_campus_arena.proto";
+import "res_chatgroup.proto";
+import "res_arena.proto";
+import "res_inet.proto";
+import "res_battle.proto";
+message Response{
+  
+  // indicates actual field returned because that we cannot use extension.
+  // leaves blank if no sub message type.
+  // if there is no subMsg, leave it un-assigned, cause protobuffer-flash can not handle empty string(BUG)
+  optional string subMsg = 1; 
+  
+  //Response Code
+  required uint32 code = 2;  
+  
+  // Error List
+  repeated ResponseError errors = 3;
+  
+  // general responses, 51-99
+  
+  optional BoolResponse bool = 52;
+    
+  //account operations, 101-139
+  optional CaptchaNewResponse captchaNew=101;
+  optional UserTCPLoginResponse userTCPLogin=102;
+  optional UserTCPLogoutResponse userTCPLogout=103;
+  optional UserTCPDropResponse userTCPdrop=104;
+  
+  
+  //user operations, 140-199
+  optional UserModel userGet=141;
+  optional UserListResponse userList=142;
+  optional CollegeListResponse collegeList=143;
+  
+  //activity operations, 200-209
+  optional ActivityGetResponse activityGet=200;
+  optional ActivityListResponse activityList=201;
+  
+  // clan operations, 210 - 299
+  optional ClanGetResponse clanGet = 210;
+  optional ClanListResponse clanList = 220;
+  
+  // message operations, 300 - 309
+  optional MsgList msgRecent = 300;
+  
+  // team operations, 310 - 349.
+  optional TeamGetResponse teamGet = 310;
+  optional TeamListResponse teamList = 311;
+  optional MyTeamApplications myTeamApplications = 312;
+  
+  // party operations, 350 - 399
+  optional PartyModel partyGet = 350;
+  optional PartyList partyList = 351;
+  
+  // Campus Arena operations, 400-449
+  optional CampusArenaGet campusArenaGet = 400;
+  optional LogicalGameList logicalGameList = 401;
+  optional CampusArenaGroupingList campusArenaGroupingList = 402;
+  
+  optional CampusArena03List ca03ArenaList = 403;
+  optional CampusArena03Stats ca03Stats = 404;
+  optional CampusArena03Home ca03Homepage = 405;
+  
+  // chat group operations 450-459
+  optional ChatGroupModel chatGroupGet = 450;
+  optional ChatGroupList chatGroupList = 451;
+  
+  // game and map operations 460-469
+  optional PhysicalGame physicalGame = 460;
+  optional PhysicalGameList physicalGameList = 461;
+  optional MapList mapList =462;
+  optional EventGet eventGet = 463;
+  
+  // Arena operations 470-499
+  optional Arena arenaGet = 470;
+  optional ArenaList arenaList = 471;
+  
+  // Inetcafe version 500 - 520
+  optional InetTableList inetTableList = 500;
+  optional InetTable inetTable = 501;
+  optional InetStats inetStats = 502;
+
+
+  optional BattleMessage battleGet = 531;
+  optional BattleList battleList = 532;
+  
+  
+  //WARNING: do NOT use 19000 through 19999  
+}
+message ResponseError{
+  required uint32 code = 1;
+  optional string desc = 2; 
+  optional string target = 3; 
+}
+
+message BoolResponse{
+  required bool value = 1;
+}
+
+

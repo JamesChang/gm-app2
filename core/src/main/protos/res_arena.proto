@@ -1,0 +1,67 @@
+option java_package = "proto.res";
+
+option optimize_for = CODE_SIZE;
+
+import "res_user.proto";
+import "res_game.proto";
+import "util.proto";
+import "res_form.proto";
+
+message Arena{
+	optional uint32 id = 1;
+	optional LogicalGame logicalGame = 2;			
+	optional PhysicalGame physicalGame = 3;
+	optional Map gameMap = 4;
+	optional string status = 5;
+	repeated ArenaSlot players =6;
+	repeated StringDictItem attributes = 7;
+	optional string name = 8;
+	repeated BattleForce forces = 9;
+	optional ChoiceFieldList userAttributeDefinition = 10;
+        optional bool private_flag =11;
+        optional uint32 chatgroup = 12;
+        repeated string my_actions = 13; 
+        optional string mode = 14; 
+	optional string uuid = 15;
+        optional string type = 20;  // normal, partial
+	
+	optional string mappath = 16; //reserved
+	optional string gamepath =17; //reserved
+	optional uint32 hostID = 18; 	//Host's position
+	optional uint32 whoAmI = 19;  //reserved
+        optional string event_name = 21;
+        optional string event_id = 22;
+}
+
+message ArenaMini{
+	optional uint32 id = 1;
+	optional LogicalGame logicalGame = 2;			
+	optional PhysicalGame physicalGame = 3;
+	optional Map gameMap = 4;
+    optional uint32 totalCount = 5;
+    optional uint32 currentCount = 6;
+    optional string mode = 7;
+}
+
+message BattleForce{
+	optional uint32 id = 1;	
+	optional string label = 2;
+	optional uint32 partyID = 10;
+	optional string status = 3;
+	optional uint32 leaderID = 11;
+	repeated StringDictItem attributes = 4;
+	
+}
+
+message ArenaSlot{
+	optional UserModel user = 1;
+	optional uint32 position = 2;
+	optional uint32 forceID = 3;
+	repeated StringDictItem attributes = 4;
+    optional bool enabled = 5;
+    optional bool ready = 6;
+}
+
+message ArenaList{
+	repeated Arena arenas = 1;
+}

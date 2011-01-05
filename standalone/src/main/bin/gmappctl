@@ -1,0 +1,337 @@
+#!/bin/sh
+#
+# chkconfig: 345 80 20
+# description: Gamemate Application Server (on Jetty)
+# processname: gmapp
+# pidfile: /var/run/gmapp.pid
+#
+
+### BEGIN INIT INFO
+# Provides:          gmapp
+# Required-Start:    $remote_fs $syslog $network
+# Required-Stop:     $remote_fs $syslog $network
+# Default-Start:     3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start GMApp at boot time
+# Description:       Manages the services needed to run GMApp
+### END INIT INFO 
+
+#############################################################
+# Configuration files
+#############################################################
+# /etc/gmapp/default
+#   If it exists, this is read at the start of script. It may perform any
+#   sequence of shell commands, like setting relevant environment variables.
+#   It is recommended to et the JAVA_HOME and GMAPP_HOME there.
+#   An example file "gmapp.default" is provided with this file.
+#
+# $HOME/.gmapp
+#   If it exists, this is read at the start of script. It may perform any
+#   sequence of shell commands, like setting relevant environment variables.
+
+#############################################################
+# Configuration variables
+#############################################################
+# JAVA_HOME
+#   Home of Java installation.
+#
+# JAVA
+#   Command to invoke Java. If not set, $JAVA_HOME/bin/java will be
+#   used.
+#
+# JAVA_OPTIONS
+#   Extra options to pass to the JVM
+#
+# GMAPP_HOME
+#   Where GMApp is installed. If not set, the script will try go
+#   guess it by first looking at the invocation path for the script,
+#   and then by looking in standard locations as $HOME/opt/gmapp
+#   and /opt/gmapp. 
+#
+# GMAPP_CONSOLE
+#   Where GMApp console output should go. Defaults to /var/logs/gmapp/consoleout.log
+#
+# GMAPP_USER
+#   The name of the user that will run the java jetty process. The data, backup and logs
+#   folders under GMAPP_HOME should be writable by this user.
+#   if left empty will run without changing user (no su -).
+#
+# GMAPP_REST_PORT
+#   Override the default port for Jetty servers. If not set then the
+#   default value in the xml configuration file will be used. The java
+#   system property "jetty.port" will be set to this value for use in
+#   configure.xml files. For example, the following idiom is widely
+#   used in the demo config files to respect this property in Listener
+#   configuration elements:
+#
+#    <Set name="Port"><SystemProperty name="jetty.port" default="8081"/></Set>
+#
+#   Note: that the config file could ignore this property simply by saying:
+#
+#    <Set name="Port">8081</Set>
+#
+# GMAPP_RUN
+#   Where the gmapp.pid file should be stored. It defaults to /var/run.
+#
+# GMAPP_PID
+#   The Jetty PID file, defaults to $GMAPP_RUN/gmapp.pid
+usage()
+{
+    echo "Usage: $0 {start|stop|restart|status} [ CONFIGS ... ] "
+    exit 1
+}
+
+[ $# -gt 0 ] || usage
+
+TMPJ=/tmp/j$$
+
+##################################################
+# Get the action & configs
+##################################################
+
+ACTION=$1
+shift
+ARGS="$*"
+CONFIGS=""
+
+##################################################
+# Find directory function
+##################################################
+findDirectory()
+{
+    OP=$1
+    shift
+    for L in $* ; do
+        [ $OP $L ] || continue
+        echo $L
+        break
+    done
+}
+
+
+##################################################
+# See if there's a default configuration file
+##################################################
+if [ -f /etc/gmapp/default ] ; then
+  . /etc/gmapp/default
+fi
+
+##################################################
+# See if there's a user-specific configuration file
+##################################################
+if [ -f $HOME/.gmapp ] ; then
+  . $HOME/.gmapp
+fi
+
+
+##################################################
+# GMApp start jar file
+##################################################
+GMAPP_START_FILE="bin/start.sh"
+
+
+##################################################
+# No GMAPP_HOME yet? We're out of luck!
+##################################################
+if [ ! $GMAPP_HOME ] ; then
+  if [ -L $0 ] ; then
+    # use this symbolic link identifying GMAPP_HOME
+    CTL_FILE=`readlink -f $0`
+    T=`dirname $CTL_FILE`
+    cd "$T/.."
+    GMAPP_HOME=`pwd`
+  fi
+fi
+if [ ! $GMAPP_HOME ] ; then
+  GMAPP_HOME=`dirname $0`/..
+fi
+if [ ! "$GMAPP_HOME" ] ; then
+    echo "** ERROR: GMAPP_HOME not set, you need to set it or install in a standard location: $GMAPP_HOME"
+    exit 1
+fi
+
+#####################################################
+# Check that jetty is where we think it is
+#####################################################
+if [ ! -r $GMAPP_HOME/$GMAPP_START_FILE ]
+then
+   echo "** ERROR: Oops! GMApp doesn't appear to be installed in $GMAPP_HOME"
+   echo "** ERROR:  $GMAPP_HOME/$GMAPP_START_FILE is not readable!"
+   exit 1
+fi
+
+##################################################
+# If GMAPP_USER set make sure the current user
+# is root or some very peculiar errors appears.
+##################################################
+if [ -n "$GMAPP_USER" ]
+then
+  curUser=`id -nu`
+  if [ "$curUser" != "root" ]
+  then
+    echo "** ERROR: Only root user can change execution user to $GMAPP_USER"
+    exit 1
+  fi
+fi
+
+
+#####################################################
+# Find a location for the pid file
+#####################################################
+if [  -z "$GMAPP_RUN" ]
+then
+  GMAPP_RUN="/var/run"
+fi
+
+#####################################################
+# Find a PID for the pid file
+#####################################################
+if [  -z "$GMAPP_PID" ]
+then
+  GMAPP_PID="$GMAPP_RUN/gmapp.pid"
+  if [ ! -w $GMAPP_RUN ] ; then
+    echo "cannot modify pid file $GMAPP_PID: Permission denied"
+    exit 1
+  fi
+fi
+
+#####################################################
+# Find a location for the jetty console
+#####################################################
+if [ -z "$GMAPP_CONSOLE" ]
+then
+  export GMAPP_CONSOLE=/var/logs/gmapp/consoleout.log
+fi
+
+CONSOLE_DIR=`dirname $GMAPP_CONSOLE`
+mkdir -p $CONSOLE_DIR
+touch ${GMAPP_CONSOLE}
+if [ -n "$GMAPP_USER" ]; then
+  chown ${GMAPP_USER} ${CONSOLE_DIR} -R
+fi
+#echo "Created output file $GMAPP_CONSOLE"
+
+#####################################################
+# Create the jetty work dir
+#####################################################
+if [ ! -d "${GMAPP_HOME}/work" ]
+then
+  mkdir ${GMAPP_HOME}/work 2> /dev/null
+  if [ -n "$GMAPP_USER" ]
+  then
+    chown ${GMAPP_USER} -R ${GMAPP_HOME}/work/
+  fi
+fi
+
+
+###################
+# Setup the JVM
+##################
+
+if [ !  $JAVA ]; then
+  if [ $JAVA_HOME ]; then
+    JAVA="$JAVA_HOME/bin/java"
+  else
+    JAVA="java"
+  fi
+fi
+
+
+#####################################################
+# Are we running on Windows? Could be, with Cygwin/NT.
+#####################################################
+case "`uname`" in
+CYGWIN*) PATH_SEPARATOR=";";;
+*) PATH_SEPARATOR=":";;
+esac
+
+
+#####################################################
+# Add jetty properties to Java VM options.
+#####################################################
+JAVA_OPTIONS="$JAVA_OPTIONS -Djava.awt.headless=true"
+
+RUN_CMD="$GMAPP_HOME/bin/start.sh" 
+
+##################################################
+# Do the action
+##################################################
+case "$ACTION" in
+  start)
+
+        if [ -f $GMAPP_PID ]
+        then
+            if [ "$(ps -p `cat $GMAPP_PID` | wc -l)" -gt 1 ]; then
+				echo "Already Running!"
+				exit 1
+			else
+				# process not running, but PID file was not deleted
+				echo "GMApp was not stopped correctly. Removing old pid file"
+				rm $GMAPP_PID
+            fi
+        fi
+
+        ulimit -n 5000
+        ulimit -s 128
+        
+        echo "=============================================================" >>$GMAPP_CONSOLE
+        echo "`date` Starting Gamemate Application Server" >>$GMAPP_CONSOLE
+        if [ -z "$GMAPP_USER" ]; then
+	    #cd $GMAPP_HOME/bin
+            #$GMAPP_HOME/bin/start.sh >>$GMAPP_CONSOLE 2>&1 & 
+            exec "${RUN_CMD}" >>$GMAPP_CONSOLE 2>&1 &
+        else
+            su - ${GMAPP_USER} --shell=/bin/sh -c "exec $RUN_CMD >>$GMAPP_CONSOLE 2>&1" >/dev/null &
+        fi
+        echo $! > $GMAPP_PID
+        ;;
+
+  stop)
+        echo $GMAPP_PID
+        PID=`cat $GMAPP_PID 2>/dev/null`
+        echo "Shutting down Jetty: $PID"
+        kill $PID 2>/dev/null
+#        sleep 10
+#        kill -9 $PID 2>/dev/null
+        rm -f $GMAPP_PID
+        #echo "STOPPED `date`" >>$GMAPP_CONSOLE
+        ;;
+
+  restart)
+        $0 stop $*
+        sleep 5
+        $0 start $*
+        ;;
+  status)
+
+        if [ -f $GMAPP_RUN/gmapp.pid ]
+        then
+            echo "GMApp is running, on pid="`cat $GMAPP_RUN/gmapp.pid`
+            echo ""
+            exit 0
+        fi
+
+        echo "Checking arguments to GMApp on Jetty: "
+        echo "GMAPP_HOME           =  $GMAPP_HOME"
+        echo "JETTY_CONF           =  $JETTY_CONF"
+        echo "GMAPP_USER           =  $GMAPP_USER"
+        echo "GMAPP_RUN            =  $GMAPP_RUN"
+        echo "GMAPP_PID            =  $GMAPP_PID"
+        echo "GMAPP_CONSOLE        =  $GMAPP_CONSOLE"
+        echo "JETTY_PORT           =  $JETTY_PORT"
+        echo "JETTY_ARGS           =  $JETTY_ARGS"
+        echo "CONFIGS              =  $CONFIGS"
+        echo "JAVA_OPTIONS         =  $JAVA_OPTIONS"
+        echo "JAVA                 =  $JAVA"
+        echo "CLASSPATH            =  $CLASSPATH"
+        echo
+
+        exit 1
+        ;;
+
+*)
+        usage
+        ;;
+esac
+
+exit 0

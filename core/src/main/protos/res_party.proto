@@ -1,0 +1,25 @@
+option java_package = "proto.response";
+
+option optimize_for = CODE_SIZE;
+
+import "res_user.proto";
+import "res_listbase.proto";
+
+message PartyModel{
+  required string uuid = 1;
+  repeated PartyMember users = 2;
+  optional uint32 leaderID = 3;
+  optional uint32 userCount = 4;
+}
+
+message PartyMember{
+  required UserModel user = 1;
+  optional string status = 2;
+  optional bool is_out = 3;
+  optional bool is_updating = 4;
+}
+
+message PartyList{
+  repeated PartyModel parties = 1;
+  optional ListParams params = 2;
+}

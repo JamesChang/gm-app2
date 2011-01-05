@@ -1,0 +1,19 @@
+option java_package = "proto.response";
+
+option optimize_for = CODE_SIZE;
+
+import "res_listbase.proto";
+
+message ActivityGetResponse{
+  optional uint32 id = 4;
+  optional string text = 1;
+  optional string logo = 2;
+  optional uint32 timestamp = 3;
+}
+
+
+
+message ActivityListResponse{
+  repeated ActivityGetResponse activities = 1;
+  optional ListParams params = 2;
+}

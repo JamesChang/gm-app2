@@ -1,0 +1,114 @@
+option java_package = "proto.response";
+option optimize_for = CODE_SIZE;
+
+import "res_user.proto";
+
+message StarCraftData
+{
+
+	//required string scVersion = 1;			//版本,现在都是1.15
+	//required int32  time = 4;			//游戏时间
+	//required int32  messageType = 2;		//消息种类,现在就一个消息,暂时没用
+	//required int32  battleType = 3;			//只有对抗吧,暂时只有1种,没用
+	//required int32  userIDOfSender = 5;		//sender的userid
+
+	//message ScEvent
+	//{
+		//required int32 userid = 1;		//发生事件的uid	
+		//required string reason = 2;		//发生的事件
+	//}
+	//message ScTotalScore
+	//{
+		//required int32  userid = 17;		//该玩家的userid
+
+		//message ScUnitInfo			//Sc Unit的信息(如果没造该兵种为0)
+		//{
+			//required int32 stringID = 1;		//兵种编号(具体看附录)
+			//optional int32  totalBuilt = 2;		//该兵种总共建造个数
+			//optional int32  nowExist = 3;		//该兵种现有个数
+		//}	
+		//optional string result = 20;
+
+		//required int32  totalScore  = 2;		//游戏总分
+		//required int32  unitScore   = 3;		//单位得分
+		//required int32  buildScore  = 5;		//建造得分
+		//required int32  sourceScore = 6;		//资源得分
+
+		//required int32  nowMineral  = 4;		//现有矿
+		//required int32  nowGas      = 1;		//现有气
+		//required int32  allMineral  = 7;		//总矿
+		//required int32  allGas      = 8;		//总气
+
+		//required int32  numProduce  = 9;				//总共建的单位
+		//required int32  numUnitLost = 10;				//总损失单位
+		//required int32  numKill     = 11;				//总消灭单位
+
+		//required int32  numConstructed     = 12;			//总建造的建筑
+		//required int32  numRazed           = 13;			//总消灭敌人的建筑
+		//required int32  numConstructedLost = 15;			//总损失的建筑
+
+		//repeated ScUnitInfo   unitInfo =16;
+	//}
+
+	//repeated ScEvent  scEvent = 8;	
+	//repeated ScTotalScore totalScore = 7;
+	
+	message Header
+	{
+		required string version = 1;//版本
+		required string messageType = 2;//消息类型
+		optional string battleType = 3;//战斗类型
+		required uint32 time = 4;//发送消息时候的时间
+		required uint32 userIDOfSender = 5;//发送者的ID
+	}
+	message UnitInfo
+	{
+		required string stringID = 1;//物品或建筑的ID
+		optional int32 totalBuilt = 2 [default = 0];//该物品总共建造的数量
+		optional int32 nowExist = 3 [default = 0];//该物品当前剩余数量
+		optional int32 waitForBuilding = 4 [default = 0];//该物品等待建造的数量
+		optional int32 isBuilding = 5;//1--建筑， 2---生物， 3---物品， 4--技能
+		optional string name = 6;//物品的名称
+	}
+	message Player
+	{
+		required uint32 userID = 1;
+		optional string result = 2;
+		
+		optional uint32  totalScore  = 3;		//游戏总分
+		optional uint32  unitScore   = 4;		//单位得分
+		optional uint32  buildScore  = 5;		//建造得分
+		optional uint32  sourceScore = 6;		//资源得分
+
+		optional uint32  nowMineral  = 7;		//现有矿
+		optional uint32  nowGas      = 8;		//现有气
+		optional uint32  allMineral  = 9;		//总矿
+		optional uint32  allGas      = 10;		//总气
+
+		optional uint32  numAllProduce  = 11;				//总共建的单位
+		optional uint32  numAllUnitLost = 12;				//总损失单位
+		optional uint32  numAllKill     = 13;				//总消灭单位
+
+		optional uint32  numAllBuild     = 14;			//总建造的建筑
+		optional uint32  numAllDestroy           = 15;			//总消灭敌人的建筑
+		optional uint32  numAllBuildingLost = 16;			//总损失的建筑
+		
+		optional float APM = 17[default = 0];	
+		optional string race = 18;
+		optional int32 leaveTime = 19;
+		optional string isLeave = 20;
+		
+		repeated UnitInfo units = 21;
+        optional UserModel user = 22;
+    optional int32 force = 23;
+	}
+	
+	message SCLeave
+	{
+	  required uint32 userID = 1;
+	  optional string leaveReason = 2;
+	}
+	required Header header = 1;
+	repeated Player players = 2;
+	repeated SCLeave leavePlayers = 3;
+}

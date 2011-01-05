@@ -1,0 +1,48 @@
+option java_package = "proto.response";
+option optimize_for = CODE_SIZE;
+
+import "res_user.proto";
+import "res_listbase.proto";
+import "res_game.proto";
+
+message InetTableList{
+  repeated InetTable tables =1;
+
+}
+
+message InetTable{
+  required uint32 id = 1;
+  required uint32 seatCount =2;
+  repeated InetTableSlot seats = 3; // 注意，这里是含有用户的座位的列表。不包含空着的座位。这样设计是出于python的protobuf效率的原因。
+  optional Map gmap = 4; // note: This is really an optional field.
+  
+}
+
+message InetTableSlot{
+  optional uint32 deskID=3; //桌子ID. 有时候有用。
+  required uint32 seatID = 1;   // 0-9
+  optional UserModel user = 2;  
+  optional string status = 4; // idle, error, ready, gaming
+  optional uint32 race = 5; //optional, only for war3 and sc
+}
+
+message InetStats{
+	repeated InetStatsItem items = 1;
+    optional ListParams params = 2;
+}
+
+message InetStatsItem{
+    required uint32 id = 11;
+    optional string name = 10;
+	optional uint32 rank = 1;
+	required uint32 exp = 2;
+	required int32 level = 3;
+	required uint32 cab = 4;
+	required string R5 = 5;
+	required uint32 win = 6;
+	required uint32 loss = 7;
+	required uint32 total = 8;
+	required float rate = 9;
+    required string portrait = 12;
+	
+}

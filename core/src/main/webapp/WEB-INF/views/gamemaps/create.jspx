@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:create id="fc_cn_gamemate_app_domain_game_GameMap" modelAttribute="gameMap" path="/gamemaps" render="${empty dependencies}" z="+bnnKcB5MoDEBZugzpndbC7EoIQ=">
+        <field:textarea field="name" id="c_cn_gamemate_app_domain_game_GameMap_name" required="true" z="xx/QLfGtSMBwkYzeqqvVi1w1dY4="/>
+        <field:textarea field="digest" id="c_cn_gamemate_app_domain_game_GameMap_digest" required="true" z="bLJhusqqvTvhVZg3OzTxgMQqjcI="/>
+        <field:input field="fileSize" id="c_cn_gamemate_app_domain_game_GameMap_fileSize" required="true" validationMessageCode="field_invalid_integer" z="3YkyjizLkalP3RbjUslegdMl5ww="/>
+        <field:input field="fileLink" id="c_cn_gamemate_app_domain_game_GameMap_fileLink" z="NDIxyMPRQ/Fg226MrPageYonx7M="/>
+        <field:input field="attrsInJson" id="c_cn_gamemate_app_domain_game_GameMap_attrsInJson" z="QH9DyGa7EaUctMypVpgieutVCDk="/>
+    </form:create>
+    <form:dependency dependencies="${dependencies}" id="d_cn_gamemate_app_domain_game_GameMap" render="${not empty dependencies}" z="fUnD5phtSbIqt/kKCCDy9HiNblM="/>
+</div>

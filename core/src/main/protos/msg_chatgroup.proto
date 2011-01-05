@@ -1,0 +1,41 @@
+option java_package = "proto.msg";
+
+option optimize_for = CODE_SIZE;
+
+import "res_chatgroup.proto";
+import "res_user.proto";
+import "res_arena.proto";
+
+message ChatGroupJoined {
+  optional uint32 chatGroupID = 1;
+  optional ChatGroupModel chatGroup = 2;
+  repeated ArenaInChatGroup arenas = 3;
+}
+
+message ChatGroupLeaved{
+  optional uint32 chatGroupID =1;
+}
+
+message UserJoinedChatGroup{
+  optional uint32 chatGroupID = 1;
+  optional uint32 userID = 2;
+  optional UserModel user = 3;
+}
+
+message UserLeavedChatGroup{
+  optional uint32 chatGroupID =1;
+  optional uint32 userID = 2;
+}
+
+message ChatGroupMemberUpdated{
+  optional uint32 chatGroupID = 1;
+  optional UserModel user = 2;
+}
+
+message ArenaInChatGroup{
+    optional uint32 chatGroupID = 1;
+    optional uint32 creatorID = 2;
+    optional uint32 arenaID = 3;
+    optional string creatorName = 4;
+    optional ArenaMini arena = 5;
+}

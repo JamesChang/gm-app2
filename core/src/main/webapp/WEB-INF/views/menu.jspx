@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" id="menu" version="2.0">
+	<jsp:output omit-xml-declaration="yes"/>
+
+<menu:menu id="_menu" z="nZaf43BjUg1iM0v70HJVEsXDopc=">
+        <menu:category id="c_game" z="2kd/06qS5R1ulGaBKqjkf+qriAA=">
+            <menu:item id="i_game_new" messageCode="global_menu_new" url="/games?form" z="cbApva5tgrDz/jmFy9M1rtm6WvQ="/>
+        <menu:item id="i_game_list" messageCode="global_menu_list" url="/games?page=${empty param.page ? 1 : param.page}&amp;size=${empty param.size ? 10 : param.size}" z="VB6nSK8QJeQ0j1iGvSzelAfoVFQ="/>
+        </menu:category>
+    </menu:menu>
+</div>

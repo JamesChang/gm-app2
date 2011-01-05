@@ -1,0 +1,1 @@
+protoc.exe ./*.proto --cpp_out=C++ -I=.

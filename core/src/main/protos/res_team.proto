@@ -1,0 +1,50 @@
+option java_package = "proto.response";
+
+option optimize_for = CODE_SIZE;
+
+import "res_clan.proto";
+import "res_user.proto";
+import "res_listbase.proto";
+import "res_tag.proto";
+
+message TeamGetResponse{
+  required string uuid = 1;
+  optional string name = 2;
+  optional string prefix = 3;
+  optional string logo = 4;
+  optional string slogan = 5;
+  //optional ClanGetResponse clan = 6;
+  repeated UserModel members = 7;
+  optional uint32 leaderID = 8;
+  repeated uint32 assistants = 9;
+  repeated TeamBulletin bulletins = 10;
+  optional uint32 current_member_count = 11;
+  optional uint32 max_member_count = 12;
+  optional uint32 lg_id = 13;
+  optional string lg_name = 14;
+  optional uint32 order = 15;
+  optional uint32 score = 16;
+  optional uint32 rank = 17;
+  repeated Tag tags = 18;
+  optional bool has_applied = 19;
+}
+
+message TeamListResponse{
+  repeated TeamGetResponse teams = 1;
+  optional ListParams params = 2;
+}
+
+message TeamBulletin{
+  //required string title = 1;
+  required string content =2;
+  required uint32 timestamp = 3;
+  
+
+}
+message MyTeamApplications{
+  repeated TeamApplication teamApplications = 1;
+}
+message TeamApplication{
+  required TeamGetResponse team =1;
+  required string answer = 2;
+}

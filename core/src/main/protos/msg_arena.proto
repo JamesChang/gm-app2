@@ -1,0 +1,94 @@
+option java_package = "proto.msg";
+
+option optimize_for = CODE_SIZE;
+
+import "res_arena.proto";
+import "res_gameres.proto";
+import "res_user.proto";
+import "res_game.proto";
+
+message ArenaJoined {
+  optional Arena arena = 2;
+}
+
+message ArenaLeaved{
+  optional uint32 arenaID =1;
+}
+
+message UserJoinedArena{
+  optional uint32 arenaID = 1;
+  optional uint32 userID = 2;
+  optional UserModel user = 6;
+  optional string role = 7; //用户的新角色.(player, referee, ghost)
+  optional int32 position = 8; //用户的新位置，即slot的ID。
+  repeated string actions = 9; //允许的用户行为列表
+}
+
+message UserLeavedArena{
+  optional uint32 arenaID =1;
+  optional uint32 userID = 2;
+}
+
+message ArenaMemberUpdated{
+  required uint32 arenaID = 1;
+  required uint32 userID = 2;
+  optional string userStatus = 3; //用户的新状态
+  optional string role = 4; //用户的新角色.(player, referee, ghost)
+  optional int32 position = 5; //用户的新位置，即slot的ID。
+  repeated string actions = 6; //允许的用户行为列表
+  optional bool ready = 7;
+  
+}
+
+message ArenaInvitation{
+  optional UserModel inviter = 1;
+  optional string arenaName = 2;
+  optional string eventName = 3; //deprecated
+  optional uint32 arenaID = 4; //deprecated
+  optional uint32 targetUserID = 5;//deprecated
+  optional EventGet event = 6;
+
+}
+
+message ArenaLeaderChanged{
+    required uint32 arenaID = 1;
+    required uint32 newLeaderID = 2;
+}
+
+message ArenaForceStatusUpdated{
+  optional uint32 arenaID =1;
+  optional uint32 forceID = 2;
+  optional string status = 3;
+}
+
+
+message ArenaStart{
+	required Arena arena = 1;
+        optional string battleID = 2;
+}
+
+message ArenaStatusUpdated{
+    required uint32 arenaID = 1;
+    required string status = 2;
+    required bool private_flag = 3;
+}
+
+message ArenaEnded{
+    required uint32 arenaID = 1;
+    optional GameMessage result = 2;
+    optional int32 winner_force = 3;    
+    optional string error = 4;
+}
+
+message ArenaUserAttributeUpdated{
+  optional uint32 arenaID = 1;
+  optional uint32 userID = 2;
+  optional string key = 3;
+  optional string value = 4;
+}
+
+message ArenaSlotLockUpdated{
+  required uint32 arenaID = 1;
+  required uint32 slotID = 2;
+  optional bool enabled = 3;
+}

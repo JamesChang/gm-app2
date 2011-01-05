@@ -1,0 +1,92 @@
+message Msg1{
+    optional uint32 text = 1;
+}
+
+message Msg2{
+    optional uint32 text = 1;
+}
+
+message Msg3{
+    optional uint32 text = 1;
+}
+
+message Msg4{
+    optional uint32 text = 1;
+}
+message Msg5{
+    optional uint32 text = 1;
+}
+
+message Msg6{
+    optional uint32 text = 1;
+}
+message Msg7{
+    optional uint32 text = 1;
+}
+
+message Msg8{
+    optional uint32 text = 1;
+}
+message Msg9{
+    optional uint32 text = 1;
+}
+
+message Msg0{
+    optional uint32 text = 1;
+}
+
+message OptionalCompositedMessage{
+    optional Msg1 msg1  =1;
+    optional Msg2 msg2  =2;
+    optional Msg3 msg3  =3;
+    optional Msg4 msg4  =4;
+    optional Msg5 msg5  =5;
+    optional Msg6 msg6  =6;
+    optional Msg7 msg7  =7;
+    optional Msg8 msg8  =8;
+    optional Msg9 msg9  =9;
+    optional Msg0 msg0  =10;
+}
+
+message SingleCompositedMessage{
+    optional Msg0 msg0  =10;
+}
+
+message ExtentedCompositedMessage{
+    extensions 1 to max;
+}
+
+extend ExtentedCompositedMessage{
+    optional uint32 msg0  =10;
+}
+extend ExtentedCompositedMessage{
+    optional uint32 msg1  =1;
+}
+extend ExtentedCompositedMessage{
+    optional uint32 msg2  =2;
+}
+extend ExtentedCompositedMessage{
+    optional uint32 msg3  =3;
+}
+extend ExtentedCompositedMessage{
+    optional uint32 msg4  =4;
+}
+extend ExtentedCompositedMessage{
+    optional uint32 msg5  =5;
+}
+extend ExtentedCompositedMessage{
+    optional uint32 msg6  =6;
+}
+extend ExtentedCompositedMessage{
+    optional uint32 msg7  =7;
+}
+extend ExtentedCompositedMessage{
+    optional uint32 msg8  =8;
+}
+extend ExtentedCompositedMessage{
+    optional uint32 msg9  =9;
+}
+
+message Ocuped{
+    required ExtentedCompositedMessage m =1;
+}

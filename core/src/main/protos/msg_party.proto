@@ -1,0 +1,56 @@
+option java_package = "proto.msg";
+
+option optimize_for = CODE_SIZE;
+
+import "res_party.proto";
+
+message PartyJoined {
+  //optional string partyID = 1;
+  optional PartyModel party = 2;
+}
+
+message PartyLeaved{
+  optional string partyID =1;
+}
+
+message UserJoinedParty{
+  optional string partyID = 1;
+  optional PartyMember user = 2;
+}
+
+message UserLeavedParty{
+  optional string partyID =1;
+  optional uint32 userID = 2;
+}
+
+message PartyMemberStatusUpdated{
+  optional string partyID = 1;
+  repeated PartyMember users = 2;
+}
+
+message PartyInvitation{
+  optional uint32 leaderID = 1;
+  optional string leaderName = 2;
+  optional string leaderPortrait = 3;
+  optional string partyID = 4;
+  optional uint32 targetUserID = 5;
+}
+
+message PartyInvitationDeclined{
+  optional uint32 userID = 1;
+  optional string userName = 2;
+}
+
+message PartyLeaderChanged{
+  optional string partyID = 1;
+  optional uint32 leaderID = 2;
+}
+
+message EventInvitation{
+  optional uint32 eventID = 1;
+}
+message EventInvitationDeclined{
+  optional string partyID = 1;
+  optional string text = 2;
+  
+}

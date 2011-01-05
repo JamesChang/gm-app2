@@ -1,0 +1,11 @@
+option java_package = "proto.response";
+option optimize_for = CODE_SIZE;
+import "res_war3detail.proto";
+import "res_sc.proto";
+message GameMessage
+{
+  optional string subMsg = 1;
+  repeated StarCraftData starcraft = 2;
+  repeated War3Detail war3 = 3;
+  optional int32 ArenaID = 4;
+}

@@ -1,0 +1,97 @@
+option java_package = "proto.response";
+option optimize_for = CODE_SIZE;
+
+import "res_user.proto";
+
+message War3Detail
+{
+
+	message War3Header
+	{
+		required string war3Version = 1;//魔兽版本
+		required string messageType = 2;//消息类型
+		required string battleType = 3;//战斗类型
+		required uint32 time = 4;//发送消息时候的时间
+		required uint32 userIDOfSender = 5;//发送者的ID
+	}
+
+	message DotaPlayer
+	{
+		required uint32 userID = 1;
+		optional string result = 2;
+		optional int32 leaveTime = 3;
+		optional int32 towerDestroy = 4;
+		optional int32 neutralsNumber = 5;//杀野数量
+		optional int32 lastKill = 6;//正补数量
+		optional int32 antiLastKill = 7;//反补数量
+		optional int32 totalGold = 8;
+		optional int32 totalAssist = 9;//总助攻数量
+		optional int32 highestKill = 10;//最高连杀数
+		optional int32 heroKill = 11;//杀死英雄数量
+		optional int32 heroDeath = 12;//英雄死亡数量
+		optional int32 doubleKillNumber = 13;//双杀次数
+		optional int32 triplekillNumber = 14;//三杀次数   k小写
+		optional string isLeave = 15;//是否离开
+		optional int32 hero = 16;//英雄stringID 
+		optional float APM = 17;
+        optional UserModel user = 18; 
+    optional int32 heroLevel=19;//英雄级别
+    optional int32 heroExperience=20;//英雄当前经验
+    optional int32 thisLevelexperience=21;//这个级别需要的经验
+    optional string force=22;//这个玩家的阵营；Sourge 天灾，Sentinel近卫, observer 裁判或者观察着
+    optional string hero_name = 23;
+    optional string hero_art = 24;
+	}
+	message War3Leave
+	{
+		required uint32 userID = 1;
+		optional uint32 leaveReason = 2;//leave 的第一个DWORD
+		optional uint32 leaveResult = 3;//leave 的第二个DWORD
+		optional bytes leaveLog = 4;
+	}
+	message War3Unit
+	{
+		required string stringID = 1;//魔兽的物品或建筑的ID
+		optional int32 totalBuilt = 2 [default = 0];//该物品总共建造的数量
+		optional int32 nowExist = 3 [default = 0];//该物品当前剩余数量
+		optional int32 waitForBuilding = 4 [default = 0];//该物品等待建造的数量
+		optional int32 isBuilding = 5;//1--建筑， 2---生物， 3---物品， 4--技能
+		optional string name = 6;//物品的名称
+	}
+	message NormalBattlePlayer
+	{
+		optional int32 userID = 1;
+		optional int32 currentGold = 2[default = 0];
+		optional int32 currentWood = 3[default = 0];
+		optional float APM = 4[default = 0];
+		optional string race = 5;
+		optional string result = 6;
+		optional int32 leaveTime = 7;
+		optional string isLeave = 8;
+		optional bytes leaveLog = 9;
+		repeated War3Unit units = 10;
+        optional UserModel user = 11; 
+    optional string force = 12;
+	}
+	message KillUnit
+	{
+		required DotaPlayer hiller =1;
+		required DotaPlayer death = 2;
+		repeated DotaPlayer assisters = 3;
+	}
+	message NormalBattle
+	{
+		optional NormalBattlePlayer palyer = 1;  // BUG: here is a spelling error.
+		optional War3Leave leaveGame = 2;
+	}
+	message RPGDota
+	{
+		optional KillUnit killMessages = 1;
+		optional DotaPlayer player = 2;
+		optional War3Leave leaveGame = 3;
+
+	}
+	optional War3Header header = 1;
+	repeated NormalBattle battles = 2;
+	repeated RPGDota dotas = 3;	
+}

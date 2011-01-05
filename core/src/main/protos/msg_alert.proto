@@ -1,0 +1,12 @@
+option java_package = "proto.msg";
+
+option optimize_for = CODE_SIZE;
+
+
+message AlertMessage {
+  required string text = 1;
+  required string uri = 2;
+  optional bool modal = 3;
+}
+
+

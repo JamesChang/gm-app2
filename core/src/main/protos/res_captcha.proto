@@ -1,0 +1,10 @@
+option java_package = "proto.response";
+
+option optimize_for = CODE_SIZE;
+
+
+message CaptchaNewResponse {
+  optional string captcha_link  = 1;
+  optional string captcha_token = 2;
+  optional string captcha_simple_token = 3;
+}

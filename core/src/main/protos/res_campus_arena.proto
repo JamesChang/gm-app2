@@ -1,0 +1,81 @@
+option java_package = "proto.response";
+
+option optimize_for = CODE_SIZE;
+
+import "res_activity.proto";
+import "res_clan.proto";
+import "res_user.proto";
+import "res_game.proto";
+import "res_listbase.proto";
+
+message CampusArenaGet{  
+  optional string name =1;
+  optional ClanGetResponse clan = 2;
+  optional uint32 id = 3;
+  optional uint32 logicalGameID = 4;
+  optional string logicalGameMode = 5;
+  //repeated ActivityGetResponse activities = 6;
+  repeated Map maps = 7;
+}
+
+message CampusArenaGrouping{
+  repeated UserModel users =1;
+  optional uint32 count = 2;
+  optional string id = 3;
+  optional uint32 eventID = 4; //only used in message
+}
+
+message CampusArenaGroupingList{
+  repeated CampusArenaGrouping items = 1;
+  optional uint32 placeholder =15;
+}
+
+message CampusArena03List{
+    repeated CampusArena03ListItem items = 1;
+}
+
+message CampusArena03ListItem{
+    optional uint32 id = 1;
+    optional string name = 2;
+    optional string mode = 3;
+    optional uint32 mapid = 4;
+    optional string mapname = 5;
+    optional string mcount = 6;
+    optional bool haspw = 7;
+    optional uint32 leaderid = 8;
+    optional float early_quit_constraint = 9;
+    optional uint32 level_constraint =10;
+}
+
+message CampusArena03Stats{
+    repeated CampusArena03StatsItem items = 1;
+    optional ListParams params = 2;
+    optional uint32 my_rank = 3;
+    optional uint32 my_score = 4;
+    optional uint32 my_position = 5;
+}
+
+
+message CampusArena03StatsItem {
+    optional uint32 id = 11;
+    optional string name = 10;
+	optional uint32 rank = 1;
+	optional uint32 score = 2;
+	optional int32 level = 3;
+	optional uint32 win = 6;
+	optional uint32 early_quit = 7;
+	optional uint32 total = 8;
+	optional float win_rate = 9;
+    //required string portrait = 12;
+    optional uint32 doublekill = 13;
+    optional uint32 triplekill = 14;
+    optional uint32 assistance = 15;
+}
+
+message CampusArena03Home{
+    repeated string bulletins =4;
+    repeated CampusArena03StatsItem scStats=5;
+    repeated CampusArena03StatsItem war3Stats=6;
+    repeated CampusArena03StatsItem dotaStats=7;
+    
+}

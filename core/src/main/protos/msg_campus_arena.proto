@@ -1,0 +1,22 @@
+option java_package = "proto.msg";
+
+option optimize_for = CODE_SIZE;
+
+import "res_campus_arena.proto";
+
+// campus arena
+message CaQueue {
+  required CampusArenaGrouping item=1;
+}
+//message LeavedCaGroupingQueue {
+//    required CampusArenaGrouping item=1;
+//}
+
+//message JoinedCaBattleQueue{
+//required CampusArenaGrouping item=1;
+//}
+
+//message LeavedCaBattleQueue{
+//required CampusArenaGrouping item=1;
+//}
+

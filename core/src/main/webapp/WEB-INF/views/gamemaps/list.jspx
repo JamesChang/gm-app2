@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_cn_gamemate_app_domain_game_GameMap" items="${gamemaps}" z="oBVfaAFBGh+WQ5zEnJVOnEd+Eis=">
+        <table:table data="${gamemaps}" id="l_cn_gamemate_app_domain_game_GameMap" path="/gamemaps" z="q59HGLJ9MxNZYQOti67PcMLTir4=">
+            <table:column id="c_cn_gamemate_app_domain_game_GameMap_name" property="name" z="ev6G/44j1xiozThDGjTM2M+/+g0="/>
+            <table:column id="c_cn_gamemate_app_domain_game_GameMap_digest" property="digest" z="7KtLJ2K90aWjVvaUOywrKoNr0RI="/>
+            <table:column id="c_cn_gamemate_app_domain_game_GameMap_fileSize" property="fileSize" z="Zb1Mz2FK7qPleUESblU/i3Vuz40="/>
+            <table:column id="c_cn_gamemate_app_domain_game_GameMap_fileLink" property="fileLink" z="NYvAPB9WVVEtEMHeXd0KXsDnYnc="/>
+            <table:column id="c_cn_gamemate_app_domain_game_GameMap_attrsInJson" property="attrsInJson" z="SXyEOFyGouyr0oBFcdash7VmAIA="/>
+        </table:table>
+    </page:list>
+</div>

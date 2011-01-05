@@ -76,7 +76,6 @@ public class Ladder06 extends Ladder implements DomainModel{
 					@Override
 					public void statusChanged(ArenaStatusChangedEvent e) {
 						if (e.oldStatus == ArenaStatus.GAMING){
-							System.out.println("random arena end");
 							Arena arena = e.getModel();
 							for (ArenaSlot slot:arena.getSlots()){
 								slot.getUser().setArenaId(null);

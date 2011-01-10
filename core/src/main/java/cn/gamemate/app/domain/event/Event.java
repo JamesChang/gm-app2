@@ -31,22 +31,29 @@ abstract public class Event implements DomainModel{
 		this.name = name;
 	}
 
-	static public void assertUserAvailable(User user) {
-		if (user.getEventId() != null){
-			throw new DomainModelRuntimeException("target user is not availble");
+	public void assertAvailable(User user) {
+		if (user.isInEvent()){
+			throw new DomainModelRuntimeException("target user is has joined other event "+user.getEventId());
+		}
+	}
+	public void assertAvailable(DefaultParty party){
+		for (UserSlot slot : party.getMembers()) {
+			if (slot.getUser().isInEvent()){
+				throw new DomainModelRuntimeException("some user is not availble");
+			}
 		}
 	}
 
 	protected void acquireUser(User user){
 		try{
-			user.casEventId(id);
+			user.casEventId(0, id);
 		}
 		catch (DomainModelRuntimeException e){
 			throw new DomainModelRuntimeException("target user is not availble");
 		}
 	}
 	protected void releaseUser(User user){
-		user.cacEventId(id);
+		user.casEventId(id, 0);
 	}
 
 	protected void acquireParty(DefaultParty party){
@@ -64,10 +71,10 @@ abstract public class Event implements DomainModel{
 		}
 	}
 
-	protected void releaseParty(DefaultParty party){
+	public void releaseParty(DefaultParty party){
 		for (UserSlot slot : party.getMembers()) {
 			try{
-				slot.getUser().cacEventId(id);
+				slot.getUser().casEventId(id, 0);
 			}
 			catch(DomainModelRuntimeException e){
 				

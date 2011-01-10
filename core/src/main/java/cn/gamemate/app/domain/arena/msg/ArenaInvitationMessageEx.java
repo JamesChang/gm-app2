@@ -56,12 +56,14 @@ public class ArenaInvitationMessageEx extends AnswerableClientMessage {
 				if (userSlot.getUser().getId() != user.getId())
 					receivers.add(userSlot.getUser().getId());
 			}
+			event.releaseParty(party);
 			tag = "no";
 			new LadderInvitationDeclinedMessage(receivers, party,
 					user.getName() + " 拒绝了这次游戏").send();
 		} else {
 			if (answeredUsers.size() == receivers.size()) {
 				tag = "yes";
+				event.releaseParty(party);
 				Arena05 arena = event.userCreateArena(party.getLeaderSlot().getUser(),
 						mode, mapId, customName, isPrivate);
 				for (UserSlot userSlot : party.getMembers()) {
@@ -77,6 +79,9 @@ public class ArenaInvitationMessageEx extends AnswerableClientMessage {
 
 	@Override
 	protected void onTimeOut() {
+		if (tag != null)
+			return;
+		event.releaseParty(party);
 		ArrayList<Integer> receivers = new ArrayList<Integer>();
 		StringBuilder sb = new StringBuilder();
 		receivers.add(party.getLeaderId());

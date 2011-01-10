@@ -611,7 +611,7 @@ public class Arena05 extends Arena {
 		assertStatus(OPEN);
 		assertUserNotInArena(target);
 		if (event != null)
-			event.assertUserAvailable(target);
+			event.assertAvailable(target);
 		new ArenaInvitationMessage(event, this, operator, target).send();
 		
 	}

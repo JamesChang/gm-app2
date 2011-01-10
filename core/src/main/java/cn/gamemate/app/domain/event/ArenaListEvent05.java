@@ -119,9 +119,8 @@ public class ArenaListEvent05 extends Event{
 	synchronized public Arena05 userCreateArena(User operator, String mode,
 			Integer mapId, String customName, boolean isPrivate) {
 		// TODO check parameters
-		// TODO assert user not in arena
 		Arena05.assertUserNotInArena(operator);
-		assertUserAvailable(operator);
+		assertAvailable(operator);
 		
 			Arena05 arena;
 			if (mapId != null) {

@@ -249,7 +249,7 @@ public class Ladder05 extends Ladder{
 
 	synchronized public Arena05 userCreateArena(User operator,
 			String mode) {
-		Event.assertUserAvailable(operator);
+		assertAvailable(operator);
 		Arena05 arena;
 		DefaultArenaBuilder builder = (DefaultArenaBuilder) partyBuilder.copy();
 		//builder.setGameMap(6);

@@ -90,7 +90,7 @@ public class Ladder06 extends Ladder implements DomainModel{
 					}
 				});
 				for (ArenaSlot slot:finalArena.getSlots()){
-					slot.getUser().cacEventId(id);
+					slot.getUser().casEventId(id, 0);
 					new UserStatusUpdateMessage(slot.getUser()).send();
 				}
 				new ArenaStartMessage(finalArena).send();
@@ -178,13 +178,12 @@ public class Ladder06 extends Ladder implements DomainModel{
 		partyExtension = new PartyExtension(){
 			@Override
 			public void closed(PartyClosedSignal e) {
-				matcher.remove(e.getModel());
-				releaseParty(e.getModel());
+				remove(e.getModel());
+				
 			}
 			@Override
 			public void partyChanged(PartyChangedSignal e) {
-				matcher.remove(e.getModel());
-				releaseParty(e.getModel());
+				remove(e.getModel());
 			}
 		};
 		timer = new java.util.Timer();
@@ -200,18 +199,19 @@ public class Ladder06 extends Ladder implements DomainModel{
 		TICK_INTERVAL);
 	}
 	
-	
 	@Override
+	@Deprecated
 	public Arena05 userCreateArena(User operator, String mode) {
 		return null;
 		
 	}
+	
 	@Override
 	synchronized 
 	public void singleJoin(User operator, String mode, Map<String, String> leaderAttributes){
-		Arena05.assertUserNotInArena(operator);
 		acquireUser(operator);		
 		try{
+			Arena05.assertUserNotInArena(operator);
 			DefaultParty party = new DefaultParty();
 			PartyMember userSlot = party.addUser(operator, false);
 			for (Entry<String, String> entry: leaderAttributes.entrySet()){

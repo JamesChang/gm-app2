@@ -2,6 +2,7 @@ package cn.gamemate.app.domain.user;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,6 +28,10 @@ import com.google.common.base.Objects;
 
 import proto.response.ResUser;
 
+/**
+ * @author jameszhang
+ *
+ */
 @Entity
 @RooJavaBean
 @RooEntity
@@ -64,7 +69,7 @@ public class User implements UserDetails {
 
 	// TODO: concurrent access
 	transient private Integer arenaId;
-	transient private Integer eventId;
+	
 	transient private UUID partyId;
 	transient private String statusEx = "";
 
@@ -84,28 +89,22 @@ public class User implements UserDetails {
 		this.arenaId = arenaId;
 	}
 
-	public synchronized Integer getEventId() {
-		return eventId;
+	transient private final AtomicInteger eventId = new AtomicInteger();
+	
+	public int getEventId() {
+		return eventId.get();
 	}
 
-	public synchronized boolean isInEvent() {
-		return eventId == null;
+	public boolean isInEvent() {
+		return eventId.get() != 0;
 	}
 
-	public synchronized void casEventId(Integer newEventId) {
-		if (eventId != null) {
+	public void casEventId(int oldEventId, int newEventId) {
+		if (!eventId.compareAndSet(oldEventId, newEventId)) {
 			throw new DomainModelRuntimeException("eventId incorrect");
 		}
-		eventId = newEventId;
 	}
-
-	public synchronized void cacEventId(Integer oldEventId) {
-		if (eventId != oldEventId) {
-			throw new DomainModelRuntimeException("EventId incorrect");
-		}
-		this.eventId = null;
-	}
-
+	
 	public synchronized UUID getPartyId() {
 		return partyId;
 	}
@@ -179,7 +178,8 @@ public class User implements UserDetails {
 		builder.setStatus(status.name().toLowerCase());
 		builder.setIsInArena(arenaId == null ? false : true);
 		builder.setIsInParty(partyId == null ? false : true);
-		builder.setIsInGroupingList((eventId != null && eventId > 3 && arenaId == null) ? true : false);
+		int e = eventId.get();
+		builder.setIsInGroupingList((e > 3 && arenaId == null) ? true : false);
 
 	}
 

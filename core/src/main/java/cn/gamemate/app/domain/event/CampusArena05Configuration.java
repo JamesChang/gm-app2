@@ -138,7 +138,6 @@ public class CampusArena05Configuration {
 		ladder.gameMaps.add(GameMap.findGameMap(6L)); // TM
 		ladder.gameMaps.add(GameMap.findGameMap(46L)); // TR
 		ladder.gameMaps.add(GameMap.findGameMap(47L)); // LT
-		ladder.gameMaps.add(GameMap.findGameMap(49L)); // EI
 		eventCenter().addLadder(212, ladder);
 		ladder.start();
 		return ladder;

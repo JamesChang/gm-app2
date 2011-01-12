@@ -71,7 +71,20 @@ public class LadderInvitationMessage extends AnswerableClientMessage{
 			tag = "no";
 			new LadderInvitationDeclinedMessage(receivers, party, user.getName()+" 拒绝了这次游戏").send();
 		}else{
-			//TODO: handle race 
+			int i = answer.indexOf(61); //search for '='
+			if (i == -1){
+				return;
+			}
+			String k = answer.substring(0, i);
+			String v = answer.substring(i+1);
+			synchronized(party){
+				PartyMember userSlot = party.getUserSlot(user);
+				if (userSlot == null){
+					return;
+				}
+				userSlot.setAttribute(k, v);
+			}
+			
 			if (answeredUsers.size() == receivers.size()){
 				tag = "yes";
 				ladder.add(party);

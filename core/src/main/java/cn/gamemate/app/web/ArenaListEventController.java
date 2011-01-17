@@ -40,7 +40,7 @@ public class ArenaListEventController {
         return "";
 	}
 	
-	@RequestMapping(value="/{id}/")
+	@RequestMapping(value="/{id}")
 	public String get( @PathVariable("id") Integer eventId, ModelMap modelMap){
 		if (eventId<=3){
 			modelMap.addAttribute("object", eventCenter.getEvent(eventId));

@@ -39,8 +39,8 @@ public class ArenaStartMessage extends ClientMessage {
 	}
 	@Override
 	public void send(){
-		messageService = p2pService;
-		super.send();
+		messageService.asyncSend(this);
+                p2pService.asyncSend(this);
 		
 	}
 

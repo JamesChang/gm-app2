@@ -32,7 +32,7 @@ import cn.gamemate.app.domain.user.User;
 
 
 @Configurable
-public class ArenaListEvent05 extends Event{
+public class ArenaListEvent05 extends Hall{
 
 	final List<GameMap> gameMaps = new ArrayList<GameMap>();
 	private Map<Integer, Arena05> arenaIndex = new ConcurrentHashMap<Integer, Arena05>();
@@ -169,29 +169,6 @@ public class ArenaListEvent05 extends Event{
 			updateIndex(arena);
 			return arena;
 	}
-
-	synchronized public Arena05 userCreateArena(User operator, String mode,
-			Integer mapId, boolean isPrivate) {
-		return userCreateArena(operator, mode, mapId,
-				getDefaultArenaName(operator), isPrivate);
-
-	}
-
-	synchronized public Arena05 userCreateArena(User operator, String mode,
-			Integer mapId, String customName) {
-		return userCreateArena(operator, mode, mapId, customName, false);
-	}
-
-	synchronized public Arena05 userCreateArena(User operator, String mode,
-			Integer mapId) {
-		return userCreateArena(operator, mode, mapId,
-				getDefaultArenaName(operator), false);
-	}
-
-	private String getDefaultArenaName(User operator) {
-		return operator.getName() + "的房间";
-	}
-
 	synchronized public DomainModel getArenaList() {
 		return new ArenaList();
 	}

@@ -9,7 +9,7 @@ import proto.response.ResUser.UserModel;
 import cn.gamemate.app.clientmsg.AnswerableClientMessage;
 import cn.gamemate.app.domain.arena.UserSlot;
 import cn.gamemate.app.domain.event.Arena05;
-import cn.gamemate.app.domain.event.ArenaListEvent05;
+import cn.gamemate.app.domain.event.SimpleHall;
 import cn.gamemate.app.domain.game.GameMap;
 import cn.gamemate.app.domain.party.DefaultParty;
 import cn.gamemate.app.domain.party.LadderInvitationDeclinedMessage;
@@ -22,10 +22,10 @@ public class ArenaInvitationMessageEx extends AnswerableClientMessage {
 	private String customName;
 	private Integer mapId;
 	private String mode;
-	private ArenaListEvent05 event;
+	private SimpleHall event;
 
 	public ArenaInvitationMessageEx(final DefaultParty iParty,
-			ArenaListEvent05 event, String mode, Integer mapId,
+			SimpleHall event, String mode, Integer mapId,
 			String customName, boolean isPrivate) {
 		party = iParty;
 		this.event = event;

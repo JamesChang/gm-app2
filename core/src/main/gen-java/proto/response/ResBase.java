@@ -68,6 +68,13 @@ public final class ResBase {
     public boolean hasBool() { return hasBool; }
     public proto.response.ResBase.BoolResponse getBool() { return bool_; }
     
+    // optional .StringResponse stringValue = 53;
+    public static final int STRINGVALUE_FIELD_NUMBER = 53;
+    private boolean hasStringValue;
+    private proto.response.ResBase.StringResponse stringValue_;
+    public boolean hasStringValue() { return hasStringValue; }
+    public proto.response.ResBase.StringResponse getStringValue() { return stringValue_; }
+    
     // optional .CaptchaNewResponse captchaNew = 101;
     public static final int CAPTCHANEW_FIELD_NUMBER = 101;
     private boolean hasCaptchaNew;
@@ -322,6 +329,7 @@ public final class ResBase {
     
     private void initFields() {
       bool_ = proto.response.ResBase.BoolResponse.getDefaultInstance();
+      stringValue_ = proto.response.ResBase.StringResponse.getDefaultInstance();
       captchaNew_ = proto.response.ResCaptcha.CaptchaNewResponse.getDefaultInstance();
       userTCPLogin_ = proto.response.ResUser.UserTCPLoginResponse.getDefaultInstance();
       userTCPLogout_ = proto.response.ResUser.UserTCPLogoutResponse.getDefaultInstance();
@@ -630,6 +638,43 @@ public final class ResBase {
       public Builder clearBool() {
         result.hasBool = false;
         result.bool_ = proto.response.ResBase.BoolResponse.getDefaultInstance();
+        return this;
+      }
+      
+      // optional .StringResponse stringValue = 53;
+      public boolean hasStringValue() {
+        return result.hasStringValue();
+      }
+      public proto.response.ResBase.StringResponse getStringValue() {
+        return result.getStringValue();
+      }
+      public Builder setStringValue(proto.response.ResBase.StringResponse value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.hasStringValue = true;
+        result.stringValue_ = value;
+        return this;
+      }
+      public Builder setStringValue(proto.response.ResBase.StringResponse.Builder builderForValue) {
+        result.hasStringValue = true;
+        result.stringValue_ = builderForValue.build();
+        return this;
+      }
+      public Builder mergeStringValue(proto.response.ResBase.StringResponse value) {
+        if (result.hasStringValue() &&
+            result.stringValue_ != proto.response.ResBase.StringResponse.getDefaultInstance()) {
+          result.stringValue_ =
+            proto.response.ResBase.StringResponse.newBuilder(result.stringValue_).mergeFrom(value).buildPartial();
+        } else {
+          result.stringValue_ = value;
+        }
+        result.hasStringValue = true;
+        return this;
+      }
+      public Builder clearStringValue() {
+        result.hasStringValue = false;
+        result.stringValue_ = proto.response.ResBase.StringResponse.getDefaultInstance();
         return this;
       }
       
@@ -2451,6 +2496,218 @@ public final class ResBase {
     // @@protoc_insertion_point(class_scope:BoolResponse)
   }
   
+  public static final class StringResponse extends
+      com.google.protobuf.GeneratedMessage {
+    // Use StringResponse.newBuilder() to construct.
+    private StringResponse() {
+      initFields();
+    }
+    private StringResponse(boolean noInit) {}
+    
+    private static final StringResponse defaultInstance;
+    public static StringResponse getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public StringResponse getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return proto.response.ResBase.internal_static_StringResponse_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return proto.response.ResBase.internal_static_StringResponse_fieldAccessorTable;
+    }
+    
+    // required string value = 1;
+    public static final int VALUE_FIELD_NUMBER = 1;
+    private boolean hasValue;
+    private java.lang.String value_ = "";
+    public boolean hasValue() { return hasValue; }
+    public java.lang.String getValue() { return value_; }
+    
+    private void initFields() {
+    }
+    public static proto.response.ResBase.StringResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static proto.response.ResBase.StringResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static proto.response.ResBase.StringResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static proto.response.ResBase.StringResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static proto.response.ResBase.StringResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static proto.response.ResBase.StringResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static proto.response.ResBase.StringResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static proto.response.ResBase.StringResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static proto.response.ResBase.StringResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static proto.response.ResBase.StringResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(proto.response.ResBase.StringResponse prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> {
+      private proto.response.ResBase.StringResponse result;
+      
+      // Construct using proto.response.ResBase.StringResponse.newBuilder()
+      private Builder() {}
+      
+      private static Builder create() {
+        Builder builder = new Builder();
+        builder.result = new proto.response.ResBase.StringResponse();
+        return builder;
+      }
+      
+      protected proto.response.ResBase.StringResponse internalGetResult() {
+        return result;
+      }
+      
+      public Builder clear() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "Cannot call clear() after build().");
+        }
+        result = new proto.response.ResBase.StringResponse();
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(result);
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return proto.response.ResBase.StringResponse.getDescriptor();
+      }
+      
+      public proto.response.ResBase.StringResponse getDefaultInstanceForType() {
+        return proto.response.ResBase.StringResponse.getDefaultInstance();
+      }
+      
+      public boolean isInitialized() {
+        return result.isInitialized();
+      }
+      public proto.response.ResBase.StringResponse build() {
+        if (result != null && !isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return buildPartial();
+      }
+      
+      private proto.response.ResBase.StringResponse buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        if (!isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return buildPartial();
+      }
+      
+      public proto.response.ResBase.StringResponse buildPartial() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "build() has already been called on this Builder.");
+        }
+        proto.response.ResBase.StringResponse returnMe = result;
+        result = null;
+        return returnMe;
+      }
+      
+      
+      // required string value = 1;
+      public boolean hasValue() {
+        return result.hasValue();
+      }
+      public java.lang.String getValue() {
+        return result.getValue();
+      }
+      public Builder setValue(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasValue = true;
+        result.value_ = value;
+        return this;
+      }
+      public Builder clearValue() {
+        result.hasValue = false;
+        result.value_ = getDefaultInstance().getValue();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:StringResponse)
+    }
+    
+    static {
+      defaultInstance = new StringResponse(true);
+      proto.response.ResBase.internalForceInit();
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:StringResponse)
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_Response_descriptor;
   private static
@@ -2466,6 +2723,11 @@ public final class ResBase {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_BoolResponse_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_StringResponse_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_StringResponse_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2481,47 +2743,49 @@ public final class ResBase {
       "\017res_party.proto\032\016res_game.proto\032\026res_ca" +
       "mpus_arena.proto\032\023res_chatgroup.proto\032\017r" +
       "es_arena.proto\032\016res_inet.proto\032\020res_batt" +
-      "le.proto\"\334\013\n\010Response\022\016\n\006subMsg\030\001 \001(\t\022\014\n" +
+      "le.proto\"\202\014\n\010Response\022\016\n\006subMsg\030\001 \001(\t\022\014\n" +
       "\004code\030\002 \002(\r\022\036\n\006errors\030\003 \003(\0132\016.ResponseEr" +
-      "ror\022\033\n\004bool\0304 \001(\0132\r.BoolResponse\022\'\n\ncapt" +
-      "chaNew\030e \001(\0132\023.CaptchaNewResponse\022+\n\014use",
-      "rTCPLogin\030f \001(\0132\025.UserTCPLoginResponse\022-" +
-      "\n\ruserTCPLogout\030g \001(\0132\026.UserTCPLogoutRes" +
-      "ponse\022)\n\013userTCPdrop\030h \001(\0132\024.UserTCPDrop" +
-      "Response\022\034\n\007userGet\030\215\001 \001(\0132\n.UserModel\022$" +
-      "\n\010userList\030\216\001 \001(\0132\021.UserListResponse\022*\n\013" +
-      "collegeList\030\217\001 \001(\0132\024.CollegeListResponse" +
-      "\022*\n\013activityGet\030\310\001 \001(\0132\024.ActivityGetResp" +
-      "onse\022,\n\014activityList\030\311\001 \001(\0132\025.ActivityLi" +
-      "stResponse\022\"\n\007clanGet\030\322\001 \001(\0132\020.ClanGetRe" +
-      "sponse\022$\n\010clanList\030\334\001 \001(\0132\021.ClanListResp",
-      "onse\022\034\n\tmsgRecent\030\254\002 \001(\0132\010.MsgList\022\"\n\007te" +
-      "amGet\030\266\002 \001(\0132\020.TeamGetResponse\022$\n\010teamLi" +
-      "st\030\267\002 \001(\0132\021.TeamListResponse\0220\n\022myTeamAp" +
-      "plications\030\270\002 \001(\0132\023.MyTeamApplications\022\036" +
-      "\n\010partyGet\030\336\002 \001(\0132\013.PartyModel\022\036\n\tpartyL" +
-      "ist\030\337\002 \001(\0132\n.PartyList\022(\n\016campusArenaGet" +
-      "\030\220\003 \001(\0132\017.CampusArenaGet\022*\n\017logicalGameL" +
-      "ist\030\221\003 \001(\0132\020.LogicalGameList\022:\n\027campusAr" +
-      "enaGroupingList\030\222\003 \001(\0132\030.CampusArenaGrou" +
-      "pingList\022*\n\rca03ArenaList\030\223\003 \001(\0132\022.Campu",
-      "sArena03List\022\'\n\tca03Stats\030\224\003 \001(\0132\023.Campu" +
-      "sArena03Stats\022)\n\014ca03Homepage\030\225\003 \001(\0132\022.C" +
-      "ampusArena03Home\022&\n\014chatGroupGet\030\302\003 \001(\0132" +
-      "\017.ChatGroupModel\022&\n\rchatGroupList\030\303\003 \001(\013" +
-      "2\016.ChatGroupList\022$\n\014physicalGame\030\314\003 \001(\0132" +
-      "\r.PhysicalGame\022,\n\020physicalGameList\030\315\003 \001(" +
-      "\0132\021.PhysicalGameList\022\032\n\007mapList\030\316\003 \001(\0132\010" +
-      ".MapList\022\034\n\010eventGet\030\317\003 \001(\0132\t.EventGet\022\031" +
-      "\n\010arenaGet\030\326\003 \001(\0132\006.Arena\022\036\n\tarenaList\030\327" +
-      "\003 \001(\0132\n.ArenaList\022&\n\rinetTableList\030\364\003 \001(",
-      "\0132\016.InetTableList\022\036\n\tinetTable\030\365\003 \001(\0132\n." +
-      "InetTable\022\036\n\tinetStats\030\366\003 \001(\0132\n.InetStat" +
-      "s\022\"\n\tbattleGet\030\223\004 \001(\0132\016.BattleMessage\022 \n" +
-      "\nbattleList\030\224\004 \001(\0132\013.BattleList\";\n\rRespo" +
-      "nseError\022\014\n\004code\030\001 \002(\r\022\014\n\004desc\030\002 \001(\t\022\016\n\006" +
-      "target\030\003 \001(\t\"\035\n\014BoolResponse\022\r\n\005value\030\001 " +
-      "\002(\010B\022\n\016proto.responseH\002"
+      "ror\022\033\n\004bool\0304 \001(\0132\r.BoolResponse\022$\n\013stri" +
+      "ngValue\0305 \001(\0132\017.StringResponse\022\'\n\ncaptch",
+      "aNew\030e \001(\0132\023.CaptchaNewResponse\022+\n\014userT" +
+      "CPLogin\030f \001(\0132\025.UserTCPLoginResponse\022-\n\r" +
+      "userTCPLogout\030g \001(\0132\026.UserTCPLogoutRespo" +
+      "nse\022)\n\013userTCPdrop\030h \001(\0132\024.UserTCPDropRe" +
+      "sponse\022\034\n\007userGet\030\215\001 \001(\0132\n.UserModel\022$\n\010" +
+      "userList\030\216\001 \001(\0132\021.UserListResponse\022*\n\013co" +
+      "llegeList\030\217\001 \001(\0132\024.CollegeListResponse\022*" +
+      "\n\013activityGet\030\310\001 \001(\0132\024.ActivityGetRespon" +
+      "se\022,\n\014activityList\030\311\001 \001(\0132\025.ActivityList" +
+      "Response\022\"\n\007clanGet\030\322\001 \001(\0132\020.ClanGetResp",
+      "onse\022$\n\010clanList\030\334\001 \001(\0132\021.ClanListRespon" +
+      "se\022\034\n\tmsgRecent\030\254\002 \001(\0132\010.MsgList\022\"\n\007team" +
+      "Get\030\266\002 \001(\0132\020.TeamGetResponse\022$\n\010teamList" +
+      "\030\267\002 \001(\0132\021.TeamListResponse\0220\n\022myTeamAppl" +
+      "ications\030\270\002 \001(\0132\023.MyTeamApplications\022\036\n\010" +
+      "partyGet\030\336\002 \001(\0132\013.PartyModel\022\036\n\tpartyLis" +
+      "t\030\337\002 \001(\0132\n.PartyList\022(\n\016campusArenaGet\030\220" +
+      "\003 \001(\0132\017.CampusArenaGet\022*\n\017logicalGameLis" +
+      "t\030\221\003 \001(\0132\020.LogicalGameList\022:\n\027campusAren" +
+      "aGroupingList\030\222\003 \001(\0132\030.CampusArenaGroupi",
+      "ngList\022*\n\rca03ArenaList\030\223\003 \001(\0132\022.CampusA" +
+      "rena03List\022\'\n\tca03Stats\030\224\003 \001(\0132\023.CampusA" +
+      "rena03Stats\022)\n\014ca03Homepage\030\225\003 \001(\0132\022.Cam" +
+      "pusArena03Home\022&\n\014chatGroupGet\030\302\003 \001(\0132\017." +
+      "ChatGroupModel\022&\n\rchatGroupList\030\303\003 \001(\0132\016" +
+      ".ChatGroupList\022$\n\014physicalGame\030\314\003 \001(\0132\r." +
+      "PhysicalGame\022,\n\020physicalGameList\030\315\003 \001(\0132" +
+      "\021.PhysicalGameList\022\032\n\007mapList\030\316\003 \001(\0132\010.M" +
+      "apList\022\034\n\010eventGet\030\317\003 \001(\0132\t.EventGet\022\031\n\010" +
+      "arenaGet\030\326\003 \001(\0132\006.Arena\022\036\n\tarenaList\030\327\003 ",
+      "\001(\0132\n.ArenaList\022&\n\rinetTableList\030\364\003 \001(\0132" +
+      "\016.InetTableList\022\036\n\tinetTable\030\365\003 \001(\0132\n.In" +
+      "etTable\022\036\n\tinetStats\030\366\003 \001(\0132\n.InetStats\022" +
+      "\"\n\tbattleGet\030\223\004 \001(\0132\016.BattleMessage\022 \n\nb" +
+      "attleList\030\224\004 \001(\0132\013.BattleList\";\n\rRespons" +
+      "eError\022\014\n\004code\030\001 \002(\r\022\014\n\004desc\030\002 \001(\t\022\016\n\006ta" +
+      "rget\030\003 \001(\t\"\035\n\014BoolResponse\022\r\n\005value\030\001 \002(" +
+      "\010\"\037\n\016StringResponse\022\r\n\005value\030\001 \002(\tB\022\n\016pr" +
+      "oto.responseH\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -2533,7 +2797,7 @@ public final class ResBase {
           internal_static_Response_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Response_descriptor,
-              new java.lang.String[] { "SubMsg", "Code", "Errors", "Bool", "CaptchaNew", "UserTCPLogin", "UserTCPLogout", "UserTCPdrop", "UserGet", "UserList", "CollegeList", "ActivityGet", "ActivityList", "ClanGet", "ClanList", "MsgRecent", "TeamGet", "TeamList", "MyTeamApplications", "PartyGet", "PartyList", "CampusArenaGet", "LogicalGameList", "CampusArenaGroupingList", "Ca03ArenaList", "Ca03Stats", "Ca03Homepage", "ChatGroupGet", "ChatGroupList", "PhysicalGame", "PhysicalGameList", "MapList", "EventGet", "ArenaGet", "ArenaList", "InetTableList", "InetTable", "InetStats", "BattleGet", "BattleList", },
+              new java.lang.String[] { "SubMsg", "Code", "Errors", "Bool", "StringValue", "CaptchaNew", "UserTCPLogin", "UserTCPLogout", "UserTCPdrop", "UserGet", "UserList", "CollegeList", "ActivityGet", "ActivityList", "ClanGet", "ClanList", "MsgRecent", "TeamGet", "TeamList", "MyTeamApplications", "PartyGet", "PartyList", "CampusArenaGet", "LogicalGameList", "CampusArenaGroupingList", "Ca03ArenaList", "Ca03Stats", "Ca03Homepage", "ChatGroupGet", "ChatGroupList", "PhysicalGame", "PhysicalGameList", "MapList", "EventGet", "ArenaGet", "ArenaList", "InetTableList", "InetTable", "InetStats", "BattleGet", "BattleList", },
               proto.response.ResBase.Response.class,
               proto.response.ResBase.Response.Builder.class);
           internal_static_ResponseError_descriptor =
@@ -2552,6 +2816,14 @@ public final class ResBase {
               new java.lang.String[] { "Value", },
               proto.response.ResBase.BoolResponse.class,
               proto.response.ResBase.BoolResponse.Builder.class);
+          internal_static_StringResponse_descriptor =
+            getDescriptor().getMessageTypes().get(3);
+          internal_static_StringResponse_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_StringResponse_descriptor,
+              new java.lang.String[] { "Value", },
+              proto.response.ResBase.StringResponse.class,
+              proto.response.ResBase.StringResponse.Builder.class);
           return null;
         }
       };

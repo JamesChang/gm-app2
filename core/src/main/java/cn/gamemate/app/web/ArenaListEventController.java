@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.google.common.base.Splitter;
-
-import cn.gamemate.app.domain.event.ArenaListEvent05;
 import cn.gamemate.app.domain.event.EventCenter;
+import cn.gamemate.app.domain.event.Hall;
 import cn.gamemate.app.domain.event.Ladder;
 import cn.gamemate.app.domain.party.DefaultParty;
 import cn.gamemate.app.domain.party.PartyManager;
 import cn.gamemate.app.domain.user.User;
 import cn.gamemate.app.domain.user.UserRepository;
+
+import com.google.common.base.Splitter;
 
 
 @RequestMapping("/events")
@@ -35,7 +35,7 @@ public class ArenaListEventController {
 	
 	@RequestMapping(value="/{id}/list")
 	public String list( @PathVariable("id") Integer eventId, ModelMap modelMap){
-        modelMap.addAttribute("object", eventCenter.getEvent(eventId).getArenaList());
+        modelMap.addAttribute("object", eventCenter.getEvent(eventId).getArenaList(null));
         modelMap.addAttribute("subpb", "ca03ArenaList");
         return "";
 	}
@@ -64,7 +64,7 @@ public class ArenaListEventController {
 			ModelMap modelMap){
 		
 		if (eventId<=3){
-			ArenaListEvent05 event = eventCenter.getEvent(eventId);
+			Hall event = eventCenter.getEvent(eventId);
 			User operator = userRepository.getUser(userId);
 			DefaultParty party = partyManager.getParty(operator, false);
 			if (party == null){

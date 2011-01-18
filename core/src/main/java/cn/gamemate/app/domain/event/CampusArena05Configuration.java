@@ -3,9 +3,9 @@ package cn.gamemate.app.domain.event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jmx.export.MBeanExporter;
 
 import cn.gamemate.app.domain.arena.Arena;
-import cn.gamemate.app.domain.arena.ArenaMerger;
 import cn.gamemate.app.domain.arena.DefaultArenaBuilder;
 import cn.gamemate.app.domain.game.Game;
 import cn.gamemate.app.domain.game.GameMap;
@@ -35,9 +35,12 @@ public class CampusArena05Configuration {
 		return ec;
 	}
 	
-	@Bean public ArenaListEvent05 defaultWar3ArenaListEvent(){
+	@Autowired
+	MBeanExporter jmxexporter;
+	
+	@Bean public SimpleHall defaultWar3ArenaListEvent(){
 		
-		ArenaListEvent05 event= new ArenaListEvent05();
+		SimpleHall event= new SimpleHall();
 		event.setName("魔兽 自由赛");
 		event.id = 1;
 		event.game = war3;
@@ -54,8 +57,8 @@ public class CampusArena05Configuration {
 		return event;
 	}
 	
-	@Bean public ArenaListEvent05 defaultDotaArenaListEvent(){
-		ArenaListEvent05 event =  new ArenaListEvent05();
+	@Bean public Hall defaultDotaArenaListEvent(){
+		BigHall event =  new BigHall();
 		event.id = 2;
 		event.setName("DotA 自由赛");
 		event.game = war3;
@@ -66,14 +69,14 @@ public class CampusArena05Configuration {
 			.bisectSlots();
 
 		event.gameMaps.add(GameMap.findGameMap(83L));
-		event.gameMaps.add(GameMap.findGameMap(82L));
 		event.setArenaBuilder(b);
 		eventCenter().addEvent(2, event);
+		event.start();
 		return event;
 	}
 	
-	@Bean public ArenaListEvent05 defaultScArenaListEvent(){
-		ArenaListEvent05 event =  new ArenaListEvent05();
+	@Bean public SimpleHall defaultScArenaListEvent(){
+		SimpleHall event =  new SimpleHall();
 		event.id = 3;
 		event.setName("星际 自由赛");
 		event.game = sc;

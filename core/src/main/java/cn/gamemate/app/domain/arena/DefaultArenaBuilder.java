@@ -45,6 +45,12 @@ public class DefaultArenaBuilder implements ArenaBuilder, Cloneable{
 		this.map = map;
 		return this;
 	}
+	
+	
+	public GameMap getGameMap() {
+		return map;
+	}
+
 	public DefaultArenaBuilder setGame(Game game){
 		this.game = game;
 		return this;

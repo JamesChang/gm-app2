@@ -2,16 +2,11 @@ package cn.gamemate.app.domain.event;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import proto.response.ResGame;
-
 import cn.gamemate.app.domain.DomainModel;
 import cn.gamemate.app.domain.DomainModelRuntimeException;
 import cn.gamemate.app.domain.arena.UserSlot;
-import cn.gamemate.app.domain.game.GameMap;
 import cn.gamemate.app.domain.party.DefaultParty;
-import cn.gamemate.app.domain.party.PartyManager;
 import cn.gamemate.app.domain.user.User;
 
 abstract public class Event implements DomainModel{

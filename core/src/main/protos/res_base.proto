@@ -33,6 +33,7 @@ message Response{
   // general responses, 51-99
   
   optional BoolResponse bool = 52;
+  optional StringResponse stringValue = 53;
     
   //account operations, 101-139
   optional CaptchaNewResponse captchaNew=101;
@@ -110,5 +111,9 @@ message ResponseError{
 message BoolResponse{
   required bool value = 1;
 }
+message StringResponse{
+  required string value = 1;
+}
+
 
 

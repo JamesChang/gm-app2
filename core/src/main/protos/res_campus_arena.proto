@@ -31,6 +31,7 @@ message CampusArenaGroupingList{
 }
 
 message CampusArena03List{
+    optional string stick = 2;
     repeated CampusArena03ListItem items = 1;
 }
 
@@ -45,6 +46,7 @@ message CampusArena03ListItem{
     optional uint32 leaderid = 8;
     optional float early_quit_constraint = 9;
     optional uint32 level_constraint =10;
+    optional string uuid = 11;
 }
 
 message CampusArena03Stats{

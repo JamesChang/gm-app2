@@ -23,7 +23,6 @@ public abstract class ClientMessage {
 	protected UUID uuid;
     protected String text;
     protected int ttl;
-    //protected byte[] data;
     protected DateTime expires;
     protected DateTime timeCreated;
     protected DateTime timeModified;
@@ -52,11 +51,6 @@ public abstract class ClientMessage {
     
     @Autowired(required = true)
     protected MessageService messageService;
-    
-
-	@Autowired(required = true)
-	protected MessageService p2pService;
-
     
 	protected ClientMessage(){
 		receivers = new ArrayList<Integer>();

@@ -195,7 +195,6 @@ public class NettyMessageService implements MessageService {
 				Object msg) throws Exception {
 			final MessageWrapper messageWrapper = (MessageWrapper) msg;
 			ClientMessage message = messageWrapper.message;
-			message.build();
 			byte[] content = message.getMsg().toByteArray();
 			short length = (short) (16 + message.getReceivers().size() * 4 + content.length);
 			ChannelBuffer buf = ChannelBuffers.buffer(ByteOrder.LITTLE_ENDIAN,

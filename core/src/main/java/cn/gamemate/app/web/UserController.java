@@ -14,6 +14,7 @@ import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.protobuf.GeneratedMessage.Builder;
 
+import cn.gamemate.app.clientmsg.RelayServices;
 import cn.gamemate.app.domain.DomainModel;
 import cn.gamemate.app.domain.ObjectNotFound;
 import cn.gamemate.app.domain.arena.Arena;
@@ -28,6 +29,14 @@ public class UserController {
 	@Autowired(required=true)
 	UserRepository userRepository;
 	
+	@RequestMapping(value = "/{id}/relay")
+	public String setUserRelayService(@PathVariable("id") Integer userId,
+			@RequestParam String service,
+			ModelMap modelMap){
+		User user = userRepository.getUser(userId);
+		RelayServices.spicifyRelayServiceForUser(user, service);
+        return "";
+	}
 	
 	@RequestMapping(value = "/{id}/login")
 	public String userLogin(@PathVariable("id") Integer userId, ModelMap modelMap){

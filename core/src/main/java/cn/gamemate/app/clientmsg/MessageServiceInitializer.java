@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
+import com.google.common.base.Splitter;
+
 @SuppressWarnings("unused")
 @Configuration
 public class MessageServiceInitializer {
@@ -43,25 +45,29 @@ public class MessageServiceInitializer {
 		return service;
 	}
 	@Bean
-	public MessageService p2pService(
-			@Value("${p2psrv.host}") String host,
-			@Value("${p2psrv.port}") int port) {
-		MessageService service;
+	public RelayServices relayService(@Value("${relays}") String hosts){
 		
-		try {
-			service = new NettyMessageService(host, port);
-//			service.checkConnection();
-		} catch (Exception e) {
-			logger.error(
-					"Failed to start p2p client: NettyMessageService({}:{})",
-					host, port);
-			throw new MessageServiceException(e);
+		Iterable<String> addrs = Splitter.on(";").split(hosts);
+		for(String str: addrs){
+			MessageService service;
+			String host = str.substring(0,str.indexOf(":"));
+			String port = str.substring(str.indexOf(":")+1);
+			try {
+				service = new NettyMessageService(host, Integer.parseInt(port));
+//				service.checkConnection();
+			} catch (Exception e) {
+				logger.error(
+						"Failed to start relay client: NettyMessageService({}:{})",
+						host, port);
+				throw new MessageServiceException(e);
+			}
+
+			logger.info("relay server connection established. ({}:{})", host,
+					port);
+			RelayServices.addRelayServer(host, service);
 		}
+		return new RelayServices();
 
-		logger.info("message server connection established. ({}:{})", host,
-				port);
-
-		return service;
 	}
 	
 	@Bean

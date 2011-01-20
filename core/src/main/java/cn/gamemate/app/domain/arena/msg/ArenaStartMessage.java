@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import proto.msg.MsgArena.ArenaStart;
 import cn.gamemate.app.clientmsg.ClientMessage;
 import cn.gamemate.app.clientmsg.MessageService;
+import cn.gamemate.app.clientmsg.RelayServices;
 import cn.gamemate.app.domain.arena.Arena;
 
 public class ArenaStartMessage extends ClientMessage {
@@ -16,6 +17,8 @@ public class ArenaStartMessage extends ClientMessage {
 	public int getCode() {
 		return 0x230B;
 	}
+	
+	private Arena arena;
 
 	public ArenaStartMessage(Arena arena, proto.res.ResArena.Arena arenaSnapshot) {
 
@@ -23,6 +26,7 @@ public class ArenaStartMessage extends ClientMessage {
 		// throw new RuntimeException("can not initialize p2pservice.");
 		// }
 		arena.setUserIdList(receivers);
+		this.arena = arena;
 		rootBuilder.setArenaStart(ArenaStart.newBuilder()
 				.setArena(arenaSnapshot)
 				.setBattleID(arena.getLastBattle().getUuid().toString()));
@@ -39,8 +43,10 @@ public class ArenaStartMessage extends ClientMessage {
 	}
 	@Override
 	public void send(){
-		messageService.asyncSend(this);
-                p2pService.asyncSend(this);
+		messageService.send(this);
+		MessageService relayService = RelayServices.getRelayService(arena.getSlots().get(0).getUser());
+		if (relayService !=null) relayService.send(this);
+
 		
 	}
 

@@ -143,7 +143,7 @@ public class UserRepository {
 			throw new NullPointerException("the user trying to login is null");
 		}
 		if (users.get(user.getId())!=null){
-			return;
+			logout(user);
 		}
 		user.setStatus(UserStatus.ONLINE);
 		if (!users.containsKey(user.getId())){
@@ -159,7 +159,7 @@ public class UserRepository {
 			throw new ObjectNotFound(User.class, userId);
 		}
 		if (users.get(userId)!=null){
-			return;
+			logout(user);
 		}
 		user.setStatus(UserStatus.ONLINE);
 		users.put(userId, user);

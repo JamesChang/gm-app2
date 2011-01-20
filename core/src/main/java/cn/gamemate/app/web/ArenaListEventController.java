@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.common.base.Splitter;
 
-import cn.gamemate.app.domain.event.ArenaListEvent05;
+import cn.gamemate.app.domain.event.SimpleHall;
 import cn.gamemate.app.domain.event.EventCenter;
 import cn.gamemate.app.domain.event.Ladder;
 import cn.gamemate.app.domain.party.DefaultParty;
@@ -64,7 +64,7 @@ public class ArenaListEventController {
 			ModelMap modelMap){
 		
 		if (eventId<=3){
-			ArenaListEvent05 event = eventCenter.getEvent(eventId);
+			SimpleHall event = eventCenter.getEvent(eventId);
 			User operator = userRepository.getUser(userId);
 			DefaultParty party = partyManager.getParty(operator, false);
 			if (party == null){

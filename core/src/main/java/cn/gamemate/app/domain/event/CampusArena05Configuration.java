@@ -34,9 +34,9 @@ public class CampusArena05Configuration {
 		return ec;
 	}
 	
-	@Bean public ArenaListEvent05 defaultWar3ArenaListEvent(){
+	@Bean public SimpleHall defaultWar3ArenaListEvent(){
 		
-		ArenaListEvent05 event= new ArenaListEvent05();
+		SimpleHall event= new SimpleHall();
 		event.setName("魔兽 自由赛");
 		event.id = 1;
 		event.game = war3;
@@ -53,8 +53,8 @@ public class CampusArena05Configuration {
 		return event;
 	}
 	
-	@Bean public ArenaListEvent05 defaultDotaArenaListEvent(){
-		ArenaListEvent05 event =  new ArenaListEvent05();
+	@Bean public SimpleHall defaultDotaArenaListEvent(){
+		SimpleHall event =  new SimpleHall();
 		event.id = 2;
 		event.setName("DotA 自由赛");
 		event.game = war3;
@@ -65,14 +65,13 @@ public class CampusArena05Configuration {
 			.bisectSlots();
 
 		event.gameMaps.add(GameMap.findGameMap(83L));
-		event.gameMaps.add(GameMap.findGameMap(82L));
 		event.setArenaBuilder(b);
 		eventCenter().addEvent(2, event);
 		return event;
 	}
 	
-	@Bean public ArenaListEvent05 defaultScArenaListEvent(){
-		ArenaListEvent05 event =  new ArenaListEvent05();
+	@Bean public SimpleHall defaultScArenaListEvent(){
+		SimpleHall event =  new SimpleHall();
 		event.id = 3;
 		event.setName("星际 自由赛");
 		event.game = sc;

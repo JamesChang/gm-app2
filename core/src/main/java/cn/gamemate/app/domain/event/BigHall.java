@@ -7,6 +7,9 @@ import java.util.concurrent.PriorityBlockingQueue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import proto.response.ResCampusArena.CampusArena03List;
+import proto.response.ResCampusArena.CampusArena03ListItem;
+
 import cn.gamemate.app.domain.DomainModel;
 import cn.gamemate.app.domain.arena.Arena;
 import cn.gamemate.app.domain.arena.ArenaClosedEvent;
@@ -110,6 +113,34 @@ public class BigHall extends Hall {
 				false).send();
 		addArena(arena);
 		return arena;
+	}
+	
+
+	private class ArenaList implements DomainModel {
+		
+		private CampusArena03List.Builder builder;
+		
+		public ArenaList(Cell cell) {
+			CampusArena03List.Builder pbList = CampusArena03List.newBuilder();
+			for (Arena arena : cell) {
+				pbList.addItems(CampusArena03ListItem
+						.newBuilder()
+						.setId(arena.getInt32Id())
+						// TODO set uuid
+						.setName(arena.getName()).setMode(arena.getMode())
+						.setMapid(arena.getGameMap().getId().intValue())
+						.setMapname(arena.getGameMap().getName())
+						.setMcount(arena.getSlotCountString())
+						.setLeaderid(((Arena05)arena).getLeader().getId()));
+			}
+			builder = pbList;
+		}
+
+		@Override
+		public CampusArena03List.Builder toProtobuf() {
+			return builder
+		}
+
 	}
 
 }

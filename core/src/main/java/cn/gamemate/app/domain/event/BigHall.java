@@ -37,6 +37,7 @@ public class BigHall extends Hall {
 	private final Map<Integer,Cell> allCells;
 	private final int MERGING_INTERVAL = 3;
 	private static final AtomicInteger lastKey = new AtomicInteger();
+	private final int SPLITTING_THREAHOLD = 10;
 	
 
 	public BigHall() {
@@ -62,6 +63,10 @@ public class BigHall extends Hall {
 		public Cell() {
 			key = lastKey.incrementAndGet();
 		}
+		public Cell(Cell other){
+			this();
+			this.addAll(other);
+		}
 		
 		public void live(){
 			allCells.put(key, this);
@@ -76,7 +81,8 @@ public class BigHall extends Hall {
 		 * @return a shadow copy
 		 */
 		public Cell split() {
-			return null;
+			Cell n = new Cell(this);
+			return n;
 		}
 
 		/**
@@ -86,6 +92,15 @@ public class BigHall extends Hall {
 		 */
 		public void merge(Cell target) {
 
+		}
+		
+		@Override
+		public boolean add(Arena e) {
+			if (size() > SPLITTING_THREAHOLD){
+				Cell bro = split();
+				bro.live();
+			}
+			return super.add(e);
 		}
 		
 	}

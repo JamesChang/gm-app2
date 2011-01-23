@@ -72,6 +72,7 @@ public class User implements UserDetails {
 	
 	transient private UUID partyId;
 	transient private String statusEx = "";
+	transient public String relayService = "";
 
 	public String getStatusEx() {
 		return statusEx;

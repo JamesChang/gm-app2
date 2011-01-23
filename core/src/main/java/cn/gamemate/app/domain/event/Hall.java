@@ -59,7 +59,7 @@ abstract public class Hall extends Event {
 		if (!allowed) throw new DomainModelRuntimeException("This map is not allowed.");
 	}
 
-	abstract public DomainModel getArenaList();
+	abstract public DomainModel getArenaList(String stick);
 
 	abstract public void partyCreateArena(User operator, String mode,
 			Integer mapId, String customName, boolean isPrivate);

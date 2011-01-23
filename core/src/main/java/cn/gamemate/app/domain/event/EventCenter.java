@@ -13,7 +13,7 @@ public class EventCenter {
 	private static Logger logger = LoggerFactory.getLogger(EventCenter.class);
 	
 	private Map<Integer, Ladder> ladders = new HashMap<Integer, Ladder>();
-	private Map<Integer, SimpleHall> events = new HashMap<Integer, SimpleHall>();
+	private Map<Integer, Hall> events = new HashMap<Integer, Hall>();
 	
 	public EventCenter(){
 		
@@ -23,13 +23,13 @@ public class EventCenter {
 	public void addLadder(int id, Ladder ladder){
 		ladders.put(id, ladder);
 	}
-	public void addEvent(int id, SimpleHall event){
+	public void addEvent(int id, Hall event){
 		events.put(id, event);
 	}
 	
 	
-	public SimpleHall getEvent(int id){
-		SimpleHall event = events.get(id);
+	public Hall getEvent(int id){
+		Hall event = events.get(id);
 		if(event != null)
 			return event;
 		throw new ObjectNotFound(SimpleHall.class, id);

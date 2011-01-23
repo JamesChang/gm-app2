@@ -53,8 +53,8 @@ public class CampusArena05Configuration {
 		return event;
 	}
 	
-	@Bean public SimpleHall defaultDotaArenaListEvent(){
-		SimpleHall event =  new SimpleHall();
+	@Bean public Hall defaultDotaArenaListEvent(){
+		BigHall event =  new BigHall();
 		event.id = 2;
 		event.setName("DotA 自由赛");
 		event.game = war3;

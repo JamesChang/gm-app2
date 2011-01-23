@@ -122,7 +122,8 @@ public class SimpleHall extends Hall {
 		return arena;
 	}
 
-	public DomainModel getArenaList() {
+	@Override
+	public DomainModel getArenaList(String stick) {
 		return new ArenaList();
 	}
 

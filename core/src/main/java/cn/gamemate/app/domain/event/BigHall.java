@@ -1,21 +1,21 @@
 package cn.gamemate.app.domain.event;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Random;
 import java.util.TimerTask;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import proto.response.ResCampusArena.CampusArena03List;
 import proto.response.ResCampusArena.CampusArena03ListItem;
-
 import cn.gamemate.app.domain.DomainModel;
 import cn.gamemate.app.domain.arena.Arena;
-import cn.gamemate.app.domain.arena.ArenaClosedEvent;
-import cn.gamemate.app.domain.arena.ArenaExtension;
-import cn.gamemate.app.domain.arena.ArenaStatusChangedEvent;
-import cn.gamemate.app.domain.arena.Arena.ArenaStatus;
 import cn.gamemate.app.domain.arena.msg.ArenaJoinedMessage;
 import cn.gamemate.app.domain.arena.msg.ArenaMemberUpdatedMessage;
 import cn.gamemate.app.domain.party.PartyManager;
@@ -34,12 +34,14 @@ public class BigHall extends Hall {
 	// protected Timer timer;
 	protected java.util.Timer timer = new java.util.Timer();
 
-	private final PriorityBlockingQueue<Cell> allCells;
+	private final Map<Integer,Cell> allCells;
 	private final int MERGING_INTERVAL = 3;
+	private static final AtomicInteger lastKey = new AtomicInteger();
+	
 
 	public BigHall() {
-		allCells = new PriorityBlockingQueue<Cell>();
-		allCells.add(new Cell());
+		allCells = new ConcurrentHashMap<Integer, Cell>();
+		new Cell().live();
 	}
 
 	public void start() {
@@ -54,6 +56,20 @@ public class BigHall extends Hall {
 	}
 
 	class Cell extends CopyOnWriteArrayList<Arena>{
+		
+		private final Integer key;
+		
+		public Cell() {
+			key = lastKey.incrementAndGet();
+		}
+		
+		public void live(){
+			allCells.put(key, this);
+		}
+		public void die(){
+			allCells.remove(key);
+		}
+		
 		/**
 		 * this cell splits into two, in another word, copy.
 		 * 
@@ -72,11 +88,6 @@ public class BigHall extends Hall {
 
 		}
 		
-		public DomainModel getArenaList() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
 	}
 
 	private void mergeCells() {
@@ -84,16 +95,35 @@ public class BigHall extends Hall {
 	}
 	
 	@GuardedBy("this")
+	private Iterator<Cell> cellLastIterator;
+	
+	@GuardedBy("this")
 	private synchronized void addArena(Arena arena){
-		Cell cell = allCells.poll();
+		if (cellLastIterator == null || !cellLastIterator.hasNext()){
+			cellLastIterator = allCells.values().iterator();
+		}
+		Cell cell = cellLastIterator.next();
 		cell.add(arena);
-		allCells.offer(cell);
 	}
 
 	@Override
-	public DomainModel getArenaList() {
-		// TODO Auto-generated method stub
-		return null;
+	public DomainModel getArenaList(String stick) {
+		Cell targetCell = null;
+		if (stick != null){
+			targetCell = allCells.get(new Integer(stick));
+		}
+		if (targetCell == null){
+			Collection<Cell> cells = allCells.values();
+			int t = new Random().nextInt(cells.size());
+			int i=0;
+			for (Cell c: cells){
+				if (i++ == t){
+					targetCell = c;
+					break;
+				}
+			}
+		}
+		return new ArenaList(targetCell);
 	}
 
 	@Override
@@ -138,7 +168,7 @@ public class BigHall extends Hall {
 
 		@Override
 		public CampusArena03List.Builder toProtobuf() {
-			return builder
+			return builder;
 		}
 
 	}

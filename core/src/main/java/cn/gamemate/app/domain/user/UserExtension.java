@@ -13,4 +13,7 @@ public class UserExtension {
 	public void userDrop(User user){
 		
 	}
+	public void userBrowseOnly(User user){
+		
+	}
 }

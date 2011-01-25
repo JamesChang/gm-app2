@@ -137,6 +137,11 @@ public class UserRepository {
 			handler.userDrop(user);
 		}
 	}
+	public void fireUserBrowseOnly(User user){
+		for(UserExtension handler:handlers){
+			handler.userBrowseOnly(user);
+		}
+	}
 	
 	public void login(User user){
 		if (user == null){

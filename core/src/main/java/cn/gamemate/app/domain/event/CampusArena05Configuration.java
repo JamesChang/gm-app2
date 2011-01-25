@@ -9,6 +9,7 @@ import cn.gamemate.app.domain.arena.ArenaMerger;
 import cn.gamemate.app.domain.arena.DefaultArenaBuilder;
 import cn.gamemate.app.domain.game.Game;
 import cn.gamemate.app.domain.game.GameMap;
+import cn.gamemate.app.domain.user.AlertMessage;
 import cn.gamemate.app.domain.user.User;
 import cn.gamemate.app.domain.user.UserExtension;
 import cn.gamemate.app.domain.user.UserRepository;
@@ -295,11 +296,18 @@ public class CampusArena05Configuration {
 				if (arena != null && arena instanceof Arena05){
 					Arena05 arena05 = (Arena05)arena;
 					arena05._userLeave(user);
+					//new AlertMessage(user, "客户端与服务器断开连接", true).send();
 				}
 			}
 			@Override
 			public void userDrop(User user) {
 				super.userLoggedOut(user);
+				clearArena(user);
+			}
+			
+			@Override
+			public void userBrowseOnly(User user) {
+				super.userBrowseOnly(user);
 				clearArena(user);
 			}
 			

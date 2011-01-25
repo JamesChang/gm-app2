@@ -174,6 +174,10 @@ public class Ladder06 extends Ladder implements DomainModel{
 					matcher.remove(party);
 				}
 			}
+			@Override
+			public void userBrowseOnly(User user) {
+				cleanLadder(user);
+			}
 		});
 		partyExtension = new PartyExtension(){
 			@Override

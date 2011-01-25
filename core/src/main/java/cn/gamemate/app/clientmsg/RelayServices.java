@@ -5,26 +5,32 @@ import java.util.TreeMap;
 
 import cn.gamemate.app.domain.DomainModelRuntimeException;
 import cn.gamemate.app.domain.user.User;
+import cn.gamemate.app.domain.user.UserStatusUpdateMessage;
 
 public class RelayServices {
-	
-	private static Map<String, MessageService> services = new TreeMap<String, MessageService>(); 
-		
-	
-	static public void addRelayServer(String name, MessageService server){
+
+	private static Map<String, MessageService> services = new TreeMap<String, MessageService>();
+
+	static public void addRelayServer(String name, MessageService server) {
 		services.put(name, server);
 	}
-	
-	static public MessageService getRelayService(User user){
+
+	static public MessageService getRelayService(User user) {
 		return services.get(user.relayService);
 	}
-	
-	static public void spicifyRelayServiceForUser(User user, String serverName){
+
+	static public void setRelayServiceForUser(User user, String serverName) {
 		MessageService messageService = services.get(serverName);
-		if (messageService == null){
-			throw new DomainModelRuntimeException("relay service '" + serverName +"' not found.");
+		if (messageService == null) {
+			throw new DomainModelRuntimeException("relay service '"
+					+ serverName + "' not found.");
 		}
-		user.relayService = serverName;
+		user.setRelayServiceName(serverName);
+		new UserStatusUpdateMessage(user).send();
+	} 
+
+	static public void clearRelayServiceForUser(User user, String serverName) {
+		user.casRelayServiceName(serverName, null);
+		new UserStatusUpdateMessage(user).send();
 	}
-	
 }

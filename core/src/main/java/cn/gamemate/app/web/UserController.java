@@ -29,12 +29,22 @@ public class UserController {
 	@Autowired(required=true)
 	UserRepository userRepository;
 	
-	@RequestMapping(value = "/{id}/relay")
+	@RequestMapping(value = "/{id}/set_relay")
 	public String setUserRelayService(@PathVariable("id") Integer userId,
 			@RequestParam String service,
 			ModelMap modelMap){
 		User user = userRepository.getUser(userId);
-		RelayServices.spicifyRelayServiceForUser(user, service);
+		RelayServices.setRelayServiceForUser(user, service);
+        return "";
+	}
+	
+	@RequestMapping(value = "/{id}/reset_relay")
+	public String resetUserRelayService(@PathVariable("id") Integer userId,
+			@RequestParam String service,
+			ModelMap modelMap){
+		User user = userRepository.getUser(userId);
+		RelayServices.clearRelayServiceForUser(user, service);
+		userRepository.fireUserBrowseOnly(user);
         return "";
 	}
 	

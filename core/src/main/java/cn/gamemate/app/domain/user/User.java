@@ -72,7 +72,25 @@ public class User implements UserDetails {
 	
 	transient private UUID partyId;
 	transient private String statusEx = "";
-	transient public String relayService = "";
+	transient public String relayService = null;
+	
+	public synchronized boolean casRelayServiceName(String oldName, String newName){
+		if ((relayService == null && oldName == null) ||
+			(relayService != null && relayService.equals(oldName))){
+			relayService = newName;
+			return true;
+		}else{
+			throw new DomainModelRuntimeException("refuse to clear user's relayService field.");
+		}
+	}
+	public synchronized boolean setRelayServiceName(String newName){
+		relayService = newName;
+		return true;
+	}
+	public synchronized String getRelayServiceName(){
+		return relayService;
+	}
+	
 
 	public String getStatusEx() {
 		return statusEx;
@@ -132,6 +150,9 @@ public class User implements UserDetails {
 	 * @return the status
 	 */
 	public UserStatus getStatus() {
+		if (status.equals(UserStatus.ONLINE) && getRelayServiceName() == null){
+			return UserStatus.BROWSING;
+		}
 		return status;
 	}
 
@@ -176,7 +197,7 @@ public class User implements UserDetails {
 
 	public void copyTo(ResUser.UserModel.Builder builder) {
 		builder.setName(name).setId(id).setPortrait(portrait);
-		builder.setStatus(status.name().toLowerCase());
+		builder.setStatus(getStatus().name().toLowerCase());
 		builder.setIsInArena(arenaId == null ? false : true);
 		builder.setIsInParty(partyId == null ? false : true);
 		int e = eventId.get();

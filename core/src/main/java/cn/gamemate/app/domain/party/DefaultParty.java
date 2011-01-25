@@ -109,7 +109,7 @@ public class DefaultParty implements Serializable, DomainModel, Party{
 				iter.remove();
 			}
 		}
-		fireEvent(new PartyChangedSignal(this));
+		modified();
 	}
 	public void removeUser(User user){
 		removeUser(user, true);
@@ -256,6 +256,15 @@ public class DefaultParty implements Serializable, DomainModel, Party{
 		new PartyChatMessage(this, operator, content).send();
 		
 	}
+	
+	synchronized  public void userUpdate(User operator) {
+		PartyMember userSlot = getUserSlot(operator);
+		if (userSlot == null) {
+			throw new DomainModelRuntimeException("not in this arena");
+		}
+		new PartyMemberUpdateMessage(this, userSlot).send();
+		
+	}
 
 
 
@@ -271,7 +280,7 @@ public class DefaultParty implements Serializable, DomainModel, Party{
 	public void removeExtension(PartyExtension x){
 		this.extensions.remove(x);
 	}
-	private void modified(){
+	public void modified(){
 		version.incrementAndGet();
 		fireEvent(new PartyChangedSignal(this));
 	}

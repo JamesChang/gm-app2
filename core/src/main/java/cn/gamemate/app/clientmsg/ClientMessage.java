@@ -138,7 +138,7 @@ public abstract class ClientMessage {
 	public void build() {
 		//TODO: move msg to logging
 		msg = rootBuilder.build();
-		System.out.println(msg);
+		//System.out.println(msg);
 		//return msg.toByteArray();
 	}
 

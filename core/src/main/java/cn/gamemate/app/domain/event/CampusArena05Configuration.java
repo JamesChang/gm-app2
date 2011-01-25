@@ -3,9 +3,9 @@ package cn.gamemate.app.domain.event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jmx.export.MBeanExporter;
 
 import cn.gamemate.app.domain.arena.Arena;
-import cn.gamemate.app.domain.arena.ArenaMerger;
 import cn.gamemate.app.domain.arena.DefaultArenaBuilder;
 import cn.gamemate.app.domain.game.Game;
 import cn.gamemate.app.domain.game.GameMap;
@@ -33,6 +33,9 @@ public class CampusArena05Configuration {
 		EventCenter ec = new EventCenter();
 		return ec;
 	}
+	
+	@Autowired
+	MBeanExporter jmxexporter;
 	
 	@Bean public SimpleHall defaultWar3ArenaListEvent(){
 		
@@ -67,6 +70,7 @@ public class CampusArena05Configuration {
 		event.gameMaps.add(GameMap.findGameMap(83L));
 		event.setArenaBuilder(b);
 		eventCenter().addEvent(2, event);
+		event.start();
 		return event;
 	}
 	

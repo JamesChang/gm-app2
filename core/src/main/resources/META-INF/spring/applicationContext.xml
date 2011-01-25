@@ -77,6 +77,7 @@
 		<property name="beans">
 			<map>
 				<entry key="cn.gamemate.app:name=userStats" value-ref="userRepository"/>
+				<entry key="cn.gamemate.app:name=defaultDotaHall" value-ref="defaultDotaArenaListEvent"/>
 			</map>
 		</property>
 	</bean>

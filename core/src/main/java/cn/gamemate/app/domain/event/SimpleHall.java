@@ -44,7 +44,7 @@ public class SimpleHall extends Hall {
 				pbList.addItems(CampusArena03ListItem
 						.newBuilder()
 						.setId(arena.getInt32Id())
-						// TODO set uuid
+						.setUuid(arena.getUuid().toString())
 						.setName(arena.getName()).setMode(arena.getMode())
 						.setMapid(arena.getGameMap().getId().intValue())
 						.setMapname(arena.getGameMap().getName())

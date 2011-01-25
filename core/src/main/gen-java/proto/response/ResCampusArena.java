@@ -1042,6 +1042,13 @@ public final class ResCampusArena {
       return proto.response.ResCampusArena.internal_static_CampusArena03List_fieldAccessorTable;
     }
     
+    // optional string stick = 2;
+    public static final int STICK_FIELD_NUMBER = 2;
+    private boolean hasStick;
+    private java.lang.String stick_ = "";
+    public boolean hasStick() { return hasStick; }
+    public java.lang.String getStick() { return stick_; }
+    
     // repeated .CampusArena03ListItem items = 1;
     public static final int ITEMS_FIELD_NUMBER = 1;
     private java.util.List<proto.response.ResCampusArena.CampusArena03ListItem> items_ =
@@ -1203,6 +1210,27 @@ public final class ResCampusArena {
       }
       
       
+      // optional string stick = 2;
+      public boolean hasStick() {
+        return result.hasStick();
+      }
+      public java.lang.String getStick() {
+        return result.getStick();
+      }
+      public Builder setStick(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasStick = true;
+        result.stick_ = value;
+        return this;
+      }
+      public Builder clearStick() {
+        result.hasStick = false;
+        result.stick_ = getDefaultInstance().getStick();
+        return this;
+      }
+      
       // repeated .CampusArena03ListItem items = 1;
       public java.util.List<proto.response.ResCampusArena.CampusArena03ListItem> getItemsList() {
         return java.util.Collections.unmodifiableList(result.items_);
@@ -1362,6 +1390,13 @@ public final class ResCampusArena {
     private int levelConstraint_ = 0;
     public boolean hasLevelConstraint() { return hasLevelConstraint; }
     public int getLevelConstraint() { return levelConstraint_; }
+    
+    // optional string uuid = 11;
+    public static final int UUID_FIELD_NUMBER = 11;
+    private boolean hasUuid;
+    private java.lang.String uuid_ = "";
+    public boolean hasUuid() { return hasUuid; }
+    public java.lang.String getUuid() { return uuid_; }
     
     private void initFields() {
     }
@@ -1697,6 +1732,27 @@ public final class ResCampusArena {
       public Builder clearLevelConstraint() {
         result.hasLevelConstraint = false;
         result.levelConstraint_ = 0;
+        return this;
+      }
+      
+      // optional string uuid = 11;
+      public boolean hasUuid() {
+        return result.hasUuid();
+      }
+      public java.lang.String getUuid() {
+        return result.getUuid();
+      }
+      public Builder setUuid(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasUuid = true;
+        result.uuid_ = value;
+        return this;
+      }
+      public Builder clearUuid() {
+        result.hasUuid = false;
+        result.uuid_ = getDefaultInstance().getUuid();
         return this;
       }
       
@@ -3070,28 +3126,29 @@ public final class ResCampusArena {
       "\022\031\n\005users\030\001 \003(\0132\n.UserModel\022\r\n\005count\030\002 \001" +
       "(\r\022\n\n\002id\030\003 \001(\t\022\017\n\007eventID\030\004 \001(\r\"S\n\027Campu" +
       "sArenaGroupingList\022#\n\005items\030\001 \003(\0132\024.Camp",
-      "usArenaGrouping\022\023\n\013placeholder\030\017 \001(\r\":\n\021" +
-      "CampusArena03List\022%\n\005items\030\001 \003(\0132\026.Campu" +
-      "sArena03ListItem\"\311\001\n\025CampusArena03ListIt" +
-      "em\022\n\n\002id\030\001 \001(\r\022\014\n\004name\030\002 \001(\t\022\014\n\004mode\030\003 \001" +
-      "(\t\022\r\n\005mapid\030\004 \001(\r\022\017\n\007mapname\030\005 \001(\t\022\016\n\006mc" +
-      "ount\030\006 \001(\t\022\r\n\005haspw\030\007 \001(\010\022\020\n\010leaderid\030\010 " +
-      "\001(\r\022\035\n\025early_quit_constraint\030\t \001(\002\022\030\n\020le" +
-      "vel_constraint\030\n \001(\r\"\221\001\n\022CampusArena03St" +
-      "ats\022&\n\005items\030\001 \003(\0132\027.CampusArena03StatsI" +
-      "tem\022\033\n\006params\030\002 \001(\0132\013.ListParams\022\017\n\007my_r",
-      "ank\030\003 \001(\r\022\020\n\010my_score\030\004 \001(\r\022\023\n\013my_positi" +
-      "on\030\005 \001(\r\"\334\001\n\026CampusArena03StatsItem\022\n\n\002i" +
-      "d\030\013 \001(\r\022\014\n\004name\030\n \001(\t\022\014\n\004rank\030\001 \001(\r\022\r\n\005s" +
-      "core\030\002 \001(\r\022\r\n\005level\030\003 \001(\005\022\013\n\003win\030\006 \001(\r\022\022" +
-      "\n\nearly_quit\030\007 \001(\r\022\r\n\005total\030\010 \001(\r\022\020\n\010win" +
-      "_rate\030\t \001(\002\022\022\n\ndoublekill\030\r \001(\r\022\022\n\ntripl" +
-      "ekill\030\016 \001(\r\022\022\n\nassistance\030\017 \001(\r\"\250\001\n\021Camp" +
-      "usArena03Home\022\021\n\tbulletins\030\004 \003(\t\022(\n\007scSt" +
-      "ats\030\005 \003(\0132\027.CampusArena03StatsItem\022*\n\twa" +
-      "r3Stats\030\006 \003(\0132\027.CampusArena03StatsItem\022*",
-      "\n\tdotaStats\030\007 \003(\0132\027.CampusArena03StatsIt" +
-      "emB\022\n\016proto.responseH\002"
+      "usArenaGrouping\022\023\n\013placeholder\030\017 \001(\r\"I\n\021" +
+      "CampusArena03List\022\r\n\005stick\030\002 \001(\t\022%\n\005item" +
+      "s\030\001 \003(\0132\026.CampusArena03ListItem\"\327\001\n\025Camp" +
+      "usArena03ListItem\022\n\n\002id\030\001 \001(\r\022\014\n\004name\030\002 " +
+      "\001(\t\022\014\n\004mode\030\003 \001(\t\022\r\n\005mapid\030\004 \001(\r\022\017\n\007mapn" +
+      "ame\030\005 \001(\t\022\016\n\006mcount\030\006 \001(\t\022\r\n\005haspw\030\007 \001(\010" +
+      "\022\020\n\010leaderid\030\010 \001(\r\022\035\n\025early_quit_constra" +
+      "int\030\t \001(\002\022\030\n\020level_constraint\030\n \001(\r\022\014\n\004u" +
+      "uid\030\013 \001(\t\"\221\001\n\022CampusArena03Stats\022&\n\005item" +
+      "s\030\001 \003(\0132\027.CampusArena03StatsItem\022\033\n\006para",
+      "ms\030\002 \001(\0132\013.ListParams\022\017\n\007my_rank\030\003 \001(\r\022\020" +
+      "\n\010my_score\030\004 \001(\r\022\023\n\013my_position\030\005 \001(\r\"\334\001" +
+      "\n\026CampusArena03StatsItem\022\n\n\002id\030\013 \001(\r\022\014\n\004" +
+      "name\030\n \001(\t\022\014\n\004rank\030\001 \001(\r\022\r\n\005score\030\002 \001(\r\022" +
+      "\r\n\005level\030\003 \001(\005\022\013\n\003win\030\006 \001(\r\022\022\n\nearly_qui" +
+      "t\030\007 \001(\r\022\r\n\005total\030\010 \001(\r\022\020\n\010win_rate\030\t \001(\002" +
+      "\022\022\n\ndoublekill\030\r \001(\r\022\022\n\ntriplekill\030\016 \001(\r" +
+      "\022\022\n\nassistance\030\017 \001(\r\"\250\001\n\021CampusArena03Ho" +
+      "me\022\021\n\tbulletins\030\004 \003(\t\022(\n\007scStats\030\005 \003(\0132\027" +
+      ".CampusArena03StatsItem\022*\n\twar3Stats\030\006 \003",
+      "(\0132\027.CampusArena03StatsItem\022*\n\tdotaStats" +
+      "\030\007 \003(\0132\027.CampusArena03StatsItemB\022\n\016proto" +
+      ".responseH\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -3127,7 +3184,7 @@ public final class ResCampusArena {
           internal_static_CampusArena03List_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_CampusArena03List_descriptor,
-              new java.lang.String[] { "Items", },
+              new java.lang.String[] { "Stick", "Items", },
               proto.response.ResCampusArena.CampusArena03List.class,
               proto.response.ResCampusArena.CampusArena03List.Builder.class);
           internal_static_CampusArena03ListItem_descriptor =
@@ -3135,7 +3192,7 @@ public final class ResCampusArena {
           internal_static_CampusArena03ListItem_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_CampusArena03ListItem_descriptor,
-              new java.lang.String[] { "Id", "Name", "Mode", "Mapid", "Mapname", "Mcount", "Haspw", "Leaderid", "EarlyQuitConstraint", "LevelConstraint", },
+              new java.lang.String[] { "Id", "Name", "Mode", "Mapid", "Mapname", "Mcount", "Haspw", "Leaderid", "EarlyQuitConstraint", "LevelConstraint", "Uuid", },
               proto.response.ResCampusArena.CampusArena03ListItem.class,
               proto.response.ResCampusArena.CampusArena03ListItem.Builder.class);
           internal_static_CampusArena03Stats_descriptor =

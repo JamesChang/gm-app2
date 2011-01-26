@@ -1,6 +1,7 @@
 package cn.gamemate.app.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,11 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import proto.response.ResUser.UserListResponse;
 import proto.response.ResUser.UserModel;
-
-import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
-import com.google.protobuf.GeneratedMessage.Builder;
-
+import cn.gamemate.app.clientmsg.CompoundMessageService;
+import cn.gamemate.app.clientmsg.MessageService;
 import cn.gamemate.app.clientmsg.RelayServices;
 import cn.gamemate.app.domain.DomainModel;
 import cn.gamemate.app.domain.ObjectNotFound;
@@ -22,12 +20,18 @@ import cn.gamemate.app.domain.event.Arena05;
 import cn.gamemate.app.domain.user.User;
 import cn.gamemate.app.domain.user.UserRepository;
 
+import com.google.common.base.Splitter;
+import com.google.protobuf.GeneratedMessage.Builder;
+
 @RequestMapping("/users")
 @Controller
 public class UserController {
 	
 	@Autowired(required=true)
 	UserRepository userRepository;
+	
+	@Autowired(required=true)
+	MessageService messageService;
 	
 	@RequestMapping(value = "/{id}/set_relay")
 	public String setUserRelayService(@PathVariable("id") Integer userId,
@@ -49,8 +53,14 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/{id}/login")
-	public String userLogin(@PathVariable("id") Integer userId, ModelMap modelMap){
+	public String userLogin(@PathVariable("id") Integer userId, 
+			@RequestParam(value="msgname", required=false) String msgname, 
+			ModelMap modelMap){
 		userRepository.login(userId);
+		if (msgname !=null && !msgname.equals("")){
+			CompoundMessageService service = (CompoundMessageService)messageService;
+			service.specifyServiceForUser(userId, msgname);
+		}
         return "";
 	}
 	

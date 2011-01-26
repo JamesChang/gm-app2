@@ -6,16 +6,24 @@ import org.jboss.netty.util.HashedWheelTimer;
 import org.jboss.netty.util.Timer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+
+import cn.gamemate.app.domain.user.User;
+import cn.gamemate.app.domain.user.UserExtension;
+import cn.gamemate.app.domain.user.UserRepository;
 
 import com.google.common.base.Splitter;
 
 @SuppressWarnings("unused")
 @Configuration
 public class MessageServiceInitializer {
+	
+	@Autowired(required=true)
+	UserRepository userRepository;
 
 	private static String HOST_PROPERTY_NAME = "msgsrv.host";
 	private static String PORT_PROPERTY_NAME = "msgsrv.port";
@@ -23,27 +31,41 @@ public class MessageServiceInitializer {
 			.getLogger(MessageServiceInitializer.class);
 
 	@Bean
-	//@DependsOn("gmConfiguration")
-	public MessageService messageService(
-			@Value("${msgsrv.host}") String host,
-			@Value("${msgsrv.port}") int port) {
-		MessageService service;
-		
-		try {
-			service = new NettyMessageService(host, port);
-			service.checkConnection();
-		} catch (Exception e) {
-			logger.error(
-					"Failed to start message client: NettyMessageService({}:{})",
-					host, port);
-			throw new MessageServiceException(e);
+	public MessageService messageService(@Value("${msgs}") String hosts) {
+		final CompoundMessageService ret=new CompoundMessageService("msgsrv");
+
+		Iterable<String> addrs = Splitter.on(";").split(hosts);
+		for(String str: addrs){
+			MessageService service=null;
+			String host = str.substring(0,str.indexOf(":"));
+			String port = str.substring(str.indexOf(":")+1);
+			try {
+				service = new NettyMessageService(host, Integer.parseInt(port));
+				//service.checkConnection();
+				logger.info("msg server connection established. ({}:{})", host,
+						port);
+			} catch (Exception e) {
+				logger.error(
+						"Failed to start msg client: NettyMessageService({}:{})",
+						host, port);
+			}
+			ret.addService(host, service);
 		}
-
-		logger.info("message server connection established. ({}:{})", host,
-				port);
-
-		return service;
+		userRepository.addExtension(new UserExtension(){
+			@Override
+			public void userLoggedOut(User user) {
+				ret.clearServiceForUser(user.getId());
+			}
+			@Override
+			public void userDrop(User user) {
+				ret.clearServiceForUser(user.getId());
+			}
+			
+		});
+		
+		return ret;
 	}
+	
 	@Bean
 	public RelayServices relayService(@Value("${relays}") String hosts){
 		

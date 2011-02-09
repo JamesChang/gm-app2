@@ -93,11 +93,9 @@ public class ArenaListEventController {
 			}
 			DefaultParty party = partyManager.getParty(operator, false);
 			if (party == null){
-				System.out.println("single join");
 				event.singleJoin(operator, mode, leaderAttrMap);
 			}
 			else{
-				System.out.println("party join");
 				event.partyJoin(operator, mode, leaderAttrMap);
 			}
 			

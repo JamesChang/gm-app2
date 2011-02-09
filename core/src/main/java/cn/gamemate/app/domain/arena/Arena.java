@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.hibernate.hql.ast.tree.UpdateStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -362,6 +363,7 @@ public class Arena implements Serializable, DomainModel{
 	}
 	
 	public void close(){
+		status = ArenaStatus.CLOSED;
 		fireEvent(new ArenaClosedEvent(this));
 		for(ArenaSlot slot:slots){
 			slot.clear();

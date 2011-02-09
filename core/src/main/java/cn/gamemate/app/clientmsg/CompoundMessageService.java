@@ -2,7 +2,7 @@ package cn.gamemate.app.clientmsg;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
@@ -67,7 +67,7 @@ public class CompoundMessageService implements MessageService {
 			MessageService s = user2service.get(uid);
 			if (s != null) {
 				if (ss == null) {
-					ss = new TreeSet<MessageService>();
+					ss = new HashSet<MessageService>();
 				}
 				ss.add(s);
 			}
@@ -89,7 +89,7 @@ public class CompoundMessageService implements MessageService {
 			MessageService s = user2service.get(uid);
 			if (s != null) {
 				if (ss == null) {
-					ss = new TreeSet<MessageService>();
+					ss = new HashSet<MessageService>();
 				}
 				ss.add(s);
 			}

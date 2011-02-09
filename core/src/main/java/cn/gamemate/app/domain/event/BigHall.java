@@ -124,7 +124,7 @@ public class BigHall extends Hall {
 			return super.add(e);
 		}
 		
-		public synchronized void clean(){
+		public void clean(){
 			for(Arena arena:this){
 				if (arena.getStatus() != Arena.ArenaStatus.OPEN){
 					remove(arena);

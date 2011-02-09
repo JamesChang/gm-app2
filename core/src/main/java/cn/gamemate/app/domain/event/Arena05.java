@@ -17,6 +17,8 @@ import proto.response.ResWar3Detail.War3Detail;
 import proto.response.ResWar3Detail.War3Detail.DotaPlayer;
 import proto.response.ResWar3Detail.War3Detail.RPGDota;
 import proto.util.Util.StringDictItem;
+import cn.gamemate.app.clientmsg.MessageService;
+import cn.gamemate.app.clientmsg.RelayServices;
 import cn.gamemate.app.domain.DomainModelRuntimeException;
 import cn.gamemate.app.domain.Forbidden;
 import cn.gamemate.app.domain.arena.Arena;
@@ -40,6 +42,7 @@ import cn.gamemate.app.domain.arena.msg.ArenaStartMessage;
 import cn.gamemate.app.domain.arena.msg.ArenaStatusUpdated;
 import cn.gamemate.app.domain.arena.msg.ArenaUserAttributeUpdatedMessage;
 import cn.gamemate.app.domain.arena.msg.UserJoinedArenaMessage;
+import cn.gamemate.app.domain.user.AlertMessage;
 import cn.gamemate.app.domain.user.User;
 import cn.gamemate.app.domain.user.User.UserStatus;
 import cn.gamemate.common.PP;
@@ -334,6 +337,13 @@ public class Arena05 extends Arena {
 		}
 		
 		assertStatus(OPEN);
+		
+		MessageService leaderRelayService = RelayServices.getRelayService(leader);
+		MessageService myRelayService = RelayServices.getRelayService(operator);
+		if (myRelayService != leaderRelayService){
+			new AlertMessage(operator, "无法加入游戏。因为游戏主机在另一个服务器", true);
+			throw new DomainModelRuntimeException("game host is at a different server");
+		}
 
 		ArenaSlot slot = addPlayer(operator);
 		if (slot == null) {

@@ -7,5 +7,9 @@
             <menu:item id="i_game_new" messageCode="global_menu_new" url="/games?form" z="cbApva5tgrDz/jmFy9M1rtm6WvQ="/>
         <menu:item id="i_game_list" messageCode="global_menu_list" url="/games?page=${empty param.page ? 1 : param.page}&amp;size=${empty param.size ? 10 : param.size}" z="VB6nSK8QJeQ0j1iGvSzelAfoVFQ="/>
         </menu:category>
+    <menu:category id="c_gamemap" z="grnjeJmN2PHFLI4kLG4X1ddMUP4=">
+            <menu:item id="i_gamemap_new" messageCode="global_menu_new" url="/gamemaps?form" z="oryzGzOZLTPNHt0nWOYhotH+nQw="/>
+        <menu:item id="i_gamemap_list" messageCode="global_menu_list" url="/gamemaps?page=${empty param.page ? 1 : param.page}&amp;size=${empty param.size ? 10 : param.size}" z="W/PXDpnbvbF/J6uch/RiXwDU1JI="/>
+        </menu:category>
     </menu:menu>
 </div>

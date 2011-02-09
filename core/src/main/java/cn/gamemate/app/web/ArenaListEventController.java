@@ -34,8 +34,8 @@ public class ArenaListEventController {
 	private PartyManager partyManager;
 	
 	@RequestMapping(value="/{id}/list")
-	public String list( @PathVariable("id") Integer eventId, ModelMap modelMap){
-        modelMap.addAttribute("object", eventCenter.getEvent(eventId).getArenaList(null));
+	public String list( @PathVariable("id") Integer eventId, @RequestParam(required=false) String stick, ModelMap modelMap){
+        modelMap.addAttribute("object", eventCenter.getEvent(eventId).getArenaList(stick));
         modelMap.addAttribute("subpb", "ca03ArenaList");
         return "";
 	}

@@ -137,6 +137,7 @@ public class BigHall extends Hall {
 			clean();
 			
 			CampusArena03List.Builder pbList = CampusArena03List.newBuilder();
+			pbList.setStick(key.toString());
 			for (Arena arena : this) {
 				pbList.addItems(CampusArena03ListItem.newBuilder()
 						.setId(arena.getInt32Id())

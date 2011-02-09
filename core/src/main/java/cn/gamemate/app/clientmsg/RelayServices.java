@@ -16,7 +16,13 @@ public class RelayServices {
 	}
 
 	static public MessageService getRelayService(User user) {
-		return services.get(user.relayService);
+		String relayServiceName = user.relayService;
+		if (relayServiceName == null){
+			return null;
+		}
+		else{
+			return services.get(user.relayService);
+		}
 	}
 
 	static public void setRelayServiceForUser(User user, String serverName) {

@@ -20,6 +20,10 @@ import proto.response.ResCampusArena.CampusArena03List;
 import proto.response.ResCampusArena.CampusArena03ListItem;
 import cn.gamemate.app.domain.DomainModel;
 import cn.gamemate.app.domain.arena.Arena;
+import cn.gamemate.app.domain.arena.ArenaClosedEvent;
+import cn.gamemate.app.domain.arena.ArenaExtension;
+import cn.gamemate.app.domain.arena.ArenaStatusChangedEvent;
+import cn.gamemate.app.domain.arena.Arena.ArenaStatus;
 import cn.gamemate.app.domain.arena.msg.ArenaJoinedMessage;
 import cn.gamemate.app.domain.arena.msg.ArenaMemberUpdatedMessage;
 import cn.gamemate.app.domain.party.PartyManager;
@@ -126,7 +130,8 @@ public class BigHall extends Hall {
 		
 		public void clean(){
 			for(Arena arena:this){
-				if (arena.getStatus() != Arena.ArenaStatus.OPEN){
+				if (arena.getStatus() != Arena.ArenaStatus.OPEN ||
+						arena.isPrivate()){
 					remove(arena);
 				}
 			}
@@ -215,8 +220,25 @@ public class BigHall extends Hall {
 		new ArenaJoinedMessage(arena, operator).send();
 		new ArenaMemberUpdatedMessage(arena, operator, false, false, true,
 				false).send();
-		addArena(arena);
+		if (!arena.isPrivate()){
+			addArena(arena);
+		}
+		//TODO: add arena when private changed.
+		
+		arena.addExtension(new ArenaExtension() {
+			@Override
+			public void statusChanged(ArenaStatusChangedEvent e) {
+				if (e.getModel().getStatus() == ArenaStatus.OPEN && 
+					(e.oldPrivate != null && 
+						!e.getModel().isPrivate() &&
+						e.oldPrivate.equals(Boolean.FALSE))) {
+					addArena(e.getModel());
+				}
+			}
+
+		});
 		return arena;
+		
 	}
 
 	private class ArenaList implements DomainModel {

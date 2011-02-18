@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.hibernate.hql.ast.tree.UpdateStatement;
 import org.slf4j.Logger;
@@ -67,7 +68,7 @@ public class Arena implements Serializable, DomainModel{
 	protected Game game;
 	protected String mode="";
 	protected ArenaStatus status;
-	protected boolean bPrivate;
+	protected AtomicBoolean bPrivate;
 	protected String type;
 	protected Event event; 
 	
@@ -86,7 +87,7 @@ public class Arena implements Serializable, DomainModel{
 		this.userAttrDefs = new HashMap<String, Field>(10);
 		this.extensions = new ArrayList<DomainModelExtension>();
 		status=ArenaStatus.OPEN; 
-		bPrivate = false;
+		bPrivate = new AtomicBoolean(false);
 		type="normal";
 	}
 
@@ -178,8 +179,14 @@ public class Arena implements Serializable, DomainModel{
 	}
 	
 	public boolean isPrivate(){
-		return bPrivate;
+		return bPrivate.get();
 	}
+	public boolean setPrivate(boolean bPrivate){
+		boolean oldPrivate=this.bPrivate.getAndSet(bPrivate);
+		fireEvent(new ArenaStatusChangedEvent(this, status));
+		return oldPrivate;
+	}
+	
 	
 	public String getType(){
 		return type;
@@ -265,7 +272,7 @@ public class Arena implements Serializable, DomainModel{
 		builder.setUuid(uuid.toString());
 		builder.setStatus(status.toString());
 		builder.setType(type);
-		builder.setPrivateFlag(bPrivate);
+		builder.setPrivateFlag(isPrivate());
 		if (event != null){
 			builder.setEventName(event.getName()).setEventId(event.getId().toString());
 		}

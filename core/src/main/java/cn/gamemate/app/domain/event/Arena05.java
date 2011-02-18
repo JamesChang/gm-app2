@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.codehaus.jackson.annotate.JsonTypeInfo.As;
-
 import proto.res.ResArena.Arena.Builder;
 import proto.response.ResGameres.GameMessage;
 import proto.response.ResSc.StarCraftData;
@@ -22,7 +20,6 @@ import cn.gamemate.app.clientmsg.RelayServices;
 import cn.gamemate.app.domain.DomainModelRuntimeException;
 import cn.gamemate.app.domain.Forbidden;
 import cn.gamemate.app.domain.arena.Arena;
-import cn.gamemate.app.domain.arena.Arena.ArenaStatus;
 import cn.gamemate.app.domain.arena.ArenaForce;
 import cn.gamemate.app.domain.arena.ArenaFullException;
 import cn.gamemate.app.domain.arena.ArenaSlot;
@@ -425,7 +422,30 @@ public class Arena05 extends Arena {
 		slot.getExtra().put(key, value);
 		new ArenaUserAttributeUpdatedMessage(this, operator, key, value).send();
 	}
-
+	
+	public void userSetArenaAttribute(User operator, String key, String value) {
+		if (key.equals("private")) {
+			if (value.equals("true")) {
+				synchronized (this) {
+					assertLeader(operator);
+					assertStatus(OPEN);
+					setPrivate(true);
+					new ArenaStatusUpdated(this).send();
+				}
+				return;
+			} else if (value.equals("false")) {
+				synchronized (this) {
+					assertLeader(operator);
+					assertStatus(OPEN);
+					setPrivate(false);
+					new ArenaStatusUpdated(this).send();
+				}
+				return;
+			}
+		}
+		throw new DomainModelRuntimeException("attribute not support.");
+	}
+	
 	synchronized public void userStart(User operator) {
 		assertStatus(OPEN);
 		assertLeader(operator);
@@ -625,7 +645,6 @@ public class Arena05 extends Arena {
 		new ArenaInvitationMessage(event, this, operator, target).send();
 		
 	}
-	
 
 	synchronized public void netError(String errorMsg){
 		new ArenaEndedMessage(this, errorMsg).send();

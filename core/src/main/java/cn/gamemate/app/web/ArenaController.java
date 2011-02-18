@@ -130,6 +130,17 @@ public class ArenaController {
     	return "";
     }
     
+    @RequestMapping(value = "/{id}/setattr_arena")
+    public String setArenaAttribute(@PathVariable Integer id, @RequestParam Integer userid,
+    		@RequestParam String key, @RequestParam String value,
+    		ModelMap modelMap){
+    	Arena05 a = (Arena05)Arena.findArena(id);
+    	assertArena(a, id);
+    	User operator = userRepository.getUser(userid);
+    	a.userSetArenaAttribute(operator, key, value);
+    	return "";
+    }
+    
     @RequestMapping(value= "/{id}/error")
     public String quitGame(@PathVariable Integer id, @RequestParam Integer userid,
     		ModelMap modelMap){

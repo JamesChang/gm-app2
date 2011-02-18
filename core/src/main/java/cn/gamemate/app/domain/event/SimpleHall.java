@@ -105,7 +105,8 @@ public class SimpleHall extends Hall {
 
 			@Override
 			public void statusChanged(ArenaStatusChangedEvent e) {
-				if (e.getModel().getStatus() == ArenaStatus.OPEN) {
+				if (e.getModel().getStatus() == ArenaStatus.OPEN && 
+						!e.getModel().isPrivate()) {
 					updateIndex(e.getModel());
 				} else {
 					removeIndex(e.getModel());

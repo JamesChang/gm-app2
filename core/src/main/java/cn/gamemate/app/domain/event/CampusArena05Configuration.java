@@ -69,6 +69,7 @@ public class CampusArena05Configuration {
 			.bisectSlots();
 
 		event.gameMaps.add(GameMap.findGameMap(83L));
+		event.gameMaps.add(GameMap.findGameMap(86L));
 		event.setArenaBuilder(b);
 		eventCenter().addEvent(2, event);
 		event.start();

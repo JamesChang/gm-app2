@@ -163,8 +163,8 @@ public class DefaultParty implements Serializable, DomainModel, Party{
 		}
 	}
 
-	protected void autoElectLeader(User operator) {
-		if (operator.getId() == leaderid){
+	protected void autoElectLeader(User userLeaved) {
+		if (userLeaved.getId() == leaderid){
 			if (members.size() >1){
 				leaderid = members.get(0).getUser().getId();
 				modified();
@@ -218,7 +218,7 @@ public class DefaultParty implements Serializable, DomainModel, Party{
 		removeUser(target, false);
 		new UserLeavedPartyMessage(this, target).send();
 		autoClose();
-		autoElectLeader(operator);
+		autoElectLeader(target);
 		try{
 			target.cacPartyId(uuid);
 			new PartyLeavedMessage(this, target).send();

@@ -4,12 +4,11 @@ import java.util.ArrayList;
 
 import proto.msg.MsgArena.ArenaInvitation;
 import proto.msg.MsgArena.ArenaInvitation.Builder;
-import proto.msg.MsgParty.EventInvitation;
 import proto.response.ResUser.UserModel;
 import cn.gamemate.app.clientmsg.AnswerableClientMessage;
 import cn.gamemate.app.domain.arena.UserSlot;
 import cn.gamemate.app.domain.event.Arena05;
-import cn.gamemate.app.domain.event.SimpleHall;
+import cn.gamemate.app.domain.event.Hall;
 import cn.gamemate.app.domain.game.GameMap;
 import cn.gamemate.app.domain.party.DefaultParty;
 import cn.gamemate.app.domain.party.LadderInvitationDeclinedMessage;
@@ -22,10 +21,10 @@ public class ArenaInvitationMessageEx extends AnswerableClientMessage {
 	private String customName;
 	private Integer mapId;
 	private String mode;
-	private SimpleHall event;
+	private Hall event;
 
 	public ArenaInvitationMessageEx(final DefaultParty iParty,
-			SimpleHall event, String mode, Integer mapId,
+			Hall event, String mode, Integer mapId,
 			String customName, boolean isPrivate) {
 		party = iParty;
 		this.event = event;

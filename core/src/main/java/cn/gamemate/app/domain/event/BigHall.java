@@ -19,14 +19,17 @@ import org.springframework.beans.factory.annotation.Configurable;
 import proto.response.ResCampusArena.CampusArena03List;
 import proto.response.ResCampusArena.CampusArena03ListItem;
 import cn.gamemate.app.domain.DomainModel;
+import cn.gamemate.app.domain.DomainModelRuntimeException;
 import cn.gamemate.app.domain.arena.Arena;
-import cn.gamemate.app.domain.arena.ArenaClosedEvent;
+import cn.gamemate.app.domain.arena.Arena.ArenaStatus;
 import cn.gamemate.app.domain.arena.ArenaExtension;
 import cn.gamemate.app.domain.arena.ArenaStatusChangedEvent;
-import cn.gamemate.app.domain.arena.Arena.ArenaStatus;
+import cn.gamemate.app.domain.arena.msg.ArenaInvitationMessageEx;
 import cn.gamemate.app.domain.arena.msg.ArenaJoinedMessage;
 import cn.gamemate.app.domain.arena.msg.ArenaMemberUpdatedMessage;
+import cn.gamemate.app.domain.party.DefaultParty;
 import cn.gamemate.app.domain.party.PartyManager;
+import cn.gamemate.app.domain.party.PartyMember;
 import cn.gamemate.app.domain.user.User;
 import cn.gamemate.common.annotation.GuardedBy;
 import cn.gamemate.common.annotation.ThreadSafe;
@@ -208,7 +211,21 @@ public class BigHall extends Hall {
 	@Override
 	public void partyCreateArena(User operator, String mode, Integer mapId,
 			String customName, boolean isPrivate) {
-		// TODO Auto-generated method stub
+		DefaultParty party = partyManager.getParty(operator);
+		if (customName == null || customName.equals("")) {
+			customName = getDefaultArenaName(operator);
+		}
+		synchronized (party) {
+			party.assertPartyLeader(operator);
+			for (PartyMember partyMember : party.getMembers()) {
+				if (partyMember.isOut())
+					throw new DomainModelRuntimeException(partyMember.getUser()
+							.getName() + " is out");
+			}
+			acquireParty(party);
+			new ArenaInvitationMessageEx(party, this, mode, mapId, customName,
+					isPrivate).send();
+		}
 
 	}
 

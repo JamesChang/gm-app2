@@ -36,7 +36,7 @@ import cn.gamemate.common.annotation.ThreadSafe;
 
 @ThreadSafe
 @Configurable
-public class BigHall extends Hall {
+public class BigHall extends Hall implements BigHallMBean {
 
 	@Autowired(required = true)
 	private PartyManager partyManager;
@@ -48,11 +48,11 @@ public class BigHall extends Hall {
 	private final Map<Integer, Cell> allCells;
 	private final int MERGING_INTERVAL = 3000;
 	private static final AtomicInteger lastKey = new AtomicInteger();
-	
+
 	private final int SPLITTING_THREAHOLD = 10;
 	private final int REMAINED_GENES = 4;
 	private final int MERGING_THREAHOLD = 3;
-	
+
 	private static Logger logger = LoggerFactory.getLogger(BigHall.class);
 
 	public BigHall() {
@@ -67,7 +67,7 @@ public class BigHall extends Hall {
 			@Override
 			public void run() {
 				mergeCells();
-				
+
 			}
 
 		}, MERGING_INTERVAL, MERGING_INTERVAL);
@@ -82,7 +82,7 @@ public class BigHall extends Hall {
 		public Cell() {
 			key = lastKey.incrementAndGet();
 			live = new AtomicBoolean(true);
-			logger.info("new cell({} born",key);
+			logger.info("new cell({} born", key);
 		}
 
 		public void live() {
@@ -101,12 +101,12 @@ public class BigHall extends Hall {
 		 */
 		public Cell split() {
 			Cell n = new Cell();
-			for(int i=size()-1;i>=REMAINED_GENES;--i){
-				try{
-				Arena a = remove(i);				
-				n.add(a);
-				}catch(IndexOutOfBoundsException e){
-					//Do Nothing
+			for (int i = size() - 1; i >= REMAINED_GENES; --i) {
+				try {
+					Arena a = remove(i);
+					n.add(a);
+				} catch (IndexOutOfBoundsException e) {
+					// Do Nothing
 				}
 			}
 			return n;
@@ -130,20 +130,20 @@ public class BigHall extends Hall {
 			}
 			return super.add(e);
 		}
-		
-		public void clean(){
-			for(Arena arena:this){
-				if (arena.getStatus() != Arena.ArenaStatus.OPEN ||
-						arena.isPrivate()){
+
+		public void clean() {
+			for (Arena arena : this) {
+				if (arena.getStatus() != Arena.ArenaStatus.OPEN
+						|| arena.isPrivate()) {
 					remove(arena);
 				}
 			}
 		}
 
 		public CampusArena03List.Builder toProtobuf() {
-			//TODO: too costly?
+			// TODO: too costly?
 			clean();
-			
+
 			CampusArena03List.Builder pbList = CampusArena03List.newBuilder();
 			pbList.setStick(key.toString());
 			for (Arena arena : this) {
@@ -194,7 +194,7 @@ public class BigHall extends Hall {
 			targetCell = allCells.get(new Integer(stick));
 		}
 		if (targetCell == null || !targetCell.live.get()) {
-			//logger.debug("read from random cell");
+			// logger.debug("read from random cell");
 			Collection<Cell> cells = allCells.values();
 			int t = new Random().nextInt(cells.size());
 			int i = 0;
@@ -237,25 +237,24 @@ public class BigHall extends Hall {
 		new ArenaJoinedMessage(arena, operator).send();
 		new ArenaMemberUpdatedMessage(arena, operator, false, false, true,
 				false).send();
-		if (!arena.isPrivate()){
+		if (!arena.isPrivate()) {
 			addArena(arena);
 		}
-		//TODO: add arena when private changed.
-		
+		// TODO: add arena when private changed.
+
 		arena.addExtension(new ArenaExtension() {
 			@Override
 			public void statusChanged(ArenaStatusChangedEvent e) {
-				if (e.getModel().getStatus() == ArenaStatus.OPEN && 
-					(e.oldPrivate != null && 
-						!e.getModel().isPrivate() &&
-						e.oldPrivate.equals(Boolean.FALSE))) {
+				if (e.getModel().getStatus() == ArenaStatus.OPEN
+						&& (e.oldPrivate != null && !e.getModel().isPrivate() && e.oldPrivate
+								.equals(Boolean.FALSE))) {
 					addArena(e.getModel());
 				}
 			}
 
 		});
 		return arena;
-		
+
 	}
 
 	private class ArenaList implements DomainModel {
@@ -277,19 +276,18 @@ public class BigHall extends Hall {
 		}
 
 	}
-	
-	public String getStatsString(){
-		StringBuilder sb = new StringBuilder()
-		.append("BigHall{")
-		.append(" id:").append(getId())
-		.append(" size:").append(allCells.size());
-		
+
+	public String getStatsString() {
+		StringBuilder sb = new StringBuilder().append("BigHall{")
+				.append(" id:").append(getId()).append(" size:")
+				.append(allCells.size());
+
 		sb.append(" cells:[");
 		for (Entry<Integer, Cell> entry : allCells.entrySet()) {
 			sb.append(entry.getValue().size()).append(",");
 		}
 		sb.append("] ");
-		
+
 		sb.append(" }");
 		return sb.toString();
 	}

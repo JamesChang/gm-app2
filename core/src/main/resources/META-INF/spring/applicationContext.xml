@@ -72,15 +72,7 @@
 <!--    <bean id="userDao" class="cn.gamemate.app.domain.arena.ArenaUserJdbcDao">-->
 <!--		<constructor-arg ref="dataSource" />-->
 <!--	</bean>-->
-	
-	<bean  id="jmxexporter" class = "org.springframework.jmx.export.MBeanExporter" lazy-init="false">
-		<property name="beans">
-			<map>
-				<entry key="cn.gamemate.app:name=userStats" value-ref="userRepository"/>
-				<entry key="cn.gamemate.app:name=defaultDotaHall" value-ref="defaultDotaArenaListEvent"/>
-			</map>
-		</property>
-	</bean>
+
 	<!-- UUID Generator -->
 	<bean id="uuidGenerator" class = "org.safehaus.uuid.UUIDGenerator" 
 	factory-method="getInstance"></bean>

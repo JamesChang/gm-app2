@@ -1,5 +1,10 @@
 package cn.gamemate.app.domain.event;
 
+import java.lang.management.ManagementFactory;
+
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,9 +39,6 @@ public class CampusArena05Configuration {
 		EventCenter ec = new EventCenter();
 		return ec;
 	}
-	
-	@Autowired
-	MBeanExporter jmxexporter;
 	
 	@Bean public SimpleHall defaultWar3ArenaListEvent(){
 		
@@ -73,6 +75,14 @@ public class CampusArena05Configuration {
 		event.setArenaBuilder(b);
 		eventCenter().addEvent(2, event);
 		event.start();
+		try {
+			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+			ObjectName objectName = new ObjectName(
+					"cn.gamemate.app:name=defaultDotaHall");
+			mbs.registerMBean(event, objectName);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 		return event;
 	}
 	

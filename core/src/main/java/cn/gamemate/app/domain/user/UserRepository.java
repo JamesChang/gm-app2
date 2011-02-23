@@ -12,7 +12,7 @@ import cn.gamemate.app.domain.user.User.UserStatus;
  *
  *	Thread Safe
  */
-public class UserRepository {
+public class UserRepository implements UserRepositoryMBean{
 	
 	public static class UserRepositoryStats implements Serializable{
 
@@ -53,10 +53,10 @@ public class UserRepository {
 		public String toString(){
 			return new StringBuilder()
 			.append("users{")
-			.append(" total:").append(allUserCount)
-			.append(" idle:").append(idleUserCount)
-			.append(" waiting:").append(waitingUserCount)
-			.append(" gaming:").append(gamingUserCount)
+			.append(" total:").append(allUserCount).append(",")
+			.append(" idle:").append(idleUserCount).append(",")
+			.append(" waiting:").append(waitingUserCount).append(",")
+			.append(" gaming:").append(gamingUserCount).append(",")
 			.append(" inArena:").append(inArenaUserCount)
 			.append(" }")
 			.toString();
@@ -148,7 +148,8 @@ public class UserRepository {
 			throw new NullPointerException("the user trying to login is null");
 		}
 		if (users.get(user.getId())!=null){
-			logout(user);
+			return;
+			//logout(user);
 		}
 		user.setStatus(UserStatus.ONLINE);
 		if (!users.containsKey(user.getId())){
@@ -164,10 +165,13 @@ public class UserRepository {
 			throw new ObjectNotFound(User.class, userId);
 		}
 		if (users.get(userId)!=null){
-			logout(user);
+			return;
+			//logout(user);
 		}
 		user.setStatus(UserStatus.ONLINE);
-		users.put(userId, user);
+		if (!users.containsKey(userId)){
+			users.put(user.getId(), user);
+		}
 		fireUserLoggedIn(user);
 	}
 	
@@ -194,16 +198,13 @@ public class UserRepository {
 		}
 	}
 	
-	public String getStatisticsString(){
+	public String getStatJson(){
 		stats.doCount();
 		return stats.toString();
 	}
-	public UserRepositoryStats getStatistics(){
+	public UserRepositoryStats getStat(){
 		stats.doCount();
 		return stats;
-	}
-	public void clearStatistics(){
-		stats.clear();
 	}
 		
 	

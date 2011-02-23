@@ -63,6 +63,9 @@ public class GameMap {
 	@Column(name = "attrs_json")
 	private String attrsInJson;
 	
+	@Column(name = "game_id")
+	private Integer physicalGameID;
+	
 	
 	public int getMaxUserCount(){ 
 		//TODO not null
@@ -138,15 +141,15 @@ public class GameMap {
 	 }
 
 
-	private void copyTo(Builder builder) {
+	private void copyTo(ResGame.Map.Builder builder) {
 		builder
 		.setId(this.getId().intValue())
 		.setName(this.getName())
 		.setDigest(this.getDigest())
 		.setFileSize(this.getFileSize())
 		.setDownloadLink(this.getFileLink())
-		.setThumbnail(this.getThumbnail());
-	
+		.setThumbnail(this.getThumbnail())
+		.setPhysicalGameID(physicalGameID);
 		
 	}
 	 

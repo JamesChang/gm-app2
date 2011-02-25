@@ -183,7 +183,7 @@ public class Arena implements Serializable, DomainModel{
 	}
 	public boolean setPrivate(boolean bPrivate){
 		boolean oldPrivate=this.bPrivate.getAndSet(bPrivate);
-		fireEvent(new ArenaStatusChangedEvent(this, status));
+		fireEvent(new ArenaStatusChangedEvent(this, oldPrivate));
 		return oldPrivate;
 	}
 	

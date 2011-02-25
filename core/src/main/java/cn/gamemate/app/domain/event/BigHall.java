@@ -240,14 +240,13 @@ public class BigHall extends Hall implements BigHallMBean {
 		if (!arena.isPrivate()) {
 			addArena(arena);
 		}
-		// TODO: add arena when private changed.
 
 		arena.addExtension(new ArenaExtension() {
 			@Override
 			public void statusChanged(ArenaStatusChangedEvent e) {
 				if (e.getModel().getStatus() == ArenaStatus.OPEN
-						&& (e.oldPrivate != null && !e.getModel().isPrivate() && e.oldPrivate
-								.equals(Boolean.FALSE))) {
+						&& (e.oldPrivate != null && e.oldPrivate.equals(Boolean.TRUE) 
+								&& !e.getModel().isPrivate() )) {
 					addArena(e.getModel());
 				}
 			}

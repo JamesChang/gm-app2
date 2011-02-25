@@ -465,7 +465,6 @@ public class Arena05 extends Arena {
 		attributes.put("hostID", String.valueOf(this.leader.getId()));
 		// TODO: FriendStatusChanged
 		updateStatus(GAMING);
-		updateAllPlayerStatus(UserStatus.GAMING);
 		proto.res.ResArena.Arena arenaSnapshot = this.toProtobuf().setName(Integer.toString(random.nextInt(100000000))).build();
 		Battle battle = Battle.createAndSave(arenaSnapshot);
 		this.lastBattle = battle;
@@ -565,7 +564,6 @@ public class Arena05 extends Arena {
 	protected void end(){
 		updateStatus(OPEN);
 		unreadyAll();
-		updateAllPlayerStatus(UserStatus.ONLINE);
 		for (ArenaSlot slot:slots){
 			if (slot.getUser()!= null)
 				new ArenaMemberUpdatedMessage(this, slot.getUser(), true, false, true, true).send();

@@ -141,7 +141,6 @@ public class Ladder06 extends Ladder implements DomainModel{
 		}
 		for(ArenaSlot slot:arena.getSlots()){
 			if (slot.getUser()!=null){
-				slot.getUser().setStatus(UserStatus.GAMING);
 				slot.getUser().setArenaId(arena.getInt32Id());
 			}
 		}

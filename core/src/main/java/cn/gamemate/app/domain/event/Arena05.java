@@ -247,9 +247,13 @@ public class Arena05 extends Arena {
 	 */
 	private boolean checkPlayerStatus(){
 		for (ArenaSlot slot : slots) {
-			if (slot.getUser() != null
-					&& slot.getUser().getStatus() != User.UserStatus.ONLINE) {
-				return false;
+			if (slot.getUser() != null){
+				UserStatus userStatus = slot.getUser().getStatus();
+				// to make UAS work, we have to allow a browsing user 
+				if (userStatus != User.UserStatus.ONLINE && userStatus != User.UserStatus.BROWSING){
+					logger.debug(slot.getUser().getName() + " " + userStatus);
+					return false;
+				}
 			}
 		}
 		return true;
@@ -266,6 +270,9 @@ public class Arena05 extends Arena {
 			canStart = checkPlayerReady();
 			if (canStart){
 				canStart = checkPlayerStatus();
+				if (!canStart) {
+					logger.debug("user status check failed.");
+				}
 			}
 
 			if (!isNumOfForceGT2()) {

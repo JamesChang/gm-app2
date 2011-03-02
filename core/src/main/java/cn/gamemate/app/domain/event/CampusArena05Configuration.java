@@ -103,6 +103,62 @@ public class CampusArena05Configuration {
 		eventCenter().addEvent(3, event);
 		return event;
 	}
+	
+
+	@Bean public Hall evevt4(){
+		BigHall event =  new BigHall();
+		event.id = 4;
+		event.setName("GameMate测试邀请赛");
+		event.game = war3;
+		DefaultArenaBuilder b = new DefaultArenaBuilder();
+		b.setGameMap(83)
+			.setGame(dota)
+			.setGameVersion("1.24.1.6374")			
+			.bisectSlots();
+
+		event.gameMaps.add(GameMap.findGameMap(83L));
+		event.gameMaps.add(GameMap.findGameMap(86L));
+		event.setArenaBuilder(b);
+		eventCenter().addEvent(4, event);
+		event.start();
+		try {
+			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+			ObjectName objectName = new ObjectName(
+					"cn.gamemate.app:name=event4");
+			mbs.registerMBean(event, objectName);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return event;
+	}
+	
+
+	@Bean public Hall event5(){
+		BigHall event =  new BigHall();
+		event.id = 5;
+		event.setName("CA联赛");
+		event.game = war3;
+		DefaultArenaBuilder b = new DefaultArenaBuilder();
+		b.setGameMap(83)
+			.setGame(dota)
+			.setGameVersion("1.24.1.6374")			
+			.bisectSlots();
+
+		event.gameMaps.add(GameMap.findGameMap(83L));
+		event.gameMaps.add(GameMap.findGameMap(86L));
+		event.setArenaBuilder(b);
+		eventCenter().addEvent(5, event);
+		event.start();
+		try {
+			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+			ObjectName objectName = new ObjectName(
+					"cn.gamemate.app:name=event5");
+			mbs.registerMBean(event, objectName);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return event;
+	}
 	////////////////////////////////////////////
 	// Ladder Events
 	///////////////////////////////////////////

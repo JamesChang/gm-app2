@@ -7,6 +7,7 @@ import cn.gamemate.app.domain.DomainModel;
 import cn.gamemate.app.domain.DomainModelRuntimeException;
 import cn.gamemate.app.domain.arena.UserSlot;
 import cn.gamemate.app.domain.party.DefaultParty;
+import cn.gamemate.app.domain.party.PartyMember;
 import cn.gamemate.app.domain.user.User;
 
 abstract public class Event implements DomainModel{
@@ -52,6 +53,11 @@ abstract public class Event implements DomainModel{
 	}
 
 	protected void acquireParty(DefaultParty party){
+		for (PartyMember partyMember : party.getMembers()) {
+			if (partyMember.isWaited())
+				throw new DomainModelRuntimeException(partyMember.getUser()
+						.getName() + " is busy");
+		}
 		ArrayList<User> t = new ArrayList<User>(); 
 		try {
 			for (UserSlot slot : party.getMembers()) {

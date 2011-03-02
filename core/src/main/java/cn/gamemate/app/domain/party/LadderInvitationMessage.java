@@ -61,6 +61,9 @@ public class LadderInvitationMessage extends AnswerableClientMessage{
 		DefaultParty party = partyManager.getParty(user);
 		if (party == null)
 			return;
+		PartyMember partyMember = party.getUserSlot(user);
+		if (partyMember == null) return;
+		partyMember.setWaited(false);
 		if (answer.equals("no")){
 			ladder.remove(party);
 			ArrayList<Integer> receivers = new ArrayList<Integer>();
@@ -92,6 +95,7 @@ public class LadderInvitationMessage extends AnswerableClientMessage{
 			}
 			
 		}
+		new PartyMemberUpdateMessage(party,partyMember).send();
 		
 	}
 
@@ -106,11 +110,13 @@ public class LadderInvitationMessage extends AnswerableClientMessage{
 		ArrayList<Integer> receivers = new ArrayList<Integer>();
 		StringBuilder sb = new StringBuilder();
 		receivers.add(party.getLeaderId());
-		for (UserSlot userSlot: party.getMembers()){
+		for (PartyMember userSlot: party.getMembers()){
 			if (answeredUsers.contains(userSlot.getUser().getId())){
 				receivers.add(userSlot.getUser().getId());
 			}else if (userSlot.getUser().getId() != party.getLeaderId()){
 				sb.append(" ").append(userSlot.getUser().getName());
+				userSlot.setWaited(false);
+				new PartyMemberUpdateMessage(party,userSlot).send();
 			}
 		}
 		sb.append("没有回应");

@@ -30,6 +30,7 @@ import cn.gamemate.app.domain.arena.msg.ArenaMemberUpdatedMessage;
 import cn.gamemate.app.domain.party.DefaultParty;
 import cn.gamemate.app.domain.party.PartyManager;
 import cn.gamemate.app.domain.party.PartyMember;
+import cn.gamemate.app.domain.party.PartyMemberUpdateMessage;
 import cn.gamemate.app.domain.user.User;
 import cn.gamemate.common.annotation.GuardedBy;
 import cn.gamemate.common.annotation.ThreadSafe;
@@ -217,12 +218,13 @@ public class BigHall extends Hall implements BigHallMBean {
 		}
 		synchronized (party) {
 			party.assertPartyLeader(operator);
-			for (PartyMember partyMember : party.getMembers()) {
-				if (partyMember.isOut())
-					throw new DomainModelRuntimeException(partyMember.getUser()
-							.getName() + " is out");
-			}
 			acquireParty(party);
+			for (PartyMember member:party.getMembers()){
+				if (!party.getLeaderId().equals(operator.getId())){
+					member.setWaited(true);
+				}
+			}
+			new PartyMemberUpdateMessage(party).send();
 			new ArenaInvitationMessageEx(party, this, mode, mapId, customName,
 					isPrivate).send();
 		}

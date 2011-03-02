@@ -200,6 +200,9 @@ public class User implements UserDetails {
 		builder.setStatus(getStatus().name().toLowerCase());
 		builder.setIsInArena(arenaId == null ? false : true);
 		builder.setIsInParty(partyId == null ? false : true);
+		if (getArenaId()!=null){
+			builder.setCampusArenaID(getArenaId());
+		}
 		int e = eventId.get();
 		builder.setIsInGroupingList((e > 3 && arenaId == null) ? true : false);
 

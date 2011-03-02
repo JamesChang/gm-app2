@@ -392,6 +392,13 @@ public final class ResParty {
     public boolean hasIsUpdating() { return hasIsUpdating; }
     public boolean getIsUpdating() { return isUpdating_; }
     
+    // optional bool is_waited = 5;
+    public static final int IS_WAITED_FIELD_NUMBER = 5;
+    private boolean hasIsWaited;
+    private boolean isWaited_ = false;
+    public boolean hasIsWaited() { return hasIsWaited; }
+    public boolean getIsWaited() { return isWaited_; }
+    
     private void initFields() {
       user_ = proto.response.ResUser.UserModel.getDefaultInstance();
     }
@@ -629,6 +636,24 @@ public final class ResParty {
       public Builder clearIsUpdating() {
         result.hasIsUpdating = false;
         result.isUpdating_ = false;
+        return this;
+      }
+      
+      // optional bool is_waited = 5;
+      public boolean hasIsWaited() {
+        return result.hasIsWaited();
+      }
+      public boolean getIsWaited() {
+        return result.getIsWaited();
+      }
+      public Builder setIsWaited(boolean value) {
+        result.hasIsWaited = true;
+        result.isWaited_ = value;
+        return this;
+      }
+      public Builder clearIsWaited() {
+        result.hasIsWaited = false;
+        result.isWaited_ = false;
         return this;
       }
       
@@ -967,12 +992,12 @@ public final class ResParty {
       "\n\017res_party.proto\032\016res_user.proto\032\022res_l" +
       "istbase.proto\"\\\n\nPartyModel\022\014\n\004uuid\030\001 \002(" +
       "\t\022\033\n\005users\030\002 \003(\0132\014.PartyMember\022\020\n\010leader" +
-      "ID\030\003 \001(\r\022\021\n\tuserCount\030\004 \001(\r\"\\\n\013PartyMemb" +
+      "ID\030\003 \001(\r\022\021\n\tuserCount\030\004 \001(\r\"o\n\013PartyMemb" +
       "er\022\030\n\004user\030\001 \002(\0132\n.UserModel\022\016\n\006status\030\002" +
       " \001(\t\022\016\n\006is_out\030\003 \001(\010\022\023\n\013is_updating\030\004 \001(" +
-      "\010\"F\n\tPartyList\022\034\n\007parties\030\001 \003(\0132\013.PartyM" +
-      "odel\022\033\n\006params\030\002 \001(\0132\013.ListParamsB\022\n\016pro" +
-      "to.responseH\002"
+      "\010\022\021\n\tis_waited\030\005 \001(\010\"F\n\tPartyList\022\034\n\007par" +
+      "ties\030\001 \003(\0132\013.PartyModel\022\033\n\006params\030\002 \001(\0132" +
+      "\013.ListParamsB\022\n\016proto.responseH\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -992,7 +1017,7 @@ public final class ResParty {
           internal_static_PartyMember_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_PartyMember_descriptor,
-              new java.lang.String[] { "User", "Status", "IsOut", "IsUpdating", },
+              new java.lang.String[] { "User", "Status", "IsOut", "IsUpdating", "IsWaited", },
               proto.response.ResParty.PartyMember.class,
               proto.response.ResParty.PartyMember.Builder.class);
           internal_static_PartyList_descriptor =

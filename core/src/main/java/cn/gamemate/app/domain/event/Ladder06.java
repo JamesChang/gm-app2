@@ -241,11 +241,14 @@ public class Ladder06 extends Ladder implements DomainModel{
 		synchronized(party){
 			party.assertPartyLeader(operator);
 			for (PartyMember partyMember: party.getMembers()){
-				if (partyMember.isOut())
-					throw new DomainModelRuntimeException(partyMember.getUser().getName()+" is out");
 				Arena05.assertUserNotInArena(partyMember.getUser());
 			}
 			acquireParty(party);
+			for (PartyMember member:party.getMembers()){
+				if (!party.getLeaderId().equals(operator.getId())){
+					member.setWaited(true);
+				}
+			}
 			PartyMember userSlot = party.getLeaderSlot();
 			for (Entry<String, String> entry: leaderAttributes.entrySet()){
 				userSlot.setAttribute(entry.getKey(), entry.getValue());

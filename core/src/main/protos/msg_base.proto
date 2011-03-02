@@ -121,7 +121,7 @@ message Msg{
 
   //alert code
   optional AlertMessage alert = 401;
-  
+  optional GameResultAlertMessage gameResultAlert = 402; 
 }
 
 message StringData{

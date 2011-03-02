@@ -63,7 +63,7 @@ public class ArenaListEventController {
 			@RequestParam(value="name", required=false) String name,
 			ModelMap modelMap){
 		
-		if (eventId<=3){
+		if (eventId<=100){
 			Hall event = eventCenter.getEvent(eventId);
 			User operator = userRepository.getUser(userId);
 			DefaultParty party = partyManager.getParty(operator, false);

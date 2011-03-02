@@ -17,6 +17,7 @@ message PartyMember{
   optional string status = 2;
   optional bool is_out = 3;
   optional bool is_updating = 4;
+  optional bool is_waited = 5;
 }
 
 message PartyList{

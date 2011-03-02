@@ -35,6 +35,7 @@ message UserModel{
   optional string campusArenaName  = 18; //deprecated
   optional string campusArenaEventName  = 19; //deprecated
   optional string status_ex = 20;
+  optional uint32 last_login = 21;
   
   optional int32 age = 23;
   optional string gender = 24;

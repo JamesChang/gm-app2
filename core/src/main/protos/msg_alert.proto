@@ -6,7 +6,17 @@ option optimize_for = CODE_SIZE;
 message AlertMessage {
   required string text = 1;
   required string uri = 2;
+  optional string image = 4;
   optional bool modal = 3;
 }
 
 
+message GameResultAlertMessage {
+  required string text = 1;
+  required string uri = 2;
+  optional string image = 4;
+  optional bool modal = 3;
+  optional int32 power = 5;
+  optional int32 gold = 6;
+  optional int32 activity = 7;
+}

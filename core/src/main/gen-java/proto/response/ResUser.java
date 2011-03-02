@@ -752,6 +752,13 @@ public final class ResUser {
     public boolean hasStatusEx() { return hasStatusEx; }
     public java.lang.String getStatusEx() { return statusEx_; }
     
+    // optional uint32 last_login = 21;
+    public static final int LAST_LOGIN_FIELD_NUMBER = 21;
+    private boolean hasLastLogin;
+    private int lastLogin_ = 0;
+    public boolean hasLastLogin() { return hasLastLogin; }
+    public int getLastLogin() { return lastLogin_; }
+    
     // optional int32 age = 23;
     public static final int AGE_FIELD_NUMBER = 23;
     private boolean hasAge;
@@ -1539,6 +1546,24 @@ public final class ResUser {
       public Builder clearStatusEx() {
         result.hasStatusEx = false;
         result.statusEx_ = getDefaultInstance().getStatusEx();
+        return this;
+      }
+      
+      // optional uint32 last_login = 21;
+      public boolean hasLastLogin() {
+        return result.hasLastLogin();
+      }
+      public int getLastLogin() {
+        return result.getLastLogin();
+      }
+      public Builder setLastLogin(int value) {
+        result.hasLastLogin = true;
+        result.lastLogin_ = value;
+        return this;
+      }
+      public Builder clearLastLogin() {
+        result.hasLastLogin = false;
+        result.lastLogin_ = 0;
         return this;
       }
       
@@ -3295,7 +3320,7 @@ public final class ResUser {
       "\n\016res_user.proto\032\016res_clan.proto\032\022res_li" +
       "stbase.proto\"0\n\024UserTCPLoginResponse\022\013\n\003" +
       "sid\030\001 \001(\t\022\013\n\003uid\030\002 \001(\r\"\027\n\025UserTCPLogoutR" +
-      "esponse\"\025\n\023UserTCPDropResponse\"\317\n\n\tUserM" +
+      "esponse\"\025\n\023UserTCPDropResponse\"\343\n\n\tUserM" +
       "odel\022\n\n\002id\030\001 \002(\r\022\014\n\004name\030\002 \001(\t\022\017\n\007subnam" +
       "e\030\003 \001(\t\022\016\n\006status\030\004 \001(\t\022\r\n\005email\030\005 \001(\t\022\017" +
       "\n\007college\030\n \001(\t\022\020\n\010portrait\030\t \001(\t\022\036\n\004cla" +
@@ -3304,38 +3329,38 @@ public final class ResUser {
       "ingList\030\016 \001(\010\022\021\n\tisInArena\030\017 \001(\010\022\025\n\rcamp",
       "usArenaID\030\021 \001(\r\022\027\n\017campusArenaName\030\022 \001(\t" +
       "\022\034\n\024campusArenaEventName\030\023 \001(\t\022\021\n\tstatus" +
-      "_ex\030\024 \001(\t\022\013\n\003age\030\027 \001(\005\022\016\n\006gender\030\030 \001(\t\022\024" +
-      "\n\014jianghudiwei\030\031 \001(\t\022\020\n\010truename\030\032 \001(\t\022\020" +
-      "\n\010birthday\030\033 \001(\t\022\014\n\004city\030\034 \001(\t\022\022\n\ndepart" +
-      "ment\030\035 \001(\t\022\r\n\005im_qq\030) \001(\t\022\016\n\006mobile\030* \001(" +
-      "\t\022\025\n\rflash_storage\030+ \001(\t\022\016\n\006im_msn\030, \001(\t" +
-      "\022\022\n\nyearjoined\030. \001(\t\022\022\n\ndormintory\030/ \001(\t" +
-      "\022\r\n\005mouse\0300 \001(\t\022\020\n\010keyboard\0301 \001(\t\022\014\n\004gol" +
-      "d\0302 \001(\005\022\020\n\010activity\0303 \001(\005\022\r\n\005power\0304 \001(\005",
-      "\022\027\n\017ca03_dota_score\030Q \001(\005\022\027\n\017ca03_dota_l" +
-      "evel\030R \001(\r\022\"\n\032ca03_dota_next_level_score" +
-      "\030S \001(\005\022\"\n\032ca03_dota_this_level_score\030T \001" +
-      "(\005\022\035\n\025ca03_dota_daily_match\030U \001(\005\022\027\n\017ca0" +
-      "3_dota_total\030V \001(\005\022\034\n\024ca03_dota_early_qu" +
-      "it\030W \001(\005\022\025\n\rca03_dota_win\030X \001(\005\022\025\n\rca03_" +
-      "sc_score\030[ \001(\005\022\025\n\rca03_sc_level\030\\ \001(\r\022 \n" +
-      "\030ca03_sc_next_level_score\030] \001(\005\022 \n\030ca03_" +
-      "sc_this_level_score\030^ \001(\005\022\033\n\023ca03_sc_dai" +
-      "ly_match\030_ \001(\005\022\025\n\rca03_sc_total\030` \001(\005\022\032\n",
-      "\022ca03_sc_early_quit\030a \001(\005\022\023\n\013ca03_sc_win" +
-      "\030b \001(\005\022\027\n\017ca03_war3_score\030e \001(\005\022\027\n\017ca03_" +
-      "war3_level\030f \001(\r\022\"\n\032ca03_war3_next_level" +
-      "_score\030g \001(\005\022\"\n\032ca03_war3_this_level_sco" +
-      "re\030h \001(\005\022\035\n\025ca03_war3_daily_match\030i \001(\005\022" +
-      "\027\n\017ca03_war3_total\030j \001(\005\022\034\n\024ca03_war3_ea" +
-      "rly_quit\030k \001(\005\022\025\n\rca03_war3_win\030l \001(\005\022!\n" +
-      "\tgameStats\030o \003(\0132\016.UserGameStats\"Y\n\rUser" +
-      "GameStats\022\017\n\007game_id\030\001 \001(\r\022\r\n\005power\030\002 \001(" +
-      "\r\022\014\n\004rank\030\003 \001(\r\022\013\n\003win\030\004 \001(\r\022\r\n\005total\030\005 ",
-      "\001(\r\"J\n\020UserListResponse\022\031\n\005users\030\001 \003(\0132\n" +
-      ".UserModel\022\033\n\006params\030\002 \001(\0132\013.ListParams\"" +
-      "\'\n\023CollegeListResponse\022\020\n\010colleges\030\001 \003(\t" +
-      "B\022\n\016proto.responseH\002"
+      "_ex\030\024 \001(\t\022\022\n\nlast_login\030\025 \001(\r\022\013\n\003age\030\027 \001" +
+      "(\005\022\016\n\006gender\030\030 \001(\t\022\024\n\014jianghudiwei\030\031 \001(\t" +
+      "\022\020\n\010truename\030\032 \001(\t\022\020\n\010birthday\030\033 \001(\t\022\014\n\004" +
+      "city\030\034 \001(\t\022\022\n\ndepartment\030\035 \001(\t\022\r\n\005im_qq\030" +
+      ") \001(\t\022\016\n\006mobile\030* \001(\t\022\025\n\rflash_storage\030+" +
+      " \001(\t\022\016\n\006im_msn\030, \001(\t\022\022\n\nyearjoined\030. \001(\t" +
+      "\022\022\n\ndormintory\030/ \001(\t\022\r\n\005mouse\0300 \001(\t\022\020\n\010k" +
+      "eyboard\0301 \001(\t\022\014\n\004gold\0302 \001(\005\022\020\n\010activity\030",
+      "3 \001(\005\022\r\n\005power\0304 \001(\005\022\027\n\017ca03_dota_score\030" +
+      "Q \001(\005\022\027\n\017ca03_dota_level\030R \001(\r\022\"\n\032ca03_d" +
+      "ota_next_level_score\030S \001(\005\022\"\n\032ca03_dota_" +
+      "this_level_score\030T \001(\005\022\035\n\025ca03_dota_dail" +
+      "y_match\030U \001(\005\022\027\n\017ca03_dota_total\030V \001(\005\022\034" +
+      "\n\024ca03_dota_early_quit\030W \001(\005\022\025\n\rca03_dot" +
+      "a_win\030X \001(\005\022\025\n\rca03_sc_score\030[ \001(\005\022\025\n\rca" +
+      "03_sc_level\030\\ \001(\r\022 \n\030ca03_sc_next_level_" +
+      "score\030] \001(\005\022 \n\030ca03_sc_this_level_score\030" +
+      "^ \001(\005\022\033\n\023ca03_sc_daily_match\030_ \001(\005\022\025\n\rca",
+      "03_sc_total\030` \001(\005\022\032\n\022ca03_sc_early_quit\030" +
+      "a \001(\005\022\023\n\013ca03_sc_win\030b \001(\005\022\027\n\017ca03_war3_" +
+      "score\030e \001(\005\022\027\n\017ca03_war3_level\030f \001(\r\022\"\n\032" +
+      "ca03_war3_next_level_score\030g \001(\005\022\"\n\032ca03" +
+      "_war3_this_level_score\030h \001(\005\022\035\n\025ca03_war" +
+      "3_daily_match\030i \001(\005\022\027\n\017ca03_war3_total\030j" +
+      " \001(\005\022\034\n\024ca03_war3_early_quit\030k \001(\005\022\025\n\rca" +
+      "03_war3_win\030l \001(\005\022!\n\tgameStats\030o \003(\0132\016.U" +
+      "serGameStats\"Y\n\rUserGameStats\022\017\n\007game_id" +
+      "\030\001 \001(\r\022\r\n\005power\030\002 \001(\r\022\014\n\004rank\030\003 \001(\r\022\013\n\003w",
+      "in\030\004 \001(\r\022\r\n\005total\030\005 \001(\r\"J\n\020UserListRespo" +
+      "nse\022\031\n\005users\030\001 \003(\0132\n.UserModel\022\033\n\006params" +
+      "\030\002 \001(\0132\013.ListParams\"\'\n\023CollegeListRespon" +
+      "se\022\020\n\010colleges\030\001 \003(\tB\022\n\016proto.responseH\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -3371,7 +3396,7 @@ public final class ResUser {
           internal_static_UserModel_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_UserModel_descriptor,
-              new java.lang.String[] { "Id", "Name", "Subname", "Status", "Email", "College", "Portrait", "Clan", "IsInParty", "IsInRivalList", "IsInGroupingList", "IsInArena", "CampusArenaID", "CampusArenaName", "CampusArenaEventName", "StatusEx", "Age", "Gender", "Jianghudiwei", "Truename", "Birthday", "City", "Department", "ImQq", "Mobile", "FlashStorage", "ImMsn", "Yearjoined", "Dormintory", "Mouse", "Keyboard", "Gold", "Activity", "Power", "Ca03DotaScore", "Ca03DotaLevel", "Ca03DotaNextLevelScore", "Ca03DotaThisLevelScore", "Ca03DotaDailyMatch", "Ca03DotaTotal", "Ca03DotaEarlyQuit", "Ca03DotaWin", "Ca03ScScore", "Ca03ScLevel", "Ca03ScNextLevelScore", "Ca03ScThisLevelScore", "Ca03ScDailyMatch", "Ca03ScTotal", "Ca03ScEarlyQuit", "Ca03ScWin", "Ca03War3Score", "Ca03War3Level", "Ca03War3NextLevelScore", "Ca03War3ThisLevelScore", "Ca03War3DailyMatch", "Ca03War3Total", "Ca03War3EarlyQuit", "Ca03War3Win", "GameStats", },
+              new java.lang.String[] { "Id", "Name", "Subname", "Status", "Email", "College", "Portrait", "Clan", "IsInParty", "IsInRivalList", "IsInGroupingList", "IsInArena", "CampusArenaID", "CampusArenaName", "CampusArenaEventName", "StatusEx", "LastLogin", "Age", "Gender", "Jianghudiwei", "Truename", "Birthday", "City", "Department", "ImQq", "Mobile", "FlashStorage", "ImMsn", "Yearjoined", "Dormintory", "Mouse", "Keyboard", "Gold", "Activity", "Power", "Ca03DotaScore", "Ca03DotaLevel", "Ca03DotaNextLevelScore", "Ca03DotaThisLevelScore", "Ca03DotaDailyMatch", "Ca03DotaTotal", "Ca03DotaEarlyQuit", "Ca03DotaWin", "Ca03ScScore", "Ca03ScLevel", "Ca03ScNextLevelScore", "Ca03ScThisLevelScore", "Ca03ScDailyMatch", "Ca03ScTotal", "Ca03ScEarlyQuit", "Ca03ScWin", "Ca03War3Score", "Ca03War3Level", "Ca03War3NextLevelScore", "Ca03War3ThisLevelScore", "Ca03War3DailyMatch", "Ca03War3Total", "Ca03War3EarlyQuit", "Ca03War3Win", "GameStats", },
               proto.response.ResUser.UserModel.class,
               proto.response.ResUser.UserModel.Builder.class);
           internal_static_UserGameStats_descriptor =

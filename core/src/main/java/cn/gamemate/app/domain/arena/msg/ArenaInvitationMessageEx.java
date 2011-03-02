@@ -12,6 +12,8 @@ import cn.gamemate.app.domain.event.Hall;
 import cn.gamemate.app.domain.game.GameMap;
 import cn.gamemate.app.domain.party.DefaultParty;
 import cn.gamemate.app.domain.party.LadderInvitationDeclinedMessage;
+import cn.gamemate.app.domain.party.PartyMember;
+import cn.gamemate.app.domain.party.PartyMemberUpdateMessage;
 import cn.gamemate.app.domain.user.User;
 
 public class ArenaInvitationMessageEx extends AnswerableClientMessage {
@@ -49,6 +51,9 @@ public class ArenaInvitationMessageEx extends AnswerableClientMessage {
 
 	@Override
 	protected void answerCallback(User user, String answer) {
+		PartyMember partyMember = party.getUserSlot(user);
+		if (partyMember == null) return;
+		partyMember.setWaited(false);
 		if (answer.equals("no")) {
 			ArrayList<Integer> receivers = new ArrayList<Integer>();
 			for (UserSlot userSlot : party.getMembers()) {
@@ -59,7 +64,7 @@ public class ArenaInvitationMessageEx extends AnswerableClientMessage {
 			tag = "no";
 			new LadderInvitationDeclinedMessage(receivers, party,
 					user.getName() + " 拒绝了这次游戏").send();
-		} else {
+		} else {			
 			if (answeredUsers.size() == receivers.size()) {
 				tag = "yes";
 				event.releaseParty(party);
@@ -73,7 +78,7 @@ public class ArenaInvitationMessageEx extends AnswerableClientMessage {
 			}
 
 		}
-
+		new PartyMemberUpdateMessage(party,partyMember).send();
 	}
 
 	@Override
@@ -84,10 +89,12 @@ public class ArenaInvitationMessageEx extends AnswerableClientMessage {
 		ArrayList<Integer> receivers = new ArrayList<Integer>();
 		StringBuilder sb = new StringBuilder();
 		receivers.add(party.getLeaderId());
-		for (UserSlot userSlot: party.getMembers()){
+		for (PartyMember userSlot: party.getMembers()){
 			if (answeredUsers.contains(userSlot.getUser().getId())){
 				receivers.add(userSlot.getUser().getId());
 			}else if (userSlot.getUser().getId() != party.getLeaderId()){
+				userSlot.setWaited(false);
+				new PartyMemberUpdateMessage(party,userSlot).send();
 				sb.append(" ").append(userSlot.getUser().getName());
 			}
 		}

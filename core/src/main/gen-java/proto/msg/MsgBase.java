@@ -609,6 +609,13 @@ public final class MsgBase {
     public boolean hasAlert() { return hasAlert; }
     public proto.msg.MsgAlert.AlertMessage getAlert() { return alert_; }
     
+    // optional .GameResultAlertMessage gameResultAlert = 402;
+    public static final int GAMERESULTALERT_FIELD_NUMBER = 402;
+    private boolean hasGameResultAlert;
+    private proto.msg.MsgAlert.GameResultAlertMessage gameResultAlert_;
+    public boolean hasGameResultAlert() { return hasGameResultAlert; }
+    public proto.msg.MsgAlert.GameResultAlertMessage getGameResultAlert() { return gameResultAlert_; }
+    
     private void initFields() {
       stringData_ = proto.msg.MsgBase.StringData.getDefaultInstance();
       whisper_ = proto.msg.MsgUser.WhisperMessage.getDefaultInstance();
@@ -675,6 +682,7 @@ public final class MsgBase {
       inetcafePublicChat_ = proto.msg.MsgChat.GroupChat.getDefaultInstance();
       inetcafeTableUpdated_ = proto.response.ResInet.InetTable.getDefaultInstance();
       alert_ = proto.msg.MsgAlert.AlertMessage.getDefaultInstance();
+      gameResultAlert_ = proto.msg.MsgAlert.GameResultAlertMessage.getDefaultInstance();
     }
     public static proto.msg.MsgBase.Msg parseFrom(
         com.google.protobuf.ByteString data)
@@ -3554,6 +3562,43 @@ public final class MsgBase {
         return this;
       }
       
+      // optional .GameResultAlertMessage gameResultAlert = 402;
+      public boolean hasGameResultAlert() {
+        return result.hasGameResultAlert();
+      }
+      public proto.msg.MsgAlert.GameResultAlertMessage getGameResultAlert() {
+        return result.getGameResultAlert();
+      }
+      public Builder setGameResultAlert(proto.msg.MsgAlert.GameResultAlertMessage value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.hasGameResultAlert = true;
+        result.gameResultAlert_ = value;
+        return this;
+      }
+      public Builder setGameResultAlert(proto.msg.MsgAlert.GameResultAlertMessage.Builder builderForValue) {
+        result.hasGameResultAlert = true;
+        result.gameResultAlert_ = builderForValue.build();
+        return this;
+      }
+      public Builder mergeGameResultAlert(proto.msg.MsgAlert.GameResultAlertMessage value) {
+        if (result.hasGameResultAlert() &&
+            result.gameResultAlert_ != proto.msg.MsgAlert.GameResultAlertMessage.getDefaultInstance()) {
+          result.gameResultAlert_ =
+            proto.msg.MsgAlert.GameResultAlertMessage.newBuilder(result.gameResultAlert_).mergeFrom(value).buildPartial();
+        } else {
+          result.gameResultAlert_ = value;
+        }
+        result.hasGameResultAlert = true;
+        return this;
+      }
+      public Builder clearGameResultAlert() {
+        result.hasGameResultAlert = false;
+        result.gameResultAlert_ = proto.msg.MsgAlert.GameResultAlertMessage.getDefaultInstance();
+        return this;
+      }
+      
       // @@protoc_insertion_point(builder_scope:Msg)
     }
     
@@ -4082,7 +4127,7 @@ public final class MsgBase {
       "an.proto\032\016msg_team.proto\032\016msg_chat.proto" +
       "\032\017msg_party.proto\032\023msg_chatgroup.proto\032\017" +
       "msg_arena.proto\032\026msg_campus_arena.proto\032" +
-      "\016res_inet.proto\032\017msg_alert.proto\"\205\032\n\003Msg" +
+      "\016res_inet.proto\032\017msg_alert.proto\"\270\032\n\003Msg" +
       "\022\n\n\002id\030\001 \001(\r\022\014\n\004code\030\002 \002(\r\022\014\n\004text\030\003 \001(\t" +
       "\022\013\n\003ttl\030\004 \001(\r\022\016\n\006subMsg\030\005 \001(\t\022\016\n\006answer\030" +
       "\006 \001(\t\022\025\n\rlast_modified\030\007 \001(\r\022\026\n\016canAnswe" +
@@ -4166,9 +4211,10 @@ public final class MsgBase {
       "\001(\0132\010.CaQueue\022\'\n\022inetcafePublicChat\030\363\002 \001" +
       "(\0132\n.GroupChat\022)\n\024inetcafeTableUpdated\030\364" +
       "\002 \001(\0132\n.InetTable\022\035\n\005alert\030\221\003 \001(\0132\r.Aler" +
-      "tMessage\"\032\n\nStringData\022\014\n\004data\030\001 \001(\t\"4\n\007" +
-      "MsgList\022\026\n\010messages\030\001 \003(\0132\004.Msg\022\021\n\tlast_",
-      "read\030\002 \001(\rB\r\n\tproto.msgH\002"
+      "tMessage\0221\n\017gameResultAlert\030\222\003 \001(\0132\027.Gam" +
+      "eResultAlertMessage\"\032\n\nStringData\022\014\n\004dat",
+      "a\030\001 \001(\t\"4\n\007MsgList\022\026\n\010messages\030\001 \003(\0132\004.M" +
+      "sg\022\021\n\tlast_read\030\002 \001(\rB\r\n\tproto.msgH\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -4180,7 +4226,7 @@ public final class MsgBase {
           internal_static_Msg_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Msg_descriptor,
-              new java.lang.String[] { "Id", "Code", "Text", "Ttl", "SubMsg", "Answer", "LastModified", "CanAnswerYesNo", "Uuid", "FlagA", "FlagP", "FlagU", "Expires", "Data", "UniqueKey", "Category", "Subcategory", "StringData", "Whisper", "GroupChat", "BecameFriend", "FriendStatusChanged", "FriendDataChanged", "MakeFriend", "AlertValidateEmail", "UserAccepted", "UserDeclined", "MakeFriendAccepted", "MakeFriendDeclined", "AlertUserFillProfile", "NotFriendAnyMore", "UserStatusUpdate", "AlertJoiningClan", "TeamJoiningApplication", "TeamJoined", "TeamLeaved", "UserJoinedTeam", "UserLeavedTeam", "TeamMemberStatusUpdated", "TeamInvitation", "TeamJoiningApplicationAccepted", "TeamJoiningApplicationDeclined", "TeamDisbanded", "TeamLeaderChanged", "PartyJoined", "PartyLeaved", "UserJoinedParty", "UserLeavedParty", "PartyMemberStatusUpdated", "PartyInvitation", "PartyInvitationDeclined", "PartyLeaderChanged", "EventInvitation", "EventInvitationDeclined", "ChatGroupJoined", "ChatGroupLeaved", "UserJoinedChatGroup", "UserLeavedChatGroup", "ChatGroupMemberUpdated", "ArenaCreatedInChatGroup", "ArenaRemovedInChatGroup", "ArenaUpdatedInChatGroup", "ArenaJoined", "ArenaLeaved", "UserJoinedArena", "UserLeavedArena", "ArenaMemberUpdated", "ArenaInvitation", "ArenaForceStatusUpdated", "ArenaStart", "ArenaStatusUpdated", "ArenaEnded", "ArenaUserAttributeUpdated", "ArenaLeaderChanged", "ArenaSlotLockUpdated", "JoinedCaGroupingQueue", "LeavedCaGroupingQueue", "JoinedCaBattleQueue", "LeavedCaBattleQueue", "InetcafePublicChat", "InetcafeTableUpdated", "Alert", },
+              new java.lang.String[] { "Id", "Code", "Text", "Ttl", "SubMsg", "Answer", "LastModified", "CanAnswerYesNo", "Uuid", "FlagA", "FlagP", "FlagU", "Expires", "Data", "UniqueKey", "Category", "Subcategory", "StringData", "Whisper", "GroupChat", "BecameFriend", "FriendStatusChanged", "FriendDataChanged", "MakeFriend", "AlertValidateEmail", "UserAccepted", "UserDeclined", "MakeFriendAccepted", "MakeFriendDeclined", "AlertUserFillProfile", "NotFriendAnyMore", "UserStatusUpdate", "AlertJoiningClan", "TeamJoiningApplication", "TeamJoined", "TeamLeaved", "UserJoinedTeam", "UserLeavedTeam", "TeamMemberStatusUpdated", "TeamInvitation", "TeamJoiningApplicationAccepted", "TeamJoiningApplicationDeclined", "TeamDisbanded", "TeamLeaderChanged", "PartyJoined", "PartyLeaved", "UserJoinedParty", "UserLeavedParty", "PartyMemberStatusUpdated", "PartyInvitation", "PartyInvitationDeclined", "PartyLeaderChanged", "EventInvitation", "EventInvitationDeclined", "ChatGroupJoined", "ChatGroupLeaved", "UserJoinedChatGroup", "UserLeavedChatGroup", "ChatGroupMemberUpdated", "ArenaCreatedInChatGroup", "ArenaRemovedInChatGroup", "ArenaUpdatedInChatGroup", "ArenaJoined", "ArenaLeaved", "UserJoinedArena", "UserLeavedArena", "ArenaMemberUpdated", "ArenaInvitation", "ArenaForceStatusUpdated", "ArenaStart", "ArenaStatusUpdated", "ArenaEnded", "ArenaUserAttributeUpdated", "ArenaLeaderChanged", "ArenaSlotLockUpdated", "JoinedCaGroupingQueue", "LeavedCaGroupingQueue", "JoinedCaBattleQueue", "LeavedCaBattleQueue", "InetcafePublicChat", "InetcafeTableUpdated", "Alert", "GameResultAlert", },
               proto.msg.MsgBase.Msg.class,
               proto.msg.MsgBase.Msg.Builder.class);
           internal_static_StringData_descriptor =

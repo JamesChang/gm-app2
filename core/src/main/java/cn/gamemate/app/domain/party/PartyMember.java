@@ -17,6 +17,7 @@ public class PartyMember implements Serializable, UserSlot {
 	private User user;
 	private Map<String, String> extra;
 	private boolean isOut=true;
+	private boolean isWaited = true;
 
 	public PartyMember(User user) {
 		// TODO: optimize this, no need to create
@@ -46,17 +47,26 @@ public class PartyMember implements Serializable, UserSlot {
 	public boolean isOut(){
 		return isOut;
 	}
+	public boolean isWaited(){
+		return isWaited;
+	}
+	public void setWaited(boolean b){
+		isWaited = b;
+	}
+	
 	public boolean isDrop(){
 		return user.getStatus() == UserStatus.DROP;
 	}
-	public void setOut(boolean b){
+	public void setOut(boolean b){		
+		if (isOut = true && b == false && isWaited == true){
+			isWaited = false;
+		}
 		isOut = b;
 	}
 	
-	
 	public ResParty.PartyMember.Builder toProtobuf() {
 		ResParty.PartyMember.Builder builder= ResParty.PartyMember.newBuilder();
-		builder.setUser(user.toProtobuf()).setIsOut(isOut).setIsUpdating(false);
+		builder.setUser(user.toProtobuf()).setIsOut(isOut).setIsUpdating(false).setIsWaited(isWaited);
 		return builder;
 	}
 	

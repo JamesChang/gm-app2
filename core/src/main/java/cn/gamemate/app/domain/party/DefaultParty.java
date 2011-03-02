@@ -163,13 +163,29 @@ public class DefaultParty implements Serializable, DomainModel, Party{
 		}
 	}
 
-	protected void autoElectLeader(User userLeaved) {
-		if (userLeaved.getId() == leaderid){
-			if (members.size() >1){
-				leaderid = members.get(0).getUser().getId();
-				modified();
-				new PartyLeaderChanged(this, leaderid).send();
+	protected void autoCloseOrElectLeader(User userLeaved) {
+		
+		if (members.size() <=1 ) {
+			close();
+			return;
+		}
+		
+		if (userLeaved.getId() != leaderid) return;
+		
+		PartyMember candidate=null;
+		for (PartyMember member:members){
+			if(candidate == null && !member.isOut()){
+				candidate = member;
+			}else{
+				if ((candidate.getUser().getArenaId() != null || candidate.getUser().isInEvent()) && 
+						(member.getUser().getArenaId() == null && !member.getUser().isInEvent())){
+					candidate = member;
 			}
+		}
+		
+		leaderid = member.getUser().getId();
+		modified();
+		new PartyLeaderChanged(this, leaderid).send();
 		}
 		
 	}
@@ -209,16 +225,14 @@ public class DefaultParty implements Serializable, DomainModel, Party{
 		removeUser(operator);
 		new PartyLeavedMessage(this, operator).send();
 		new UserLeavedPartyMessage(this, operator).send();
-		autoElectLeader(operator);
-		autoClose();
+		autoCloseOrElectLeader(operator);
 	}
 	
 	synchronized public void userKick(User operator, User target){
 		assertPartyLeader(operator);
 		removeUser(target, false);
 		new UserLeavedPartyMessage(this, target).send();
-		autoClose();
-		autoElectLeader(target);
+		autoCloseOrElectLeader(target);
 		try{
 			target.cacPartyId(uuid);
 			new PartyLeavedMessage(this, target).send();

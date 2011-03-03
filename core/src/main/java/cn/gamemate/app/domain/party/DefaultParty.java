@@ -164,30 +164,39 @@ public class DefaultParty implements Serializable, DomainModel, Party{
 	}
 
 	protected void autoCloseOrElectLeader(User userLeaved) {
-		
-		if (members.size() <=1 ) {
+		if (members.size() <= 1) {
 			close();
 			return;
 		}
-		
-		if (userLeaved.getId() != leaderid) return;
-		
-		PartyMember candidate=null;
-		for (PartyMember member:members){
-			if(candidate == null && !member.isOut()){
-				candidate = member;
-			}else{
-				if ((candidate.getUser().getArenaId() != null || candidate.getUser().isInEvent()) && 
-						(member.getUser().getArenaId() == null && !member.getUser().isInEvent())){
+
+		if (userLeaved.getId() != leaderid)
+			return;
+
+		PartyMember candidate = null;
+		for (PartyMember member : members) {
+			if (candidate == null) {
+				if (!member.isOut()) {
 					candidate = member;
+				}
+			} else {
+				if ((candidate.getUser().getArenaId() != null || candidate
+						.getUser().isInEvent())
+						&& (member.getUser().getArenaId() == null && !member
+								.getUser().isInEvent())) {
+					candidate = member;
+					break;
+				}
 			}
 		}
-		
-		leaderid = member.getUser().getId();
+
+		if (candidate == null) {
+			close();
+			return;
+		}
+		leaderid = candidate.getUser().getId();
 		modified();
 		new PartyLeaderChanged(this, leaderid).send();
-		}
-		
+
 	}
 	public void fireEvent(DomainModelEvent e){
 		for(DomainModelExtension x:extensions){

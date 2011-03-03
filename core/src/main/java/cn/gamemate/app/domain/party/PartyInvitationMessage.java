@@ -22,6 +22,8 @@ class PartyInvitationMessage extends AnswerableClientMessage {
 
 	@Autowired(required=true)
 	PartyManager partyManager;
+	
+	DefaultParty party;
 
 	@Override
 	public int getCode() {
@@ -37,6 +39,7 @@ class PartyInvitationMessage extends AnswerableClientMessage {
 	public PartyInvitationMessage(DefaultParty party, User target) {
 		receivers.add(target.getId());
 		User leader = party.getLeaderSlot().getUser();
+		this.party = party;
 		rootBuilder.setPartyInvitation(PartyInvitation.newBuilder()
 				.setPartyID(party.getUuid().toString())
 				.setLeaderID(leader.getId()).setLeaderName(leader.getName())
@@ -49,39 +52,23 @@ class PartyInvitationMessage extends AnswerableClientMessage {
 	@Override
 	protected void answerCallback(User user, String answer) {
 		if (answer.equals("yes")){
-			//try{
-				int targetUserID = getMsg().getPartyInvitation().getTargetUserID();
-				int leaderID = getMsg().getPartyInvitation().getLeaderID();
-				//User user = userRepository.getUser(targetUserID);
-				User leader = userRepository.getUser(leaderID);
-				DefaultParty party = partyManager.getParty(leader);
-				PartyMember userSlot = party.getUserSlot(user);
-				if (userSlot == null) return;
-				if (user.getPartyId() != null){
-					DefaultParty targetParty = partyManager.getParty(user);
-					targetParty.userLeave(user);
-				}
-				user.casPartyId(party.uuid);				
-				userSlot.setOut(false);
-				tag = "yes";
-				new PartyJoinedMessage(party, targetUserID).send();
-				new PartyMemberUpdateMessage(party, userSlot).send();
-			//}catch(DomainModelRuntimeException e){
-			//	logger.debug("", e);
-			//}
-		}
-		else if (answer.equals("no")){
-			int targetUserID = getMsg().getPartyInvitation().getTargetUserID();
-			int leaderID = getMsg().getPartyInvitation().getLeaderID();
-			//User user = userRepository.getUser(targetUserID);
-			User leader = userRepository.getUser(leaderID);
-			DefaultParty party = partyManager.getParty(leader);
-			party.removeUser(user, false);
+			tag = "yes";
+			PartyMember userSlot = party.getUserSlot(user);
+			if (userSlot == null)
+				return;
+			if (user.getPartyId() != null) {
+				DefaultParty targetParty = partyManager.getParty(user);
+				targetParty.userLeave(user);
+			}
+			user.casPartyId(party.uuid);
+			userSlot.setOut(false);
+			new PartyJoinedMessage(party, user.getId()).send();
+			new PartyMemberUpdateMessage(party, userSlot).send();
+		}else if (answer.equals("no")){
 			tag = "no";
+			party.removeUser(user, false);
 			new UserLeavedPartyMessage(party, user).send();
 			party.autoClose();
-			//new PartyJoinedMessages(party, targetUserID).send();
-
 		}
 	}
 
@@ -92,10 +79,6 @@ class PartyInvitationMessage extends AnswerableClientMessage {
 		}
 		int targetUserID = getMsg().getPartyInvitation().getTargetUserID();
 		User user = userRepository.getUser(targetUserID);
-		int leaderID = getMsg().getPartyInvitation().getLeaderID();
-		//User user = userRepository.getUser(targetUserID);
-		User leader = userRepository.getUser(leaderID);
-		DefaultParty party = partyManager.getParty(leader);
 		party.removeUser(user, false);
 		new UserLeavedPartyMessage(party, user).send();
 		party.autoClose();

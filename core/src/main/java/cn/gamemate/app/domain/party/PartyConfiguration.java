@@ -41,8 +41,7 @@ public class PartyConfiguration {
 				party.removeUser(user, false);
 				//new PartyLeavedMessage(party, user).send();
 				new UserLeavedPartyMessage(party, user).send();
-				party.autoClose();
-				party.autoElectLeader(user);
+				party.autoCloseOrElectLeader(user);
 			}
 			@Override
 			public void userBrowseOnly(User user) {

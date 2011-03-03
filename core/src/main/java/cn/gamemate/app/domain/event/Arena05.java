@@ -209,18 +209,21 @@ public class Arena05 extends Arena {
 	private static final List<String> chatActions = new ArrayList<String>();
 	static {
 		chatActions.add("chat");
+		
 		normalActons.add("chslot");
 		normalActons.add("leave");
 		normalActons.add("chat");
 		normalActons.add("setUserAttr");
 		normalActons.add("ready");
 		normalActons.add("invite");
+		
 		leaderActons.add("leave");
 		leaderActons.add("chat");
 		leaderActons.add("setUserAttr");
 		leaderActons.add("kick");
 		leaderActons.add("lockSlot");
 		leaderActons.add("unlockSlot");
+		
 		leaderStartActons.addAll(leaderActons);
 		leaderStartActons.add("start");
 
@@ -258,11 +261,28 @@ public class Arena05 extends Arena {
 		}
 		return true;
 	}
+	
+	protected void assertUserPermission(User user, String action){
+		
+		List<String> permissions = getUserAvailableActions(user);
+		if (!permissions.contains(action)){
+			throw new Forbidden("permission denied.");
+		}
+			
+	}
 
 	public List<String> getUserAvailableActions(User user) {
 		// only chat if arena is not open
 		if (this.status != OPEN){
-			return chatActions;
+			ArenaSlot userSlot = getUserSlot(user);
+			if (userSlot == null){
+				throw new DomainModelRuntimeException("User not in this arena");
+			}
+			if (userSlot.isGaming()){
+				return chatActions;
+			}else{
+				return normalActons;
+			}
 		}
 		if (user.equals(leader)) {
 			boolean canStart = true;
@@ -381,13 +401,13 @@ public class Arena05 extends Arena {
 	}
 
 	synchronized public void userLeave(User operator) {
-		assertStatus(OPEN);
+		assertUserPermission(operator, "leave");
 		_userLeave(operator);
 		
 	}
 
 	synchronized public void userChangeSlot(User operator, int targetSlotId) {
-		assertStatus(OPEN);
+		assertUserPermission(operator, "chslot");
 		if (operator.equals(leader)) {
 			throw new DomainModelRuntimeException("Leader can not change slot");
 		}
@@ -404,7 +424,7 @@ public class Arena05 extends Arena {
 	}
 
 	synchronized public void userReady(User operator) {
-		assertStatus(OPEN);
+		assertUserPermission(operator, "ready");
 		ArenaSlot slot = getUserSlot(operator);
 		if (slot == null) {
 			throw new UserNotInArenaException();
@@ -420,7 +440,7 @@ public class Arena05 extends Arena {
 
 	synchronized public void userSetAttribute(User operator, String key,
 			String value) {
-		assertStatus(OPEN);
+		assertUserPermission(operator, "setUserAttr");
 		ArenaSlot slot = getUserSlot(operator);
 		if (slot == null) {
 			throw new UserNotInArenaException();
@@ -430,7 +450,9 @@ public class Arena05 extends Arena {
 		new ArenaUserAttributeUpdatedMessage(this, operator, key, value).send();
 	}
 	
-	public void userSetArenaAttribute(User operator, String key, String value) {
+	public synchronized void userSetArenaAttribute(User operator, String key, String value) {
+		assertStatus(OPEN);
+		assertLeader(operator);
 		if (key.equals("private")) {
 			if (value.equals("true")) {
 				synchronized (this) {
@@ -472,6 +494,11 @@ public class Arena05 extends Arena {
 		attributes.put("hostID", String.valueOf(this.leader.getId()));
 		// TODO: FriendStatusChanged
 		updateStatus(GAMING);
+		for (ArenaSlot slot:slots){
+			if (slot.getUser() != null){
+				slot.setGaming(true);
+			}
+		}
 		proto.res.ResArena.Arena arenaSnapshot = this.toProtobuf().setName(Integer.toString(random.nextInt(100000000))).build();
 		Battle battle = Battle.createAndSave(arenaSnapshot);
 		this.lastBattle = battle;
@@ -577,12 +604,11 @@ public class Arena05 extends Arena {
 		}
 	}
 
-
+	@Deprecated
 	synchronized public void userError(User operator) {
 		removeUser(operator);
 		new ArenaLeavedMessage(this, operator).send();
 		new UserLeavedArenaMessage(this, operator).send();
-		operator.setStatus(UserStatus.ONLINE);
 		// TODO: FriendDataChangedMessage
 		autoElectLeader(operator);
 		autoClose();
@@ -590,6 +616,41 @@ public class Arena05 extends Arena {
 			new ArenaMemberUpdatedMessage(this, leader, false, false, true,
 					false).send();
 
+	}
+	
+	synchronized public void userQuitGame(User operator) {
+		if (this.status != GAMING){
+			return;
+		}
+		ArenaSlot slot = getUserSlot(operator);
+		if (slot == null) {
+			throw new UserNotInArenaException();
+		}
+		slot.setGaming(false);
+		slot.setReady(false);
+		new ArenaMemberUpdatedMessage(this, operator, false, false, true,
+				true).send();
+		
+		//check if all players in one force has quit.
+		boolean [] forceLiviness = new boolean[forces.size()];
+		Integer winningForce= null;
+		for (ArenaSlot s: slots){
+			if (s.getUser() != null && s.isGaming()) {
+				forceLiviness[s.getForce().getId()]=true;
+			}
+		}
+		//TODO: to support more force
+		for(int i=0;i<2;i++){
+			if(forceLiviness[i]==false && forceLiviness[1-i]==true){
+				winningForce = 1-i;
+				new ArenaEndedMessage(this, winningForce).send();
+				end();
+			}
+		}
+		if (winningForce == null){
+			new ArenaEndedMessage(operator.getId(), this, "游戏正在进行中").send();
+		}
+		
 	}
 
 	synchronized public void userChat(User user, String content) {
@@ -643,7 +704,7 @@ public class Arena05 extends Arena {
 	}
 	
 	public void userInvite(User operator, User target){
-		assertStatus(OPEN);
+		assertUserPermission(operator, "chslot");
 		assertUserNotInArena(target);
 		if (event != null)
 			event.assertAvailable(target);

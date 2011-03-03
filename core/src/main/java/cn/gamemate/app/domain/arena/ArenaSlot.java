@@ -15,6 +15,7 @@ public class ArenaSlot implements Serializable, UserSlot{
 	private boolean enabled;
 	private boolean ready;
 	private boolean readyDefault;
+	private boolean gaming;
 	private int position;
 	private Map<String, String> extra;
 	private Arena arena;
@@ -28,6 +29,7 @@ public class ArenaSlot implements Serializable, UserSlot{
 		this.force = force;
 		this.readyDefault = ready;
 		this.ready = false;
+		this.gaming = false;
 		if (extra == null){
 			this.extra = new HashMap<String, String>(10);
 		}
@@ -76,6 +78,14 @@ public class ArenaSlot implements Serializable, UserSlot{
 	}
 	
 
+	public boolean isGaming() {
+		return gaming;
+	}
+
+	public void setGaming(boolean gaming) {
+		this.gaming = gaming;
+	}
+
 	public ArenaForce getForce() {
 		return force;
 	}
@@ -87,6 +97,7 @@ public class ArenaSlot implements Serializable, UserSlot{
 		this.setUser(null);
 		setExtraToDefault();
 		this.ready = false;
+		this.gaming = false;
 	}
 	
 	private void setExtraToDefault(){

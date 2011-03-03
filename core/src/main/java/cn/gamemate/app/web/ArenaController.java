@@ -147,7 +147,7 @@ public class ArenaController {
     	Arena05 a = (Arena05)Arena.findArena(id);
     	assertArena(a, id);
     	User operator = userRepository.getUser(userid);
-    	a.userError(operator);
+    	a.userQuitGame(operator);
     	return "";
     }
     

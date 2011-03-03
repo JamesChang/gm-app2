@@ -22,6 +22,13 @@ public class ArenaEndedMessage extends ClientMessage{
 				ArenaEnded.newBuilder()
 				.setArenaID(arena.getInt32Id()).setError(errorMsg));
 	}
+
+	public ArenaEndedMessage(Integer receiver, Arena arena, String errorMsg) {
+		receivers.add(receiver);
+		rootBuilder.setArenaEnded(
+				ArenaEnded.newBuilder()
+				.setArenaID(arena.getInt32Id()).setError(errorMsg));
+	}
 	
 
 	@Override

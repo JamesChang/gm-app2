@@ -72,7 +72,10 @@ public class Arena implements Serializable, DomainModel{
 	protected String type;
 	protected Event event; 
 	
+	//change this to players
 	protected final List<ArenaSlot> slots;
+	protected final List<ArenaSlot> referees;
+	protected final List<ArenaSlot> allSlots;
 	protected final List<ArenaForce> forces;
 	protected final Map<String, String> attributes;
 	protected final Map<String, Field> userAttrDefs;
@@ -82,6 +85,8 @@ public class Arena implements Serializable, DomainModel{
 	public Arena() {
 		uuid = UUID.randomUUID();
 		this.slots = new ArrayList<ArenaSlot>();
+		this.referees = new ArrayList<ArenaSlot>();
+		this.allSlots = new ArrayList<ArenaSlot>();
 		this.forces = new ArrayList<ArenaForce>();
 		this.attributes = new HashMap<String, String>(10);
 		this.userAttrDefs = new HashMap<String, Field>(10);
@@ -138,7 +143,7 @@ public class Arena implements Serializable, DomainModel{
 	}
 	
 	public List<ArenaSlot> getSlots(){
-		return slots;
+		return allSlots;
 	}
 	
 	public void save(){
@@ -204,7 +209,7 @@ public class Arena implements Serializable, DomainModel{
 	
 
 	public ArenaSlot getUserSlot(User operator) {
-		for(ArenaSlot slot:slots){
+		for(ArenaSlot slot:allSlots){
 			if (operator.equals(slot.getUser())){
 				return slot;
 			}
@@ -235,7 +240,7 @@ public class Arena implements Serializable, DomainModel{
 	 * @return
 	 */
 	public List<Integer> setUserIdList(List<Integer> receivers){
-		for(ArenaSlot slot: slots){
+		for(ArenaSlot slot: allSlots){
 			if (slot.getUser()!= null){
 				receivers.add(slot.getUser().getId());
 			}
@@ -245,7 +250,7 @@ public class Arena implements Serializable, DomainModel{
 	
 	public String getSlotCountString(){
 		int i=0;
-		for(ArenaSlot slot:slots){
+		for(ArenaSlot slot:allSlots){
 			if (slot.getUser()!= null) ++i;
 		}
 		return new StringBuilder().append(i).append('/').append(slots.size()).toString();
@@ -257,6 +262,12 @@ public class Arena implements Serializable, DomainModel{
 			if (slot.getUser()!= null) ++i;
 		}
 		return i;
+	}
+	public List<ArenaSlot> getPlayerSlots(){
+		return slots;
+	}
+	public List<ArenaSlot> getRefereeSlots(){
+		return referees;
 	}
 		
 	
@@ -303,21 +314,10 @@ public class Arena implements Serializable, DomainModel{
 		
 		//write slots 
 		for (ArenaSlot slot :this.slots){
-			ResArena.ArenaSlot.Builder slotBuilder = ResArena.ArenaSlot.newBuilder();
-			if (slot.getUser()!=null){
-				slotBuilder.setUser(slot.getUser().toProtobuf());
-			}
-			slotBuilder.setReady(slot.isReady());
-			slotBuilder.setEnabled(slot.isEnabled());
-			slotBuilder.setPosition(slot.getPosition());
-			slotBuilder.setForceID(slot.getForce().getId());
-			for(Entry<String, String> entry: slot.getExtra().entrySet()){
-				StringDictItem.Builder item = StringDictItem.newBuilder();
-				item.setKey(entry.getKey());
-				item.setValue(entry.getValue());
-				slotBuilder.addAttributes(item);
-			}
-			builder.addPlayers(slotBuilder);
+			builder.addPlayers(arenaSlotToProtobuf(slot));
+		}
+		for (ArenaSlot slot :this.referees){
+			builder.addReferees(arenaSlotToProtobuf(slot));
 		}
 		
 		for (ArenaForce force :this.forces){
@@ -347,6 +347,25 @@ public class Arena implements Serializable, DomainModel{
 
 		
 		
+	}
+
+
+	private ResArena.ArenaSlot.Builder arenaSlotToProtobuf(ArenaSlot slot) {
+		ResArena.ArenaSlot.Builder slotBuilder = ResArena.ArenaSlot.newBuilder();
+		if (slot.getUser()!=null){
+			slotBuilder.setUser(slot.getUser().toProtobuf());
+		}
+		slotBuilder.setReady(slot.isReady());
+		slotBuilder.setEnabled(slot.isEnabled());
+		slotBuilder.setPosition(slot.getPosition());
+		slotBuilder.setForceID(slot.getForce().getId());
+		for(Entry<String, String> entry: slot.getExtra().entrySet()){
+			StringDictItem.Builder item = StringDictItem.newBuilder();
+			item.setKey(entry.getKey());
+			item.setValue(entry.getValue());
+			slotBuilder.addAttributes(item);
+		}
+		return slotBuilder;
 	}
 
 	public String getMode() {

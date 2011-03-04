@@ -14,6 +14,7 @@ message Arena{
 	optional Map gameMap = 4;
 	optional string status = 5;
 	repeated ArenaSlot players =6;
+        repeated ArenaSlot referees = 23;
 	repeated StringDictItem attributes = 7;
 	optional string name = 8;
 	repeated BattleForce forces = 9;

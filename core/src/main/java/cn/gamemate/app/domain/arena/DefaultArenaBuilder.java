@@ -12,6 +12,7 @@ import cn.gamemate.app.domain.game.PhysicalGame;
 public class DefaultArenaBuilder implements ArenaBuilder, Cloneable{
 	protected Integer homeSlotNum=0;
 	protected Integer awaySlotNum=0;
+	protected Integer refereeSlotNum=0;
 	protected String name;
 	protected GameMap map=null;
 	protected Game game;
@@ -24,6 +25,10 @@ public class DefaultArenaBuilder implements ArenaBuilder, Cloneable{
 	public DefaultArenaBuilder setSlotNum(Integer home, Integer away){
 		this.homeSlotNum = home;
 		this.awaySlotNum = away;
+		return this;
+	}
+	public DefaultArenaBuilder setRefereeNum(Integer count){
+		this.refereeSlotNum = count;
 		return this;
 	}
 	
@@ -99,6 +104,7 @@ public class DefaultArenaBuilder implements ArenaBuilder, Cloneable{
 		for(int i =0;i<homeSlotNum;++i){
 			ArenaSlot slot = new ArenaSlot(arena, null, force1, false,i, null);
 			arena.slots.add(slot);
+			arena.allSlots.add(slot);
 		}
 		
 		if (awaySlotNum > 0){
@@ -111,7 +117,22 @@ public class DefaultArenaBuilder implements ArenaBuilder, Cloneable{
 			for(int i =homeSlotNum;i<homeSlotNum +awaySlotNum;++i){
 				ArenaSlot slot = new ArenaSlot(arena, null, force2, false, i, null);
 				arena.slots.add(slot);
+				arena.allSlots.add(slot);
 			}
+		}
+		
+		if (refereeSlotNum > 0){
+			ArenaForce refereeForce = new ArenaForce();
+			refereeForce.id = 2;
+			refereeForce.label = "Referees";
+			refereeForce.arena = arena;
+			//arena.forces.add(force2);
+			for (int i=homeSlotNum +awaySlotNum;i< homeSlotNum +awaySlotNum + refereeSlotNum;i++){
+				ArenaSlot slot = new ArenaSlot(arena, null, refereeForce, false, i, null);
+				arena.referees.add(slot);
+				arena.allSlots.add(slot);
+			}
+			
 		}
 		
 		

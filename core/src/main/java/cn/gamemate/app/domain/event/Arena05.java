@@ -79,7 +79,7 @@ public class Arena05 extends Arena {
 			this.status = status;
 			new ArenaStatusUpdated(this).send();
 			
-			for (ArenaSlot slot: slots){
+			for (ArenaSlot slot: allSlots){
 				if (slot.getUser()!=null){
 					new ArenaMemberUpdatedMessage(this, slot.getUser(), true, false, true, true).send();
 				}
@@ -91,7 +91,7 @@ public class Arena05 extends Arena {
 	}
 	
 	public void updateAllPlayerStatus(UserStatus userStatus){
-		for(ArenaSlot slot:slots){
+		for(ArenaSlot slot:allSlots){
 			if (slot.getUser()!=null){
 				slot.getUser().setStatus(userStatus);
 			}
@@ -103,14 +103,14 @@ public class Arena05 extends Arena {
 	}
 	
 	protected void unreadyAll(){
-		for (ArenaSlot slot: slots){
+		for (ArenaSlot slot: allSlots){
 			slot.setReady(false);
 		}
 	}
 
 	private void autoElectLeader(User leavedUser) {
 		if (leavedUser.equals(leader)) {
-			for (ArenaSlot slot : slots) {
+			for (ArenaSlot slot : allSlots) {
 				if (slot.getUser() != null) {
 					assert slot.getPosition() != 0;
 					User newLeader = slot.getUser();
@@ -150,7 +150,7 @@ public class Arena05 extends Arena {
 	protected ArenaSlot addPlayer(User user) {
 		ArenaSlot targetSlot = null;
 		// if user is already in
-		for (ArenaSlot slot : slots) {
+		for (ArenaSlot slot : allSlots) {
 			if (slot.getUser() != null && slot.getUser().equals(user)
 					&& slot.isEnabled()) {
 				targetSlot = slot;
@@ -159,7 +159,7 @@ public class Arena05 extends Arena {
 		}
 		// get a empty available slot
 		if (targetSlot == null) {
-			for (ArenaSlot slot : slots) {
+			for (ArenaSlot slot : allSlots) {
 				if (slot.getUser() == null && slot.isEnabled()) {
 					targetSlot = slot;
 					break;
@@ -186,13 +186,13 @@ public class Arena05 extends Arena {
 	}
 
 	private void moveUser(User operator, int position, int targetSlotId) {
-		if (slots.size() > position 
-				&& slots.size() > targetSlotId
-				&& operator != null && slots.get(targetSlotId).isEnabled()
-				&& operator.equals(slots.get(position).getUser())
-				&& slots.get(targetSlotId).getUser() == null) {
-			ArenaSlot srcSlot = slots.get(position);
-			ArenaSlot tarSlot = slots.get(targetSlotId);
+		if (allSlots.size() > position 
+				&& allSlots.size() > targetSlotId
+				&& operator != null && allSlots.get(targetSlotId).isEnabled()
+				&& operator.equals(allSlots.get(position).getUser())
+				&& allSlots.get(targetSlotId).getUser() == null) {
+			ArenaSlot srcSlot = allSlots.get(position);
+			ArenaSlot tarSlot = allSlots.get(targetSlotId);
 			tarSlot.clear();
 			tarSlot.setUser(operator);
 			tarSlot.getExtra().putAll(srcSlot.getExtra());
@@ -220,8 +220,10 @@ public class Arena05 extends Arena {
 		leaderActons.add("leave");
 		leaderActons.add("chat");
 		leaderActons.add("setUserAttr");
+		leaderActons.add("invite");
 		leaderActons.add("kick");
 		leaderActons.add("lockSlot");
+		leaderActons.add("chslot");
 		leaderActons.add("unlockSlot");
 		
 		leaderStartActons.addAll(leaderActons);
@@ -234,7 +236,7 @@ public class Arena05 extends Arena {
 	 * @return
 	 */
 	private boolean  checkPlayerReady(){
-		for (ArenaSlot slot : slots) {
+		for (ArenaSlot slot : allSlots) {
 			if (slot.getUser() != null
 					&& !slot.getUser().equals(this.leader)
 					&& !slot.isReady()) {
@@ -249,7 +251,7 @@ public class Arena05 extends Arena {
 	 * @return
 	 */
 	private boolean checkPlayerStatus(){
-		for (ArenaSlot slot : slots) {
+		for (ArenaSlot slot : allSlots) {
 			if (slot.getUser() != null){
 				UserStatus userStatus = slot.getUser().getStatus();
 				// to make UAS work, we have to allow a browsing user 
@@ -395,9 +397,10 @@ public class Arena05 extends Arena {
 		// TODO: FriendDataChangedMessage
 		autoElectLeader(operator);
 		autoClose();
-		if (leader != null)
+		if (leader != null && status != ArenaStatus.CLOSED)
 			new ArenaMemberUpdatedMessage(this, leader, false, false, true,
 					false).send();
+		checkUserLiveness(operator);
 	}
 
 	synchronized public void userLeave(User operator) {
@@ -408,9 +411,6 @@ public class Arena05 extends Arena {
 
 	synchronized public void userChangeSlot(User operator, int targetSlotId) {
 		assertUserPermission(operator, "chslot");
-		if (operator.equals(leader)) {
-			throw new DomainModelRuntimeException("Leader can not change slot");
-		}
 		ArenaSlot slot = getUserSlot(operator);
 		if (slot == null) {
 			throw new UserNotInArenaException();
@@ -598,7 +598,7 @@ public class Arena05 extends Arena {
 	protected void end(){
 		updateStatus(OPEN);
 		unreadyAll();
-		for (ArenaSlot slot:slots){
+		for (ArenaSlot slot:allSlots){
 			if (slot.getUser()!= null)
 				new ArenaMemberUpdatedMessage(this, slot.getUser(), true, false, true, true).send();
 		}
@@ -616,6 +616,32 @@ public class Arena05 extends Arena {
 			new ArenaMemberUpdatedMessage(this, leader, false, false, true,
 					false).send();
 
+	}
+	
+	private void checkUserLiveness(User user){
+		if (this.status != GAMING){
+			return;
+		}
+		
+		//check if all players in one force has quit.
+		boolean [] forceLiviness = new boolean[forces.size()];
+		Integer winningForce= null;
+		for (ArenaSlot s: slots){
+			if (s.getUser() != null && s.isGaming()) {
+				forceLiviness[s.getForce().getId()]=true;
+			}
+		}
+		//TODO: to support more force
+		for(int i=0;i<2;i++){
+			if(forceLiviness[i]==false && forceLiviness[1-i]==true){
+				winningForce = 1-i;
+				new ArenaEndedMessage(this, winningForce).send();
+				end();
+			}
+		}
+		if (winningForce == null){
+			new ArenaEndedMessage(user.getId(), this, "游戏正在进行中").send();
+		}
 	}
 	
 	synchronized public void userQuitGame(User operator) {
@@ -639,17 +665,7 @@ public class Arena05 extends Arena {
 				forceLiviness[s.getForce().getId()]=true;
 			}
 		}
-		//TODO: to support more force
-		for(int i=0;i<2;i++){
-			if(forceLiviness[i]==false && forceLiviness[1-i]==true){
-				winningForce = 1-i;
-				new ArenaEndedMessage(this, winningForce).send();
-				end();
-			}
-		}
-		if (winningForce == null){
-			new ArenaEndedMessage(operator.getId(), this, "游戏正在进行中").send();
-		}
+		checkUserLiveness(operator);
 		
 	}
 
@@ -681,10 +697,10 @@ public class Arena05 extends Arena {
 		if (mySlot.getPosition() == slotid){
 			throw new DomainModelRuntimeException("can not lock yourself's slot");
 		}
-		if (slotid < 0 || slotid>= slots.size()){
+		if (slotid < 0 || slotid>= allSlots.size()){
 			throw new DomainModelRuntimeException("position of slot out of range");
 		}
-		ArenaSlot slot = slots.get(slotid);
+		ArenaSlot slot = allSlots.get(slotid);
 		if (slot.getUser() != null){
 			throw new DomainModelRuntimeException("can not lock non-empty slot");
 		}
@@ -695,10 +711,10 @@ public class Arena05 extends Arena {
 	public void userUnlockSlot(User operator, Integer slotid) {
 		assertStatus(OPEN);
 		assertLeader(operator);
-		if (slotid < 0 || slotid>= slots.size()){
+		if (slotid < 0 || slotid>= allSlots.size()){
 			throw new DomainModelRuntimeException("position of slot out of range");
 		}
-		ArenaSlot slot = slots.get(slotid);
+		ArenaSlot slot = allSlots.get(slotid);
 		slot.enable();
 		new ArenaSlotLockUpdatedMessage(this, slot).send();
 	}

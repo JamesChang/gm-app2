@@ -82,6 +82,18 @@ public final class ResArena {
       return players_.get(index);
     }
     
+    // repeated .ArenaSlot referees = 23;
+    public static final int REFEREES_FIELD_NUMBER = 23;
+    private java.util.List<proto.res.ResArena.ArenaSlot> referees_ =
+      java.util.Collections.emptyList();
+    public java.util.List<proto.res.ResArena.ArenaSlot> getRefereesList() {
+      return referees_;
+    }
+    public int getRefereesCount() { return referees_.size(); }
+    public proto.res.ResArena.ArenaSlot getReferees(int index) {
+      return referees_.get(index);
+    }
+    
     // repeated .StringDictItem attributes = 7;
     public static final int ATTRIBUTES_FIELD_NUMBER = 7;
     private java.util.List<proto.util.Util.StringDictItem> attributes_ =
@@ -356,6 +368,10 @@ public final class ResArena {
           result.players_ =
             java.util.Collections.unmodifiableList(result.players_);
         }
+        if (result.referees_ != java.util.Collections.EMPTY_LIST) {
+          result.referees_ =
+            java.util.Collections.unmodifiableList(result.referees_);
+        }
         if (result.attributes_ != java.util.Collections.EMPTY_LIST) {
           result.attributes_ =
             java.util.Collections.unmodifiableList(result.attributes_);
@@ -572,6 +588,57 @@ public final class ResArena {
       }
       public Builder clearPlayers() {
         result.players_ = java.util.Collections.emptyList();
+        return this;
+      }
+      
+      // repeated .ArenaSlot referees = 23;
+      public java.util.List<proto.res.ResArena.ArenaSlot> getRefereesList() {
+        return java.util.Collections.unmodifiableList(result.referees_);
+      }
+      public int getRefereesCount() {
+        return result.getRefereesCount();
+      }
+      public proto.res.ResArena.ArenaSlot getReferees(int index) {
+        return result.getReferees(index);
+      }
+      public Builder setReferees(int index, proto.res.ResArena.ArenaSlot value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.referees_.set(index, value);
+        return this;
+      }
+      public Builder setReferees(int index, proto.res.ResArena.ArenaSlot.Builder builderForValue) {
+        result.referees_.set(index, builderForValue.build());
+        return this;
+      }
+      public Builder addReferees(proto.res.ResArena.ArenaSlot value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        if (result.referees_.isEmpty()) {
+          result.referees_ = new java.util.ArrayList<proto.res.ResArena.ArenaSlot>();
+        }
+        result.referees_.add(value);
+        return this;
+      }
+      public Builder addReferees(proto.res.ResArena.ArenaSlot.Builder builderForValue) {
+        if (result.referees_.isEmpty()) {
+          result.referees_ = new java.util.ArrayList<proto.res.ResArena.ArenaSlot>();
+        }
+        result.referees_.add(builderForValue.build());
+        return this;
+      }
+      public Builder addAllReferees(
+          java.lang.Iterable<? extends proto.res.ResArena.ArenaSlot> values) {
+        if (result.referees_.isEmpty()) {
+          result.referees_ = new java.util.ArrayList<proto.res.ResArena.ArenaSlot>();
+        }
+        super.addAll(values, result.referees_);
+        return this;
+      }
+      public Builder clearReferees() {
+        result.referees_ = java.util.Collections.emptyList();
         return this;
       }
       
@@ -2492,33 +2559,33 @@ public final class ResArena {
   static {
     java.lang.String[] descriptorData = {
       "\n\017res_arena.proto\032\016res_user.proto\032\016res_g" +
-      "ame.proto\032\nutil.proto\032\016res_form.proto\"\363\003" +
+      "ame.proto\032\nutil.proto\032\016res_form.proto\"\221\004" +
       "\n\005Arena\022\n\n\002id\030\001 \001(\r\022!\n\013logicalGame\030\002 \001(\013" +
       "2\014.LogicalGame\022#\n\014physicalGame\030\003 \001(\0132\r.P" +
       "hysicalGame\022\025\n\007gameMap\030\004 \001(\0132\004.Map\022\016\n\006st" +
       "atus\030\005 \001(\t\022\033\n\007players\030\006 \003(\0132\n.ArenaSlot\022" +
-      "#\n\nattributes\030\007 \003(\0132\017.StringDictItem\022\014\n\004" +
-      "name\030\010 \001(\t\022\034\n\006forces\030\t \003(\0132\014.BattleForce" +
-      "\0221\n\027userAttributeDefinition\030\n \001(\0132\020.Choi" +
-      "ceFieldList\022\024\n\014private_flag\030\013 \001(\010\022\021\n\tcha",
-      "tgroup\030\014 \001(\r\022\022\n\nmy_actions\030\r \003(\t\022\014\n\004mode" +
-      "\030\016 \001(\t\022\014\n\004uuid\030\017 \001(\t\022\014\n\004type\030\024 \001(\t\022\017\n\007ma" +
-      "ppath\030\020 \001(\t\022\020\n\010gamepath\030\021 \001(\t\022\016\n\006hostID\030" +
-      "\022 \001(\r\022\016\n\006whoAmI\030\023 \001(\r\022\022\n\nevent_name\030\025 \001(" +
-      "\t\022\020\n\010event_id\030\026 \001(\t\"\256\001\n\tArenaMini\022\n\n\002id\030" +
-      "\001 \001(\r\022!\n\013logicalGame\030\002 \001(\0132\014.LogicalGame" +
-      "\022#\n\014physicalGame\030\003 \001(\0132\r.PhysicalGame\022\025\n" +
-      "\007gameMap\030\004 \001(\0132\004.Map\022\022\n\ntotalCount\030\005 \001(\r" +
-      "\022\024\n\014currentCount\030\006 \001(\r\022\014\n\004mode\030\007 \001(\t\"\200\001\n" +
-      "\013BattleForce\022\n\n\002id\030\001 \001(\r\022\r\n\005label\030\002 \001(\t\022",
-      "\017\n\007partyID\030\n \001(\r\022\016\n\006status\030\003 \001(\t\022\020\n\010lead" +
-      "erID\030\013 \001(\r\022#\n\nattributes\030\004 \003(\0132\017.StringD" +
-      "ictItem\"\215\001\n\tArenaSlot\022\030\n\004user\030\001 \001(\0132\n.Us" +
-      "erModel\022\020\n\010position\030\002 \001(\r\022\017\n\007forceID\030\003 \001" +
-      "(\r\022#\n\nattributes\030\004 \003(\0132\017.StringDictItem\022" +
-      "\017\n\007enabled\030\005 \001(\010\022\r\n\005ready\030\006 \001(\010\"#\n\tArena" +
-      "List\022\026\n\006arenas\030\001 \003(\0132\006.ArenaB\r\n\tproto.re" +
-      "sH\002"
+      "\034\n\010referees\030\027 \003(\0132\n.ArenaSlot\022#\n\nattribu" +
+      "tes\030\007 \003(\0132\017.StringDictItem\022\014\n\004name\030\010 \001(\t" +
+      "\022\034\n\006forces\030\t \003(\0132\014.BattleForce\0221\n\027userAt" +
+      "tributeDefinition\030\n \001(\0132\020.ChoiceFieldLis",
+      "t\022\024\n\014private_flag\030\013 \001(\010\022\021\n\tchatgroup\030\014 \001" +
+      "(\r\022\022\n\nmy_actions\030\r \003(\t\022\014\n\004mode\030\016 \001(\t\022\014\n\004" +
+      "uuid\030\017 \001(\t\022\014\n\004type\030\024 \001(\t\022\017\n\007mappath\030\020 \001(" +
+      "\t\022\020\n\010gamepath\030\021 \001(\t\022\016\n\006hostID\030\022 \001(\r\022\016\n\006w" +
+      "hoAmI\030\023 \001(\r\022\022\n\nevent_name\030\025 \001(\t\022\020\n\010event" +
+      "_id\030\026 \001(\t\"\256\001\n\tArenaMini\022\n\n\002id\030\001 \001(\r\022!\n\013l" +
+      "ogicalGame\030\002 \001(\0132\014.LogicalGame\022#\n\014physic" +
+      "alGame\030\003 \001(\0132\r.PhysicalGame\022\025\n\007gameMap\030\004" +
+      " \001(\0132\004.Map\022\022\n\ntotalCount\030\005 \001(\r\022\024\n\014curren" +
+      "tCount\030\006 \001(\r\022\014\n\004mode\030\007 \001(\t\"\200\001\n\013BattleFor",
+      "ce\022\n\n\002id\030\001 \001(\r\022\r\n\005label\030\002 \001(\t\022\017\n\007partyID" +
+      "\030\n \001(\r\022\016\n\006status\030\003 \001(\t\022\020\n\010leaderID\030\013 \001(\r" +
+      "\022#\n\nattributes\030\004 \003(\0132\017.StringDictItem\"\215\001" +
+      "\n\tArenaSlot\022\030\n\004user\030\001 \001(\0132\n.UserModel\022\020\n" +
+      "\010position\030\002 \001(\r\022\017\n\007forceID\030\003 \001(\r\022#\n\nattr" +
+      "ibutes\030\004 \003(\0132\017.StringDictItem\022\017\n\007enabled" +
+      "\030\005 \001(\010\022\r\n\005ready\030\006 \001(\010\"#\n\tArenaList\022\026\n\006ar" +
+      "enas\030\001 \003(\0132\006.ArenaB\r\n\tproto.resH\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -2530,7 +2597,7 @@ public final class ResArena {
           internal_static_Arena_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Arena_descriptor,
-              new java.lang.String[] { "Id", "LogicalGame", "PhysicalGame", "GameMap", "Status", "Players", "Attributes", "Name", "Forces", "UserAttributeDefinition", "PrivateFlag", "Chatgroup", "MyActions", "Mode", "Uuid", "Type", "Mappath", "Gamepath", "HostID", "WhoAmI", "EventName", "EventId", },
+              new java.lang.String[] { "Id", "LogicalGame", "PhysicalGame", "GameMap", "Status", "Players", "Referees", "Attributes", "Name", "Forces", "UserAttributeDefinition", "PrivateFlag", "Chatgroup", "MyActions", "Mode", "Uuid", "Type", "Mappath", "Gamepath", "HostID", "WhoAmI", "EventName", "EventId", },
               proto.res.ResArena.Arena.class,
               proto.res.ResArena.Arena.Builder.class);
           internal_static_ArenaMini_descriptor =

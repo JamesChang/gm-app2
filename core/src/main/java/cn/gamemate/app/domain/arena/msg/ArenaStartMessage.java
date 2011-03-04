@@ -10,6 +10,7 @@ import cn.gamemate.app.clientmsg.ClientMessage;
 import cn.gamemate.app.clientmsg.MessageService;
 import cn.gamemate.app.clientmsg.RelayServices;
 import cn.gamemate.app.domain.arena.Arena;
+import cn.gamemate.app.domain.arena.ArenaSlot;
 import cn.gamemate.app.domain.user.User;
 
 public class ArenaStartMessage extends ClientMessage {
@@ -46,11 +47,18 @@ public class ArenaStartMessage extends ClientMessage {
 	@Override
 	public void send(){
 		messageService.send(this);
-		User user = arena.getSlots().get(0).getUser();
-		MessageService relayService = RelayServices.getRelayService(user);
+		int hostId = Integer.parseInt(arena.getAttributes().get("hostID"));
+		User host=null;
+		for(ArenaSlot slot: arena.getSlots()){
+			if (slot.getUser()!= null && slot.getUser().getId() == hostId){
+				host = slot.getUser();
+			}
+		}
+		if (host == null){
+			throw new RuntimeException("can not find host player");
+		}
+		MessageService relayService = RelayServices.getRelayService(host);
 		if (relayService !=null) relayService.send(this);
-
-		
 	}
 
 }

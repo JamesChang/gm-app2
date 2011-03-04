@@ -68,7 +68,8 @@ public class CampusArena05Configuration {
 		b.setGameMap(83)
 			.setGame(dota)
 			.setGameVersion("1.24.1.6374")			
-			.bisectSlots();
+			.bisectSlots()
+			.setRefereeNum(2);
 
 		event.gameMaps.add(GameMap.findGameMap(83L));
 		event.gameMaps.add(GameMap.findGameMap(86L));

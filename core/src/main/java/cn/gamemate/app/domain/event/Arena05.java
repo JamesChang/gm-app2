@@ -107,6 +107,11 @@ public class Arena05 extends Arena {
 			slot.setReady(false);
 		}
 	}
+	protected void unGamingAll(){
+		for (ArenaSlot slot: allSlots){
+			slot.setGaming(false);
+		}
+	}
 
 	private void autoElectLeader(User leavedUser) {
 		if (leavedUser.equals(leader)) {
@@ -389,7 +394,7 @@ public class Arena05 extends Arena {
 
 	}
 	
-	protected void _userLeave(User operator){
+	synchronized protected void _userLeave(User operator){
 		removeUser(operator);
 
 		new ArenaLeavedMessage(this, operator).send();
@@ -493,12 +498,12 @@ public class Arena05 extends Arena {
 		
 		attributes.put("hostID", String.valueOf(this.leader.getId()));
 		// TODO: FriendStatusChanged
-		updateStatus(GAMING);
 		for (ArenaSlot slot:slots){
 			if (slot.getUser() != null){
 				slot.setGaming(true);
 			}
 		}
+		updateStatus(GAMING);
 		proto.res.ResArena.Arena arenaSnapshot = this.toProtobuf().setName(Integer.toString(random.nextInt(100000000))).build();
 		Battle battle = Battle.createAndSave(arenaSnapshot);
 		this.lastBattle = battle;
@@ -596,12 +601,9 @@ public class Arena05 extends Arena {
 	}
 	
 	protected void end(){
-		updateStatus(OPEN);
 		unreadyAll();
-		for (ArenaSlot slot:allSlots){
-			if (slot.getUser()!= null)
-				new ArenaMemberUpdatedMessage(this, slot.getUser(), true, false, true, true).send();
-		}
+		unGamingAll();
+		updateStatus(OPEN);
 	}
 
 	@Deprecated
@@ -635,12 +637,15 @@ public class Arena05 extends Arena {
 		for(int i=0;i<2;i++){
 			if(forceLiviness[i]==false && forceLiviness[1-i]==true){
 				winningForce = 1-i;
-				new ArenaEndedMessage(this, winningForce).send();
-				end();
+				
 			}
 		}
 		if (winningForce == null){
 			new ArenaEndedMessage(user.getId(), this, "游戏正在进行中").send();
+		}else{
+			new ArenaEndedMessage(this, winningForce).send();
+			new ArenaChatMessage(this, user.getName() + " 离开了游戏").send();
+			end();
 		}
 	}
 	
@@ -654,7 +659,7 @@ public class Arena05 extends Arena {
 		}
 		slot.setGaming(false);
 		slot.setReady(false);
-		new ArenaMemberUpdatedMessage(this, operator, false, false, true,
+		new ArenaMemberUpdatedMessage(this, operator, true, false, true,
 				true).send();
 		
 		//check if all players in one force has quit.

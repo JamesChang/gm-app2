@@ -15,6 +15,14 @@ public class ArenaChatMessage extends ClientMessage {
 				.setSenderID(sender.getId());
 		rootBuilder.setGroupChat(builder);
 	}
+	
+	public ArenaChatMessage(Arena arena, String content) {
+		arena.setUserIdList(receivers);
+		GroupChat.Builder builder = GroupChat.newBuilder();
+		builder.setContent(content)
+				.setGroupID((int) arena.getInt32Id());
+		rootBuilder.setGroupChat(builder);
+	}
 
 	@Override
 	public int getCode() {

@@ -382,7 +382,6 @@ public class CampusArena05Configuration {
 				if (arena != null && arena instanceof Arena05){
 					Arena05 arena05 = (Arena05)arena;
 					arena05._userLeave(user);
-					//new AlertMessage(user, "客户端与服务器断开连接", true).send();
 				}
 			}
 			@Override

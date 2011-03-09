@@ -5,6 +5,7 @@ import java.util.List;
 import proto.msg.MsgArena.ArenaMemberUpdated;
 import cn.gamemate.app.clientmsg.ClientMessage;
 import cn.gamemate.app.domain.arena.Arena;
+import cn.gamemate.app.domain.arena.ArenaSlot;
 import cn.gamemate.app.domain.user.User;
 
 public class ArenaMemberUpdatedMessage extends ClientMessage {
@@ -29,11 +30,15 @@ public class ArenaMemberUpdatedMessage extends ClientMessage {
 			boolean statusChanged, boolean positionChanged,
 			boolean actionChanged, boolean readyChanged) {
 		arena.setUserIdList(receivers);
+		
 		ArenaMemberUpdated.Builder builder = ArenaMemberUpdated.newBuilder();
 		builder.setArenaID(arena.getInt32Id()).setUserID(user.getId());
-		// TODO
-		// if (statusChanged)
-		// builder.setUserStatus(value)
+		ArenaSlot userSlot = arena.getUserSlot(user);
+		if (userSlot==null) return;
+		
+		if (statusChanged){
+			builder.setUserStatus(userSlot.isGaming()?"gaming":"waiting");
+		}
 		if (positionChanged)
 			builder.setPosition(arena.getUserSlot(user).getPosition());
 		else

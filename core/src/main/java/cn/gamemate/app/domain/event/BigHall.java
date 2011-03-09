@@ -248,7 +248,7 @@ public class BigHall extends Hall implements BigHallMBean {
 			public void statusChanged(ArenaStatusChangedEvent e) {
 				if (e.getModel().getStatus() == ArenaStatus.OPEN){
 						if ((e.oldPrivate != null && e.oldPrivate.equals(Boolean.TRUE) && !e.getModel().isPrivate()) 
-						|| (e.oldStatus.equals(ArenaStatus.GAMING))){
+						|| (e.oldStatus != null && e.oldStatus.equals(ArenaStatus.GAMING))){
 							addArena(e.getModel());
 						}
 				}

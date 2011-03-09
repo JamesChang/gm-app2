@@ -197,11 +197,35 @@ public class UserRepository implements UserRepositoryMBean{
 			drop(u);
 		}
 	}
-	
-	public String getStatJson(){
+	@Override
+	public String showStats(){
 		stats.doCount();
 		return stats.toString();
 	}
+	@Override 
+	public String showAllUserList(){
+		StringBuilder result = new StringBuilder();
+		result.append("{");
+		for (Entry<Integer, User> entry: users.entrySet()){			
+			User user = entry.getValue();
+			result.append("User{")
+				.append("ID:").append(user.getId()).append(", ")
+				.append("Name:").append(user.getName()).append(", ");
+			
+			UserStatus userStatus = user.getStatus();
+			Integer arenaId = user.getArenaId();
+			if (arenaId != null){
+				result.append("Status:").append("InArena").append(", ");
+			}else{
+				result.append("Status:").append(userStatus).append(", ");
+			}
+			result.append("},");
+		}
+		result.append("}");
+		return result.toString();
+	}
+	
+	
 	public UserRepositoryStats getStat(){
 		stats.doCount();
 		return stats;

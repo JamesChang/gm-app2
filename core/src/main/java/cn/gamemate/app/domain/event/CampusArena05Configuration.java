@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jmx.export.MBeanExporter;
 
 import cn.gamemate.app.domain.arena.Arena;
+import cn.gamemate.app.domain.arena.BasicArenaRepository;
 import cn.gamemate.app.domain.arena.DefaultArenaBuilder;
 import cn.gamemate.app.domain.game.Game;
 import cn.gamemate.app.domain.game.GameMap;
@@ -346,6 +347,20 @@ public class CampusArena05Configuration {
 		ladder.start();
 		return ladder;
 
+	}
+	
+	@Bean
+	public BasicArenaRepository<Integer> arenaRepository(){
+		BasicArenaRepository<Integer> arenaRepository = new BasicArenaRepository<Integer>();
+		try {
+			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+			ObjectName objectName = new ObjectName(
+					"cn.gamemate.app:name=arenaRepository");
+			mbs.registerMBean(arenaRepository, objectName);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return arenaRepository;
 	}
 
 	

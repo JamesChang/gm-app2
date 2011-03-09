@@ -14,6 +14,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.hibernate.hql.ast.tree.UpdateStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 
 import com.sun.org.apache.xalan.internal.lib.Extensions;
 
@@ -36,14 +38,19 @@ import cn.gamemate.app.domain.user.User;
  * @author jameszhang
  *
  */
+@Configurable
 public class Arena implements Serializable, DomainModel{
 	
 	public enum ArenaStatus {CLOSED, OPEN, MATCHING, GAMING};
 
 	protected static final long serialVersionUID = 1L;
 	protected static final Logger logger= LoggerFactory.getLogger(Arena.class);
-	protected static final BasicArenaRepository<Integer> repository 
-		= new BasicArenaRepository<Integer>();
+	
+	@Autowired(required=true)
+	protected BasicArenaRepository<Integer> arenaRepository;
+	
+	protected static BasicArenaRepository<Integer> staticArenaRepository;
+	
 	protected Battle lastBattle=null;
 
 	public Battle getLastBattle() {
@@ -95,6 +102,17 @@ public class Arena implements Serializable, DomainModel{
 		bPrivate = new AtomicBoolean(false);
 		type="normal";
 	}
+	
+	private Arena(boolean dummy){
+		this.slots = null;
+		this.referees = null;
+		this.allSlots = null;
+		this.forces = null;
+		this.attributes = null;
+		this.userAttrDefs = null;
+		this.extensions = null;
+		this.uuid = null;
+	}
 
 	public Event getEvent() {
 		return event;
@@ -107,8 +125,7 @@ public class Arena implements Serializable, DomainModel{
 	
 
 	public static Arena fromPrototype(Arena arena) {
-		return null;
-
+		throw new UnsupportedOperationException();
 	}
 
 	public static Arena findArena(UUID uuid) {
@@ -116,7 +133,11 @@ public class Arena implements Serializable, DomainModel{
 	}
 	
 	public static Arena findArena(Integer id) {
-		return repository.get(id);
+		if (staticArenaRepository == null){
+			Arena a = new Arena(true);
+			staticArenaRepository = a.arenaRepository;
+		}
+		return staticArenaRepository.get(id);
 	}
 	
 	public List<ArenaForce> getForces(){
@@ -147,7 +168,7 @@ public class Arena implements Serializable, DomainModel{
 	}
 	
 	public void save(){
-		repository.add(getInt32Id(), this);
+		arenaRepository.add(getInt32Id(), this);
 	}
 
 
@@ -394,7 +415,7 @@ public class Arena implements Serializable, DomainModel{
 		for(ArenaSlot slot:slots){
 			slot.clear();
 		}
-		repository.remove(getInt32Id());
+		arenaRepository.remove(getInt32Id());
 	}
 	
 	public Map<String, String> getAttributes(){

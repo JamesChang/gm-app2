@@ -77,4 +77,6 @@
 	<bean id="uuidGenerator" class = "org.safehaus.uuid.UUIDGenerator" 
 	factory-method="getInstance"></bean>
 	
+	
+	<bean class ="cn.gamemate.common.management.Mx4jTool"></bean>
 </beans>

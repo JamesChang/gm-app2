@@ -44,6 +44,11 @@
 	<dependencies>
 		<!-- General dependencies for standard applications -->
 		<dependency>
+			<groupId>mx4j</groupId>
+			<artifactId>mx4j-tools</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.8.1</version>

@@ -427,14 +427,9 @@
 
 
 		<dependency>
-			<groupId>org.apache.cassandra</groupId>
-			<artifactId>apache-cassandra</artifactId>
-			<version>0.7.0-beta3</version>
-		</dependency>
-		<dependency>
 			<groupId>me.prettyprint</groupId>
-			<artifactId>hector</artifactId>
-			<version>0.7.0-19_11162010</version>
+			<artifactId>hector-core</artifactId>
+			<version>0.7.0-23</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>google-collections</artifactId>

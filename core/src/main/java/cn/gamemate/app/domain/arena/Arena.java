@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import com.sun.org.apache.xalan.internal.lib.Extensions;
 
 import proto.res.ResArena;
+import proto.response.ResGame;
 import proto.response.ResGame.LogicalGame;
 import proto.util.Util.StringDictItem;
 
@@ -274,7 +275,7 @@ public class Arena implements Serializable, DomainModel{
 		for(ArenaSlot slot:allSlots){
 			if (slot.getUser()!= null) ++i;
 		}
-		return new StringBuilder().append(i).append('/').append(slots.size()).toString();
+		return new StringBuilder().append(i).append('/').append(allSlots.size()).toString();
 		
 	}
 	public int getPlayerCount(){
@@ -286,6 +287,13 @@ public class Arena implements Serializable, DomainModel{
 	}
 	public List<ArenaSlot> getPlayerSlots(){
 		return slots;
+	}
+	public int getRefereeCount(){
+		int i=0;
+		for(ArenaSlot slot:slots){
+			if (slot.getUser()!= null) ++i;
+		}
+		return i;
 	}
 	public List<ArenaSlot> getRefereeSlots(){
 		return referees;
@@ -312,8 +320,7 @@ public class Arena implements Serializable, DomainModel{
 		
 		//write game
 		if (game != null){
-			proto.response.ResGame.LogicalGame.Builder lgBuilder = LogicalGame.newBuilder().setId(game.getId()).setName(game.getName());
-			builder.setLogicalGame(lgBuilder);
+			builder.setLogicalGame(game.toProtobuf());
 		}
 		
 		if (physicalGame != null){

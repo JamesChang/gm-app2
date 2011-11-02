@@ -6,6 +6,7 @@ import "res_arena.proto";
 import "res_gameres.proto";
 import "res_user.proto";
 import "res_game.proto";
+import "res_event.proto";
 
 message ArenaJoined {
   optional Arena arena = 2;

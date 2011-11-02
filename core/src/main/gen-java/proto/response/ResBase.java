@@ -124,6 +124,13 @@ public final class ResBase {
     public boolean hasCollegeList() { return hasCollegeList; }
     public proto.response.ResUser.CollegeListResponse getCollegeList() { return collegeList_; }
     
+    // optional .UserEventList my_events = 144;
+    public static final int MY_EVENTS_FIELD_NUMBER = 144;
+    private boolean hasMyEvents;
+    private proto.response.ResEvent.UserEventList myEvents_;
+    public boolean hasMyEvents() { return hasMyEvents; }
+    public proto.response.ResEvent.UserEventList getMyEvents() { return myEvents_; }
+    
     // optional .ActivityGetResponse activityGet = 200;
     public static final int ACTIVITYGET_FIELD_NUMBER = 200;
     private boolean hasActivityGet;
@@ -179,6 +186,13 @@ public final class ResBase {
     private proto.response.ResTeam.MyTeamApplications myTeamApplications_;
     public boolean hasMyTeamApplications() { return hasMyTeamApplications; }
     public proto.response.ResTeam.MyTeamApplications getMyTeamApplications() { return myTeamApplications_; }
+    
+    // optional .MyTeamApplications teamApplications = 313;
+    public static final int TEAMAPPLICATIONS_FIELD_NUMBER = 313;
+    private boolean hasTeamApplications;
+    private proto.response.ResTeam.MyTeamApplications teamApplications_;
+    public boolean hasTeamApplications() { return hasTeamApplications; }
+    public proto.response.ResTeam.MyTeamApplications getTeamApplications() { return teamApplications_; }
     
     // optional .PartyModel partyGet = 350;
     public static final int PARTYGET_FIELD_NUMBER = 350;
@@ -236,6 +250,20 @@ public final class ResBase {
     public boolean hasCa03Homepage() { return hasCa03Homepage; }
     public proto.response.ResCampusArena.CampusArena03Home getCa03Homepage() { return ca03Homepage_; }
     
+    // optional .CA078_Leader_Board ca078_leaderboard = 406;
+    public static final int CA078_LEADERBOARD_FIELD_NUMBER = 406;
+    private boolean hasCa078Leaderboard;
+    private proto.response.ResCampusArena.CA078_Leader_Board ca078Leaderboard_;
+    public boolean hasCa078Leaderboard() { return hasCa078Leaderboard; }
+    public proto.response.ResCampusArena.CA078_Leader_Board getCa078Leaderboard() { return ca078Leaderboard_; }
+    
+    // optional .CA078_Leader_Board rts_leaderboard = 407;
+    public static final int RTS_LEADERBOARD_FIELD_NUMBER = 407;
+    private boolean hasRtsLeaderboard;
+    private proto.response.ResCampusArena.CA078_Leader_Board rtsLeaderboard_;
+    public boolean hasRtsLeaderboard() { return hasRtsLeaderboard; }
+    public proto.response.ResCampusArena.CA078_Leader_Board getRtsLeaderboard() { return rtsLeaderboard_; }
+    
     // optional .ChatGroupModel chatGroupGet = 450;
     public static final int CHATGROUPGET_FIELD_NUMBER = 450;
     private boolean hasChatGroupGet;
@@ -274,9 +302,9 @@ public final class ResBase {
     // optional .EventGet eventGet = 463;
     public static final int EVENTGET_FIELD_NUMBER = 463;
     private boolean hasEventGet;
-    private proto.response.ResGame.EventGet eventGet_;
+    private proto.response.ResEvent.EventGet eventGet_;
     public boolean hasEventGet() { return hasEventGet; }
-    public proto.response.ResGame.EventGet getEventGet() { return eventGet_; }
+    public proto.response.ResEvent.EventGet getEventGet() { return eventGet_; }
     
     // optional .Arena arenaGet = 470;
     public static final int ARENAGET_FIELD_NUMBER = 470;
@@ -337,6 +365,7 @@ public final class ResBase {
       userGet_ = proto.response.ResUser.UserModel.getDefaultInstance();
       userList_ = proto.response.ResUser.UserListResponse.getDefaultInstance();
       collegeList_ = proto.response.ResUser.CollegeListResponse.getDefaultInstance();
+      myEvents_ = proto.response.ResEvent.UserEventList.getDefaultInstance();
       activityGet_ = proto.response.ResActivity.ActivityGetResponse.getDefaultInstance();
       activityList_ = proto.response.ResActivity.ActivityListResponse.getDefaultInstance();
       clanGet_ = proto.response.ResClan.ClanGetResponse.getDefaultInstance();
@@ -345,6 +374,7 @@ public final class ResBase {
       teamGet_ = proto.response.ResTeam.TeamGetResponse.getDefaultInstance();
       teamList_ = proto.response.ResTeam.TeamListResponse.getDefaultInstance();
       myTeamApplications_ = proto.response.ResTeam.MyTeamApplications.getDefaultInstance();
+      teamApplications_ = proto.response.ResTeam.MyTeamApplications.getDefaultInstance();
       partyGet_ = proto.response.ResParty.PartyModel.getDefaultInstance();
       partyList_ = proto.response.ResParty.PartyList.getDefaultInstance();
       campusArenaGet_ = proto.response.ResCampusArena.CampusArenaGet.getDefaultInstance();
@@ -353,12 +383,14 @@ public final class ResBase {
       ca03ArenaList_ = proto.response.ResCampusArena.CampusArena03List.getDefaultInstance();
       ca03Stats_ = proto.response.ResCampusArena.CampusArena03Stats.getDefaultInstance();
       ca03Homepage_ = proto.response.ResCampusArena.CampusArena03Home.getDefaultInstance();
+      ca078Leaderboard_ = proto.response.ResCampusArena.CA078_Leader_Board.getDefaultInstance();
+      rtsLeaderboard_ = proto.response.ResCampusArena.CA078_Leader_Board.getDefaultInstance();
       chatGroupGet_ = proto.response.ResChatgroup.ChatGroupModel.getDefaultInstance();
       chatGroupList_ = proto.response.ResChatgroup.ChatGroupList.getDefaultInstance();
       physicalGame_ = proto.response.ResGame.PhysicalGame.getDefaultInstance();
       physicalGameList_ = proto.response.ResGame.PhysicalGameList.getDefaultInstance();
       mapList_ = proto.response.ResGame.MapList.getDefaultInstance();
-      eventGet_ = proto.response.ResGame.EventGet.getDefaultInstance();
+      eventGet_ = proto.response.ResEvent.EventGet.getDefaultInstance();
       arenaGet_ = proto.res.ResArena.Arena.getDefaultInstance();
       arenaList_ = proto.res.ResArena.ArenaList.getDefaultInstance();
       inetTableList_ = proto.response.ResInet.InetTableList.getDefaultInstance();
@@ -937,6 +969,43 @@ public final class ResBase {
         return this;
       }
       
+      // optional .UserEventList my_events = 144;
+      public boolean hasMyEvents() {
+        return result.hasMyEvents();
+      }
+      public proto.response.ResEvent.UserEventList getMyEvents() {
+        return result.getMyEvents();
+      }
+      public Builder setMyEvents(proto.response.ResEvent.UserEventList value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.hasMyEvents = true;
+        result.myEvents_ = value;
+        return this;
+      }
+      public Builder setMyEvents(proto.response.ResEvent.UserEventList.Builder builderForValue) {
+        result.hasMyEvents = true;
+        result.myEvents_ = builderForValue.build();
+        return this;
+      }
+      public Builder mergeMyEvents(proto.response.ResEvent.UserEventList value) {
+        if (result.hasMyEvents() &&
+            result.myEvents_ != proto.response.ResEvent.UserEventList.getDefaultInstance()) {
+          result.myEvents_ =
+            proto.response.ResEvent.UserEventList.newBuilder(result.myEvents_).mergeFrom(value).buildPartial();
+        } else {
+          result.myEvents_ = value;
+        }
+        result.hasMyEvents = true;
+        return this;
+      }
+      public Builder clearMyEvents() {
+        result.hasMyEvents = false;
+        result.myEvents_ = proto.response.ResEvent.UserEventList.getDefaultInstance();
+        return this;
+      }
+      
       // optional .ActivityGetResponse activityGet = 200;
       public boolean hasActivityGet() {
         return result.hasActivityGet();
@@ -1230,6 +1299,43 @@ public final class ResBase {
       public Builder clearMyTeamApplications() {
         result.hasMyTeamApplications = false;
         result.myTeamApplications_ = proto.response.ResTeam.MyTeamApplications.getDefaultInstance();
+        return this;
+      }
+      
+      // optional .MyTeamApplications teamApplications = 313;
+      public boolean hasTeamApplications() {
+        return result.hasTeamApplications();
+      }
+      public proto.response.ResTeam.MyTeamApplications getTeamApplications() {
+        return result.getTeamApplications();
+      }
+      public Builder setTeamApplications(proto.response.ResTeam.MyTeamApplications value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.hasTeamApplications = true;
+        result.teamApplications_ = value;
+        return this;
+      }
+      public Builder setTeamApplications(proto.response.ResTeam.MyTeamApplications.Builder builderForValue) {
+        result.hasTeamApplications = true;
+        result.teamApplications_ = builderForValue.build();
+        return this;
+      }
+      public Builder mergeTeamApplications(proto.response.ResTeam.MyTeamApplications value) {
+        if (result.hasTeamApplications() &&
+            result.teamApplications_ != proto.response.ResTeam.MyTeamApplications.getDefaultInstance()) {
+          result.teamApplications_ =
+            proto.response.ResTeam.MyTeamApplications.newBuilder(result.teamApplications_).mergeFrom(value).buildPartial();
+        } else {
+          result.teamApplications_ = value;
+        }
+        result.hasTeamApplications = true;
+        return this;
+      }
+      public Builder clearTeamApplications() {
+        result.hasTeamApplications = false;
+        result.teamApplications_ = proto.response.ResTeam.MyTeamApplications.getDefaultInstance();
         return this;
       }
       
@@ -1529,6 +1635,80 @@ public final class ResBase {
         return this;
       }
       
+      // optional .CA078_Leader_Board ca078_leaderboard = 406;
+      public boolean hasCa078Leaderboard() {
+        return result.hasCa078Leaderboard();
+      }
+      public proto.response.ResCampusArena.CA078_Leader_Board getCa078Leaderboard() {
+        return result.getCa078Leaderboard();
+      }
+      public Builder setCa078Leaderboard(proto.response.ResCampusArena.CA078_Leader_Board value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.hasCa078Leaderboard = true;
+        result.ca078Leaderboard_ = value;
+        return this;
+      }
+      public Builder setCa078Leaderboard(proto.response.ResCampusArena.CA078_Leader_Board.Builder builderForValue) {
+        result.hasCa078Leaderboard = true;
+        result.ca078Leaderboard_ = builderForValue.build();
+        return this;
+      }
+      public Builder mergeCa078Leaderboard(proto.response.ResCampusArena.CA078_Leader_Board value) {
+        if (result.hasCa078Leaderboard() &&
+            result.ca078Leaderboard_ != proto.response.ResCampusArena.CA078_Leader_Board.getDefaultInstance()) {
+          result.ca078Leaderboard_ =
+            proto.response.ResCampusArena.CA078_Leader_Board.newBuilder(result.ca078Leaderboard_).mergeFrom(value).buildPartial();
+        } else {
+          result.ca078Leaderboard_ = value;
+        }
+        result.hasCa078Leaderboard = true;
+        return this;
+      }
+      public Builder clearCa078Leaderboard() {
+        result.hasCa078Leaderboard = false;
+        result.ca078Leaderboard_ = proto.response.ResCampusArena.CA078_Leader_Board.getDefaultInstance();
+        return this;
+      }
+      
+      // optional .CA078_Leader_Board rts_leaderboard = 407;
+      public boolean hasRtsLeaderboard() {
+        return result.hasRtsLeaderboard();
+      }
+      public proto.response.ResCampusArena.CA078_Leader_Board getRtsLeaderboard() {
+        return result.getRtsLeaderboard();
+      }
+      public Builder setRtsLeaderboard(proto.response.ResCampusArena.CA078_Leader_Board value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.hasRtsLeaderboard = true;
+        result.rtsLeaderboard_ = value;
+        return this;
+      }
+      public Builder setRtsLeaderboard(proto.response.ResCampusArena.CA078_Leader_Board.Builder builderForValue) {
+        result.hasRtsLeaderboard = true;
+        result.rtsLeaderboard_ = builderForValue.build();
+        return this;
+      }
+      public Builder mergeRtsLeaderboard(proto.response.ResCampusArena.CA078_Leader_Board value) {
+        if (result.hasRtsLeaderboard() &&
+            result.rtsLeaderboard_ != proto.response.ResCampusArena.CA078_Leader_Board.getDefaultInstance()) {
+          result.rtsLeaderboard_ =
+            proto.response.ResCampusArena.CA078_Leader_Board.newBuilder(result.rtsLeaderboard_).mergeFrom(value).buildPartial();
+        } else {
+          result.rtsLeaderboard_ = value;
+        }
+        result.hasRtsLeaderboard = true;
+        return this;
+      }
+      public Builder clearRtsLeaderboard() {
+        result.hasRtsLeaderboard = false;
+        result.rtsLeaderboard_ = proto.response.ResCampusArena.CA078_Leader_Board.getDefaultInstance();
+        return this;
+      }
+      
       // optional .ChatGroupModel chatGroupGet = 450;
       public boolean hasChatGroupGet() {
         return result.hasChatGroupGet();
@@ -1718,10 +1898,10 @@ public final class ResBase {
       public boolean hasEventGet() {
         return result.hasEventGet();
       }
-      public proto.response.ResGame.EventGet getEventGet() {
+      public proto.response.ResEvent.EventGet getEventGet() {
         return result.getEventGet();
       }
-      public Builder setEventGet(proto.response.ResGame.EventGet value) {
+      public Builder setEventGet(proto.response.ResEvent.EventGet value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -1729,16 +1909,16 @@ public final class ResBase {
         result.eventGet_ = value;
         return this;
       }
-      public Builder setEventGet(proto.response.ResGame.EventGet.Builder builderForValue) {
+      public Builder setEventGet(proto.response.ResEvent.EventGet.Builder builderForValue) {
         result.hasEventGet = true;
         result.eventGet_ = builderForValue.build();
         return this;
       }
-      public Builder mergeEventGet(proto.response.ResGame.EventGet value) {
+      public Builder mergeEventGet(proto.response.ResEvent.EventGet value) {
         if (result.hasEventGet() &&
-            result.eventGet_ != proto.response.ResGame.EventGet.getDefaultInstance()) {
+            result.eventGet_ != proto.response.ResEvent.EventGet.getDefaultInstance()) {
           result.eventGet_ =
-            proto.response.ResGame.EventGet.newBuilder(result.eventGet_).mergeFrom(value).buildPartial();
+            proto.response.ResEvent.EventGet.newBuilder(result.eventGet_).mergeFrom(value).buildPartial();
         } else {
           result.eventGet_ = value;
         }
@@ -1747,7 +1927,7 @@ public final class ResBase {
       }
       public Builder clearEventGet() {
         result.hasEventGet = false;
-        result.eventGet_ = proto.response.ResGame.EventGet.getDefaultInstance();
+        result.eventGet_ = proto.response.ResEvent.EventGet.getDefaultInstance();
         return this;
       }
       
@@ -2070,6 +2250,13 @@ public final class ResBase {
     public boolean hasTarget() { return hasTarget; }
     public java.lang.String getTarget() { return target_; }
     
+    // optional string error_data = 4;
+    public static final int ERROR_DATA_FIELD_NUMBER = 4;
+    private boolean hasErrorData;
+    private java.lang.String errorData_ = "";
+    public boolean hasErrorData() { return hasErrorData; }
+    public java.lang.String getErrorData() { return errorData_; }
+    
     private void initFields() {
     }
     public static proto.response.ResBase.ResponseError parseFrom(
@@ -2272,6 +2459,27 @@ public final class ResBase {
       public Builder clearTarget() {
         result.hasTarget = false;
         result.target_ = getDefaultInstance().getTarget();
+        return this;
+      }
+      
+      // optional string error_data = 4;
+      public boolean hasErrorData() {
+        return result.hasErrorData();
+      }
+      public java.lang.String getErrorData() {
+        return result.getErrorData();
+      }
+      public Builder setErrorData(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasErrorData = true;
+        result.errorData_ = value;
+        return this;
+      }
+      public Builder clearErrorData() {
+        result.hasErrorData = false;
+        result.errorData_ = getDefaultInstance().getErrorData();
         return this;
       }
       
@@ -2743,49 +2951,54 @@ public final class ResBase {
       "\017res_party.proto\032\016res_game.proto\032\026res_ca" +
       "mpus_arena.proto\032\023res_chatgroup.proto\032\017r" +
       "es_arena.proto\032\016res_inet.proto\032\020res_batt" +
-      "le.proto\"\202\014\n\010Response\022\016\n\006subMsg\030\001 \001(\t\022\014\n" +
-      "\004code\030\002 \002(\r\022\036\n\006errors\030\003 \003(\0132\016.ResponseEr" +
-      "ror\022\033\n\004bool\0304 \001(\0132\r.BoolResponse\022$\n\013stri" +
-      "ngValue\0305 \001(\0132\017.StringResponse\022\'\n\ncaptch",
-      "aNew\030e \001(\0132\023.CaptchaNewResponse\022+\n\014userT" +
-      "CPLogin\030f \001(\0132\025.UserTCPLoginResponse\022-\n\r" +
-      "userTCPLogout\030g \001(\0132\026.UserTCPLogoutRespo" +
-      "nse\022)\n\013userTCPdrop\030h \001(\0132\024.UserTCPDropRe" +
-      "sponse\022\034\n\007userGet\030\215\001 \001(\0132\n.UserModel\022$\n\010" +
-      "userList\030\216\001 \001(\0132\021.UserListResponse\022*\n\013co" +
-      "llegeList\030\217\001 \001(\0132\024.CollegeListResponse\022*" +
-      "\n\013activityGet\030\310\001 \001(\0132\024.ActivityGetRespon" +
-      "se\022,\n\014activityList\030\311\001 \001(\0132\025.ActivityList" +
-      "Response\022\"\n\007clanGet\030\322\001 \001(\0132\020.ClanGetResp",
-      "onse\022$\n\010clanList\030\334\001 \001(\0132\021.ClanListRespon" +
-      "se\022\034\n\tmsgRecent\030\254\002 \001(\0132\010.MsgList\022\"\n\007team" +
-      "Get\030\266\002 \001(\0132\020.TeamGetResponse\022$\n\010teamList" +
-      "\030\267\002 \001(\0132\021.TeamListResponse\0220\n\022myTeamAppl" +
-      "ications\030\270\002 \001(\0132\023.MyTeamApplications\022\036\n\010" +
-      "partyGet\030\336\002 \001(\0132\013.PartyModel\022\036\n\tpartyLis" +
-      "t\030\337\002 \001(\0132\n.PartyList\022(\n\016campusArenaGet\030\220" +
-      "\003 \001(\0132\017.CampusArenaGet\022*\n\017logicalGameLis" +
-      "t\030\221\003 \001(\0132\020.LogicalGameList\022:\n\027campusAren" +
-      "aGroupingList\030\222\003 \001(\0132\030.CampusArenaGroupi",
-      "ngList\022*\n\rca03ArenaList\030\223\003 \001(\0132\022.CampusA" +
-      "rena03List\022\'\n\tca03Stats\030\224\003 \001(\0132\023.CampusA" +
-      "rena03Stats\022)\n\014ca03Homepage\030\225\003 \001(\0132\022.Cam" +
-      "pusArena03Home\022&\n\014chatGroupGet\030\302\003 \001(\0132\017." +
-      "ChatGroupModel\022&\n\rchatGroupList\030\303\003 \001(\0132\016" +
-      ".ChatGroupList\022$\n\014physicalGame\030\314\003 \001(\0132\r." +
-      "PhysicalGame\022,\n\020physicalGameList\030\315\003 \001(\0132" +
-      "\021.PhysicalGameList\022\032\n\007mapList\030\316\003 \001(\0132\010.M" +
-      "apList\022\034\n\010eventGet\030\317\003 \001(\0132\t.EventGet\022\031\n\010" +
-      "arenaGet\030\326\003 \001(\0132\006.Arena\022\036\n\tarenaList\030\327\003 ",
-      "\001(\0132\n.ArenaList\022&\n\rinetTableList\030\364\003 \001(\0132" +
-      "\016.InetTableList\022\036\n\tinetTable\030\365\003 \001(\0132\n.In" +
-      "etTable\022\036\n\tinetStats\030\366\003 \001(\0132\n.InetStats\022" +
-      "\"\n\tbattleGet\030\223\004 \001(\0132\016.BattleMessage\022 \n\nb" +
-      "attleList\030\224\004 \001(\0132\013.BattleList\";\n\rRespons" +
-      "eError\022\014\n\004code\030\001 \002(\r\022\014\n\004desc\030\002 \001(\t\022\016\n\006ta" +
-      "rget\030\003 \001(\t\"\035\n\014BoolResponse\022\r\n\005value\030\001 \002(" +
-      "\010\"\037\n\016StringResponse\022\r\n\005value\030\001 \002(\tB\022\n\016pr" +
-      "oto.responseH\002"
+      "le.proto\032\017res_event.proto\"\266\r\n\010Response\022\016" +
+      "\n\006subMsg\030\001 \001(\t\022\014\n\004code\030\002 \002(\r\022\036\n\006errors\030\003" +
+      " \003(\0132\016.ResponseError\022\033\n\004bool\0304 \001(\0132\r.Boo" +
+      "lResponse\022$\n\013stringValue\0305 \001(\0132\017.StringR",
+      "esponse\022\'\n\ncaptchaNew\030e \001(\0132\023.CaptchaNew" +
+      "Response\022+\n\014userTCPLogin\030f \001(\0132\025.UserTCP" +
+      "LoginResponse\022-\n\ruserTCPLogout\030g \001(\0132\026.U" +
+      "serTCPLogoutResponse\022)\n\013userTCPdrop\030h \001(" +
+      "\0132\024.UserTCPDropResponse\022\034\n\007userGet\030\215\001 \001(" +
+      "\0132\n.UserModel\022$\n\010userList\030\216\001 \001(\0132\021.UserL" +
+      "istResponse\022*\n\013collegeList\030\217\001 \001(\0132\024.Coll" +
+      "egeListResponse\022\"\n\tmy_events\030\220\001 \001(\0132\016.Us" +
+      "erEventList\022*\n\013activityGet\030\310\001 \001(\0132\024.Acti" +
+      "vityGetResponse\022,\n\014activityList\030\311\001 \001(\0132\025",
+      ".ActivityListResponse\022\"\n\007clanGet\030\322\001 \001(\0132" +
+      "\020.ClanGetResponse\022$\n\010clanList\030\334\001 \001(\0132\021.C" +
+      "lanListResponse\022\034\n\tmsgRecent\030\254\002 \001(\0132\010.Ms" +
+      "gList\022\"\n\007teamGet\030\266\002 \001(\0132\020.TeamGetRespons" +
+      "e\022$\n\010teamList\030\267\002 \001(\0132\021.TeamListResponse\022" +
+      "0\n\022myTeamApplications\030\270\002 \001(\0132\023.MyTeamApp" +
+      "lications\022.\n\020teamApplications\030\271\002 \001(\0132\023.M" +
+      "yTeamApplications\022\036\n\010partyGet\030\336\002 \001(\0132\013.P" +
+      "artyModel\022\036\n\tpartyList\030\337\002 \001(\0132\n.PartyLis" +
+      "t\022(\n\016campusArenaGet\030\220\003 \001(\0132\017.CampusArena",
+      "Get\022*\n\017logicalGameList\030\221\003 \001(\0132\020.LogicalG" +
+      "ameList\022:\n\027campusArenaGroupingList\030\222\003 \001(" +
+      "\0132\030.CampusArenaGroupingList\022*\n\rca03Arena" +
+      "List\030\223\003 \001(\0132\022.CampusArena03List\022\'\n\tca03S" +
+      "tats\030\224\003 \001(\0132\023.CampusArena03Stats\022)\n\014ca03" +
+      "Homepage\030\225\003 \001(\0132\022.CampusArena03Home\022/\n\021c" +
+      "a078_leaderboard\030\226\003 \001(\0132\023.CA078_Leader_B" +
+      "oard\022-\n\017rts_leaderboard\030\227\003 \001(\0132\023.CA078_L" +
+      "eader_Board\022&\n\014chatGroupGet\030\302\003 \001(\0132\017.Cha" +
+      "tGroupModel\022&\n\rchatGroupList\030\303\003 \001(\0132\016.Ch",
+      "atGroupList\022$\n\014physicalGame\030\314\003 \001(\0132\r.Phy" +
+      "sicalGame\022,\n\020physicalGameList\030\315\003 \001(\0132\021.P" +
+      "hysicalGameList\022\032\n\007mapList\030\316\003 \001(\0132\010.MapL" +
+      "ist\022\034\n\010eventGet\030\317\003 \001(\0132\t.EventGet\022\031\n\010are" +
+      "naGet\030\326\003 \001(\0132\006.Arena\022\036\n\tarenaList\030\327\003 \001(\013" +
+      "2\n.ArenaList\022&\n\rinetTableList\030\364\003 \001(\0132\016.I" +
+      "netTableList\022\036\n\tinetTable\030\365\003 \001(\0132\n.InetT" +
+      "able\022\036\n\tinetStats\030\366\003 \001(\0132\n.InetStats\022\"\n\t" +
+      "battleGet\030\223\004 \001(\0132\016.BattleMessage\022 \n\nbatt" +
+      "leList\030\224\004 \001(\0132\013.BattleList\"O\n\rResponseEr",
+      "ror\022\014\n\004code\030\001 \002(\r\022\014\n\004desc\030\002 \001(\t\022\016\n\006targe" +
+      "t\030\003 \001(\t\022\022\n\nerror_data\030\004 \001(\t\"\035\n\014BoolRespo" +
+      "nse\022\r\n\005value\030\001 \002(\010\"\037\n\016StringResponse\022\r\n\005" +
+      "value\030\001 \002(\tB\022\n\016proto.responseH\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -2797,7 +3010,7 @@ public final class ResBase {
           internal_static_Response_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Response_descriptor,
-              new java.lang.String[] { "SubMsg", "Code", "Errors", "Bool", "StringValue", "CaptchaNew", "UserTCPLogin", "UserTCPLogout", "UserTCPdrop", "UserGet", "UserList", "CollegeList", "ActivityGet", "ActivityList", "ClanGet", "ClanList", "MsgRecent", "TeamGet", "TeamList", "MyTeamApplications", "PartyGet", "PartyList", "CampusArenaGet", "LogicalGameList", "CampusArenaGroupingList", "Ca03ArenaList", "Ca03Stats", "Ca03Homepage", "ChatGroupGet", "ChatGroupList", "PhysicalGame", "PhysicalGameList", "MapList", "EventGet", "ArenaGet", "ArenaList", "InetTableList", "InetTable", "InetStats", "BattleGet", "BattleList", },
+              new java.lang.String[] { "SubMsg", "Code", "Errors", "Bool", "StringValue", "CaptchaNew", "UserTCPLogin", "UserTCPLogout", "UserTCPdrop", "UserGet", "UserList", "CollegeList", "MyEvents", "ActivityGet", "ActivityList", "ClanGet", "ClanList", "MsgRecent", "TeamGet", "TeamList", "MyTeamApplications", "TeamApplications", "PartyGet", "PartyList", "CampusArenaGet", "LogicalGameList", "CampusArenaGroupingList", "Ca03ArenaList", "Ca03Stats", "Ca03Homepage", "Ca078Leaderboard", "RtsLeaderboard", "ChatGroupGet", "ChatGroupList", "PhysicalGame", "PhysicalGameList", "MapList", "EventGet", "ArenaGet", "ArenaList", "InetTableList", "InetTable", "InetStats", "BattleGet", "BattleList", },
               proto.response.ResBase.Response.class,
               proto.response.ResBase.Response.Builder.class);
           internal_static_ResponseError_descriptor =
@@ -2805,7 +3018,7 @@ public final class ResBase {
           internal_static_ResponseError_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ResponseError_descriptor,
-              new java.lang.String[] { "Code", "Desc", "Target", },
+              new java.lang.String[] { "Code", "Desc", "Target", "ErrorData", },
               proto.response.ResBase.ResponseError.class,
               proto.response.ResBase.ResponseError.Builder.class);
           internal_static_BoolResponse_descriptor =
@@ -2843,6 +3056,7 @@ public final class ResBase {
           proto.res.ResArena.getDescriptor(),
           proto.response.ResInet.getDescriptor(),
           proto.res.ResBattle.getDescriptor(),
+          proto.response.ResEvent.getDescriptor(),
         }, assigner);
   }
   

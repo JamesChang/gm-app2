@@ -32,7 +32,7 @@ public abstract class ClientMessage {
     
     protected MsgBase.Msg.Builder rootBuilder;
     protected Msg msg;
-    public Msg getMsg() {
+    public synchronized Msg getMsg() {
     	if (msg == null)
     		build();
 		return msg;
@@ -136,9 +136,7 @@ public abstract class ClientMessage {
 	 * @return the inner data of protobuffer
 	 */
 	public void build() {
-		//TODO: move msg to logging
 		msg = rootBuilder.build();
-		//System.out.println(msg);
 		//return msg.toByteArray();
 	}
 

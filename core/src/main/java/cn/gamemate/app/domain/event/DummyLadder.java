@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import proto.response.ResEvent;
 import proto.response.ResGame;
 
 import com.google.protobuf.GeneratedMessage.Builder;
@@ -167,7 +168,7 @@ public class DummyLadder extends Ladder{
 	}
 
 	@Override
-	public ResGame.EventGet.Builder toProtobuf() {
+	public ResEvent.EventGet.Builder toProtobuf(int verbose) {
 		throw new NotFullySupportedException("");
 	}
 

@@ -1,7 +1,5 @@
 package cn.gamemate.app.domain.arena;
 
-import org.jboss.netty.channel.MessageEvent;
-
 import cn.gamemate.app.domain.DomainModelEvent;
 import cn.gamemate.app.domain.DomainModelExtension;
 

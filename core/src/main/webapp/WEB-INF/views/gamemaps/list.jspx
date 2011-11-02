@@ -8,6 +8,7 @@
             <table:column id="c_cn_gamemate_app_domain_game_GameMap_fileSize" property="fileSize" z="Zb1Mz2FK7qPleUESblU/i3Vuz40="/>
             <table:column id="c_cn_gamemate_app_domain_game_GameMap_fileLink" property="fileLink" z="NYvAPB9WVVEtEMHeXd0KXsDnYnc="/>
             <table:column id="c_cn_gamemate_app_domain_game_GameMap_attrsInJson" property="attrsInJson" z="SXyEOFyGouyr0oBFcdash7VmAIA="/>
+        <table:column id="c_cn_gamemate_app_domain_game_GameMap_physicalGameID" property="physicalGameID" z="gF0buJd7+suCZe2suNDzAkSypy4="/>
         </table:table>
     </page:list>
 </div>

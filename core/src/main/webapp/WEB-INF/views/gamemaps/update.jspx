@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
     <jsp:output omit-xml-declaration="yes"/>
-    <form:update id="fu_cn_gamemate_app_domain_game_GameMap" modelAttribute="gameMap" path="/gamemaps" z="ZdhaNnda3PDHdxD/eRLrCSOV3Y8=">
+    <form:update id="fu_cn_gamemate_app_domain_game_GameMap" modelAttribute="gameMap" path="/gamemaps" versionField="Version" z="vnm13+lxoTv+vWARComVWPxU/9w=">
         <field:textarea field="name" id="c_cn_gamemate_app_domain_game_GameMap_name" required="true" z="xx/QLfGtSMBwkYzeqqvVi1w1dY4="/>
         <field:textarea field="digest" id="c_cn_gamemate_app_domain_game_GameMap_digest" required="true" z="bLJhusqqvTvhVZg3OzTxgMQqjcI="/>
         <field:input field="fileSize" id="c_cn_gamemate_app_domain_game_GameMap_fileSize" required="true" validationMessageCode="field_invalid_integer" z="3YkyjizLkalP3RbjUslegdMl5ww="/>
         <field:input field="fileLink" id="c_cn_gamemate_app_domain_game_GameMap_fileLink" z="NDIxyMPRQ/Fg226MrPageYonx7M="/>
         <field:input field="attrsInJson" id="c_cn_gamemate_app_domain_game_GameMap_attrsInJson" z="QH9DyGa7EaUctMypVpgieutVCDk="/>
+        <field:input field="physicalGameID" id="c_cn_gamemate_app_domain_game_GameMap_physicalGameID" validationMessageCode="field_invalid_integer" z="8Up7gWwyxRJpt4QGEXYyaQeRcHs="/>
     </form:update>
 </div>

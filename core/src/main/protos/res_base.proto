@@ -17,6 +17,7 @@ import "res_chatgroup.proto";
 import "res_arena.proto";
 import "res_inet.proto";
 import "res_battle.proto";
+import "res_event.proto";
 message Response{
   
   // indicates actual field returned because that we cannot use extension.
@@ -46,6 +47,7 @@ message Response{
   optional UserModel userGet=141;
   optional UserListResponse userList=142;
   optional CollegeListResponse collegeList=143;
+  optional UserEventList my_events = 144;
   
   //activity operations, 200-209
   optional ActivityGetResponse activityGet=200;
@@ -62,6 +64,7 @@ message Response{
   optional TeamGetResponse teamGet = 310;
   optional TeamListResponse teamList = 311;
   optional MyTeamApplications myTeamApplications = 312;
+  optional MyTeamApplications teamApplications = 313;
   
   // party operations, 350 - 399
   optional PartyModel partyGet = 350;
@@ -75,6 +78,9 @@ message Response{
   optional CampusArena03List ca03ArenaList = 403;
   optional CampusArena03Stats ca03Stats = 404;
   optional CampusArena03Home ca03Homepage = 405;
+
+  optional CA078_Leader_Board ca078_leaderboard = 406;
+  optional CA078_Leader_Board rts_leaderboard = 407;
   
   // chat group operations 450-459
   optional ChatGroupModel chatGroupGet = 450;
@@ -106,6 +112,7 @@ message ResponseError{
   required uint32 code = 1;
   optional string desc = 2; 
   optional string target = 3; 
+  optional string error_data = 4;
 }
 
 message BoolResponse{

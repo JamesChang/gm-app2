@@ -1,6 +1,7 @@
 package cn.gamemate.app.domain.arena;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import me.prettyprint.cassandra.serializers.BytesArraySerializer;
@@ -17,6 +18,8 @@ import me.prettyprint.hector.api.query.MultigetSliceQuery;
 import me.prettyprint.hector.api.query.QueryResult;
 import me.prettyprint.hector.api.query.SliceQuery;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.joda.time.DateTime;
 import org.safehaus.uuid.UUID;
 import org.safehaus.uuid.UUIDGenerator;
@@ -30,6 +33,7 @@ import cn.gamemate.app.cassandra.JugUuidSerializer;
 import cn.gamemate.app.domain.DomainModel;
 import cn.gamemate.app.domain.DomainModelRuntimeException;
 import cn.gamemate.app.domain.ObjectNotFound;
+import cn.gamemate.app.domain.event.awards.BattleAwards;
 
 import com.google.common.base.Objects;
 import com.google.protobuf.GeneratedMessage.Builder;
@@ -39,6 +43,11 @@ import com.google.protobuf.InvalidProtocolBufferException;
 public class Battle implements DomainModel{
 	
 	public static final long serializationVersion= 1L; 
+	public static final String INVALID = "INVALID";
+	public static final String FINISHED = "FINISHED";
+	public static final String UNKNOWN = "UNKNOWN";
+	public static final String QUIT = "QUIT";
+	
 	
 	public enum BattleStatus {NEW, PENDING, DONE};
 	
@@ -53,21 +62,99 @@ public class Battle implements DomainModel{
 	protected UUID uuid;
 	
 	protected String text;	
-	protected BattleAwards awards;
+	private boolean textModified = false;
+	
+	protected BattleAwards user_game_awards;
+	private boolean  userGameAwardsModified = false;
+	
+	
+	public BattleAwards getUserGameAwards() {
+		return user_game_awards;
+	}
+
+	public void setUserGameAwards(BattleAwards awards) {
+		this.user_game_awards = awards;
+		this.userGameAwardsModified = true;
+	}
+
+	
+
+	protected BattleAwards user_awards;
+	private boolean  userAwardsModified = false;
+	
+	
+	public BattleAwards getUserAwards() {
+		return user_awards;
+	}
+
+	public void setUserAwards(BattleAwards awards) {
+		this.user_awards = awards;
+		this.userAwardsModified = true;
+	}
+	
+
+	protected BattleAwards user_event_awards;
+	private boolean  userEventAwardsModified = false;
+	
+	
+	public BattleAwards getUserEventAwards() {
+		return user_event_awards;
+	}
+
+	public void setUserEventAwards(BattleAwards awards) {
+		this.user_event_awards = awards;
+		this.userEventAwardsModified = true;
+	}
+	
+	
 	protected proto.res.ResArena.Arena arenaSnapshot;
+	public proto.res.ResArena.Arena getArenaSnapshot() {
+		return arenaSnapshot;
+	}
+	
+	public int getLogicalGameId(){
+		return arenaSnapshot.getLogicalGame().getId();
+	}
+
 	//required
 	protected BattleStatus status;
+	private boolean statusModified = false;
+	
 	//required
 	protected Long eventId;
 	protected DateTime startTime;
+
+	private List<Float> outcome;
+	private boolean outcomeModified = false;
+
+	public BattleStatus getStatus(){
+		return status;
+	}
+	
+	public void setStatus(BattleStatus status){
+		this.status = status;
+		statusModified = true;
+	}
+	
+	public List<Float> getOutcome(){
+		return outcome; 
+	}
+	
+	public void setOutcome(List<Float> outcome){
+		this.outcome = new ArrayList<Float>(outcome);
+		this.outcomeModified = true;
+	}
+	
+	
+	
 	//protected JSON data;
 	
 	public DateTime getStartTime() {
 		return startTime;
 	}
 
-	protected static final String BattleTable =  "Battles";
-	
+	public static final String BattleTable =  "Battles";
+	public static final String EventBattlesIndexTable = "EventBattles";
 	
 	public UUID getUuid() {
 		return uuid;
@@ -79,6 +166,7 @@ public class Battle implements DomainModel{
 		if (generator == null) throw new IllegalStateException("UUIDGenerator has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
 		return generator;
 	}
+	
 	protected static Keyspace keyspace(){
 		
 		Keyspace gmKeyspace = new Battle().gmKeyspace;
@@ -141,22 +229,49 @@ public class Battle implements DomainModel{
 					
 			}
 		}
+		
+		//create index Event --> Battle
+		for(proto.res.ResArena.ArenaSlot slot:arenaSnapshot.getPlayersList()){
+			if (slot.hasUser()){
+				mutator.addInsertion(
+							arenaSnapshot.getEventId(), 
+							EventBattlesIndexTable,
+							HFactory.createColumn(
+									battle.uuid.asByteArray(),
+									" ",
+									BytesArraySerializer.get(), StringSerializer.get()));
+					
+			}
+		}
 		mutator.execute();
+		
 		return battle;
 	}
 	
-	public static Battle get(UUID uuid) {
+	
+	public static <T extends Battle> T get(UUID uuid, Class<T> cls) {
 		//TODO: can this query be cached?
 		SliceQuery<UUID, String, byte[]> query = HFactory.createSliceQuery(keyspace(), JugUuidSerializer.get(), StringSerializer.get(), BytesArraySerializer.get());
 		ColumnSlice<String, byte[]> result = query.setKey(uuid).setColumnFamily(BattleTable).setRange("", "", false, 20).execute().get();		
-		Battle battle = fromColumnSlice(uuid, result);
+		T battle = T.fromColumnSlice(uuid, result, cls);
 		return battle;
 	}
 	
-	protected static Battle fromColumnSlice(UUID uuid,ColumnSlice<String, byte[]> columnSlice){
-		Battle battle = new Battle();
+	protected static <T extends Battle> T fromColumnSlice(
+			UUID uuid,
+			ColumnSlice<String, byte[]> columnSlice,
+			Class<T> cls){
+		T battle;
+		try {
+			battle = cls.newInstance();
+		} catch (InstantiationException e2) {
+			throw new RuntimeException(e2);
+		} catch (IllegalAccessException e2) {
+			throw new RuntimeException(e2);
+		}
 		battle.uuid = uuid;
 		
+		//TODO: if column count == 0, throw new ObjectNotFound
 		HColumn<String, byte[]> battleStatusColumn = columnSlice.getColumnByName("status");
 		if (battleStatusColumn == null){
 			throw new ObjectNotFound(Battle.class, uuid);
@@ -199,17 +314,33 @@ public class Battle implements DomainModel{
 			battle.text = "UNKNOWN";
 		}
 		
-		HColumn<String, byte[]> awardsColumns = columnSlice.getColumnByName("awards");
-		if (textColumn != null){
+		HColumn<String, byte[]> awardsColumns = columnSlice.getColumnByName("user_game_awards");
+		if (awardsColumns != null){
 			try{
-				battle.awards = BattleAwards.fromJson(StringSerializer.get().fromBytes(awardsColumns.getValue()));
+				battle.user_game_awards = BattleAwards.fromJson(StringSerializer.get().fromBytes(awardsColumns.getValue()));
 			}catch(Exception e){
 				//TODO: throw DataAccess Exception 
 				throw new RuntimeException(e);
 			}
 		}else{
-			battle.awards = new BattleAwards();
+			battle.user_game_awards = new BattleAwards();
 		}
+		
+		HColumn<String, byte[]> outcomeColumns = columnSlice.getColumnByName("outcome");
+		if (outcomeColumns != null){
+				String data = StringSerializer.get().fromBytes(outcomeColumns.getValue());
+				ObjectMapper mapper = new ObjectMapper();
+				List<Float> value2;
+				try {
+					value2 = mapper.readValue(data, new TypeReference<List<Float>>(){});
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+				battle.outcome = value2;
+		}else{
+			battle.outcome = Collections.emptyList();
+		}
+		
 		
 		return battle;
 	}
@@ -251,7 +382,7 @@ public class Battle implements DomainModel{
 		for(UUID tUUID:battleKeys){
 			Row<UUID, String, byte[]> row = rows.getByKey(tUUID);
 			if (row == null) continue;
-			result.add(fromColumnSlice(row.getKey(), row.getColumnSlice()));
+			result.add(fromColumnSlice(row.getKey(), row.getColumnSlice(), Battle.class));
 		}
 		return result;
 		
@@ -274,5 +405,73 @@ public class Battle implements DomainModel{
 		.toString();
 	}
 	
+	public void setText(String text){
+		this.text = text;
+		this.textModified = true;
+	}
+	
+	public String getText(){
+		return text;
+	}
+	
+	protected Mutator<UUID> generateMutator(){
+		Mutator<UUID> mutator = HFactory.createMutator(keyspace(), JugUuidSerializer.get());
+		
+		if (textModified){
+			mutator.addInsertion(uuid, BattleTable, 
+					HFactory.createStringColumn(
+							"text", text));
+			textModified = false;
+		}
+		
+		if (outcomeModified){
+			mutator.addInsertion(uuid, BattleTable,
+					HFactory.createStringColumn(
+							"outcome",
+							"["
+							+ com.google.common.base.Joiner.on(',')
+							.join(outcome) + "]"));
+			outcomeModified = false;
+		}
+		
+		if (statusModified){
+			mutator.addInsertion(uuid, BattleTable,
+					HFactory.createStringColumn(
+							"status", status.toString()));
+			statusModified = false;
+		}
+		
+		if (userGameAwardsModified){
+			mutator.addInsertion(uuid,BattleTable, 
+					HFactory.createStringColumn(
+							"user_game_awards", user_game_awards.toJson()
+							));
+			userGameAwardsModified = false;
+		}
+		
+		if (userAwardsModified){
+			mutator.addInsertion(uuid,BattleTable, 
+					HFactory.createStringColumn(
+							"user_awards", user_awards.toJson()
+							));
+			userAwardsModified = false;
+		}
+		
+		if (userEventAwardsModified){
+			mutator.addInsertion(uuid,BattleTable, 
+					HFactory.createStringColumn(
+							"user_event_awards", user_event_awards.toJson()
+							));
+			userEventAwardsModified = false;
+		}
+		
+		return mutator;
+	}
+	
+	public void update(){
+
+		generateMutator().execute();
+		
+	}
 
 }

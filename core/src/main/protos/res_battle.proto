@@ -3,6 +3,7 @@ option java_package = "proto.res";
 option optimize_for = CODE_SIZE;
 
 import "res_war3detail.proto";
+import "res_arena.proto";
 import "util.proto";
 
 message BattleMessage{
@@ -19,11 +20,45 @@ message BattleMessage{
 	//optional uint32 endTime = 9;
         optional string eventName = 10;
         optional string replay_file = 11; 	
+        optional uint32 effective_length = 12;
+      
+        repeated BattleReplay replays = 13;
+        repeated ArenaSlot referees = 14;
+
+        repeated BattleAwards user_game_awards = 15;
+        repeated BattleAwards user_awards = 16;
+        repeated BattleAwards user_event_awards = 17;
+        
+        optional Arena arenaSnapshot = 18;
+
 }
 
 message BattleList{
   repeated BattleMessage battles=1;
 }
+
+
+message BattleReplay{
+  optional uint32 submitter_id = 1;
+  optional string submitter_name = 2;
+  optional string rep_file = 3;
+  optional string parser_output = 4;
+  optional string text = 5;
+  optional fixed32 upload_time = 6;
+  optional bool adopted = 7;
+}
+
+message BattleAwards{
+  optional string target = 1;
+  optional uint32 gold = 2;
+  optional uint32 activity = 3;
+  optional float power =4;
+  optional float trueskill_mean = 5;
+  optional float trueskill_sd = 6;
+  optional uint32 total = 7;
+  optional uint32 win = 8; 
+}
+
 
 //message BattlePlayer{
 //	optional UserModel user = 1;

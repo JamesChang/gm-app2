@@ -7,5 +7,6 @@
         <field:display field="fileSize" id="s_cn_gamemate_app_domain_game_GameMap_fileSize" object="${gamemap}" z="02aFJFZm5hnY9NwckCGQSCkI670="/>
         <field:display field="fileLink" id="s_cn_gamemate_app_domain_game_GameMap_fileLink" object="${gamemap}" z="imJIPpjjEtoiG9iXHCl18vA4MLM="/>
         <field:display field="attrsInJson" id="s_cn_gamemate_app_domain_game_GameMap_attrsInJson" object="${gamemap}" z="QcD2kOHxTSYwKDHCsBckVM9At2k="/>
+    <field:display field="physicalGameID" id="s_cn_gamemate_app_domain_game_GameMap_physicalGameID" object="${gamemap}" z="SDsdsjTY1pizN/ca4jmttUudT5c="/>
     </page:show>
 </div>

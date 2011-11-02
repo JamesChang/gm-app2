@@ -81,3 +81,30 @@ message CampusArena03Home{
     repeated CampusArena03StatsItem dotaStats=7;
     
 }
+
+
+message CA078_Leader_Board{
+  repeated CA078_Leader_Board_Item items= 1;
+}
+
+message CA078_Leader_Board_Item{
+  optional string name = 1;
+  optional uint32 rank = 2;
+  optional int32 power = 3;
+  optional uint32 win = 4;
+  optional uint32 total = 5;
+  optional uint32 userid = 6;
+  optional float trueskill_mean = 7;
+  optional float trueskill_sd = 8;
+  optional string image = 9;
+  //rts 
+  optional int32 first = 10;
+  optional int32 second = 11;
+  optional int32 third = 12;
+  optional int32 rts_score = 13;
+  optional string id = 14;
+  optional string force_type = 15;
+  optional uint32 draw = 16;
+  
+}
+

@@ -77,8 +77,83 @@ public final class ResBattle {
     public boolean hasReplayFile() { return hasReplayFile; }
     public java.lang.String getReplayFile() { return replayFile_; }
     
+    // optional uint32 effective_length = 12;
+    public static final int EFFECTIVE_LENGTH_FIELD_NUMBER = 12;
+    private boolean hasEffectiveLength;
+    private int effectiveLength_ = 0;
+    public boolean hasEffectiveLength() { return hasEffectiveLength; }
+    public int getEffectiveLength() { return effectiveLength_; }
+    
+    // repeated .BattleReplay replays = 13;
+    public static final int REPLAYS_FIELD_NUMBER = 13;
+    private java.util.List<proto.res.ResBattle.BattleReplay> replays_ =
+      java.util.Collections.emptyList();
+    public java.util.List<proto.res.ResBattle.BattleReplay> getReplaysList() {
+      return replays_;
+    }
+    public int getReplaysCount() { return replays_.size(); }
+    public proto.res.ResBattle.BattleReplay getReplays(int index) {
+      return replays_.get(index);
+    }
+    
+    // repeated .ArenaSlot referees = 14;
+    public static final int REFEREES_FIELD_NUMBER = 14;
+    private java.util.List<proto.res.ResArena.ArenaSlot> referees_ =
+      java.util.Collections.emptyList();
+    public java.util.List<proto.res.ResArena.ArenaSlot> getRefereesList() {
+      return referees_;
+    }
+    public int getRefereesCount() { return referees_.size(); }
+    public proto.res.ResArena.ArenaSlot getReferees(int index) {
+      return referees_.get(index);
+    }
+    
+    // repeated .BattleAwards user_game_awards = 15;
+    public static final int USER_GAME_AWARDS_FIELD_NUMBER = 15;
+    private java.util.List<proto.res.ResBattle.BattleAwards> userGameAwards_ =
+      java.util.Collections.emptyList();
+    public java.util.List<proto.res.ResBattle.BattleAwards> getUserGameAwardsList() {
+      return userGameAwards_;
+    }
+    public int getUserGameAwardsCount() { return userGameAwards_.size(); }
+    public proto.res.ResBattle.BattleAwards getUserGameAwards(int index) {
+      return userGameAwards_.get(index);
+    }
+    
+    // repeated .BattleAwards user_awards = 16;
+    public static final int USER_AWARDS_FIELD_NUMBER = 16;
+    private java.util.List<proto.res.ResBattle.BattleAwards> userAwards_ =
+      java.util.Collections.emptyList();
+    public java.util.List<proto.res.ResBattle.BattleAwards> getUserAwardsList() {
+      return userAwards_;
+    }
+    public int getUserAwardsCount() { return userAwards_.size(); }
+    public proto.res.ResBattle.BattleAwards getUserAwards(int index) {
+      return userAwards_.get(index);
+    }
+    
+    // repeated .BattleAwards user_event_awards = 17;
+    public static final int USER_EVENT_AWARDS_FIELD_NUMBER = 17;
+    private java.util.List<proto.res.ResBattle.BattleAwards> userEventAwards_ =
+      java.util.Collections.emptyList();
+    public java.util.List<proto.res.ResBattle.BattleAwards> getUserEventAwardsList() {
+      return userEventAwards_;
+    }
+    public int getUserEventAwardsCount() { return userEventAwards_.size(); }
+    public proto.res.ResBattle.BattleAwards getUserEventAwards(int index) {
+      return userEventAwards_.get(index);
+    }
+    
+    // optional .Arena arenaSnapshot = 18;
+    public static final int ARENASNAPSHOT_FIELD_NUMBER = 18;
+    private boolean hasArenaSnapshot;
+    private proto.res.ResArena.Arena arenaSnapshot_;
+    public boolean hasArenaSnapshot() { return hasArenaSnapshot; }
+    public proto.res.ResArena.Arena getArenaSnapshot() { return arenaSnapshot_; }
+    
     private void initFields() {
       war3_ = proto.response.ResWar3Detail.War3Detail.getDefaultInstance();
+      arenaSnapshot_ = proto.res.ResArena.Arena.getDefaultInstance();
     }
     public static proto.res.ResBattle.BattleMessage parseFrom(
         com.google.protobuf.ByteString data)
@@ -216,6 +291,26 @@ public final class ResBattle {
         if (result == null) {
           throw new IllegalStateException(
             "build() has already been called on this Builder.");
+        }
+        if (result.replays_ != java.util.Collections.EMPTY_LIST) {
+          result.replays_ =
+            java.util.Collections.unmodifiableList(result.replays_);
+        }
+        if (result.referees_ != java.util.Collections.EMPTY_LIST) {
+          result.referees_ =
+            java.util.Collections.unmodifiableList(result.referees_);
+        }
+        if (result.userGameAwards_ != java.util.Collections.EMPTY_LIST) {
+          result.userGameAwards_ =
+            java.util.Collections.unmodifiableList(result.userGameAwards_);
+        }
+        if (result.userAwards_ != java.util.Collections.EMPTY_LIST) {
+          result.userAwards_ =
+            java.util.Collections.unmodifiableList(result.userAwards_);
+        }
+        if (result.userEventAwards_ != java.util.Collections.EMPTY_LIST) {
+          result.userEventAwards_ =
+            java.util.Collections.unmodifiableList(result.userEventAwards_);
         }
         proto.res.ResBattle.BattleMessage returnMe = result;
         result = null;
@@ -359,6 +454,316 @@ public final class ResBattle {
       public Builder clearReplayFile() {
         result.hasReplayFile = false;
         result.replayFile_ = getDefaultInstance().getReplayFile();
+        return this;
+      }
+      
+      // optional uint32 effective_length = 12;
+      public boolean hasEffectiveLength() {
+        return result.hasEffectiveLength();
+      }
+      public int getEffectiveLength() {
+        return result.getEffectiveLength();
+      }
+      public Builder setEffectiveLength(int value) {
+        result.hasEffectiveLength = true;
+        result.effectiveLength_ = value;
+        return this;
+      }
+      public Builder clearEffectiveLength() {
+        result.hasEffectiveLength = false;
+        result.effectiveLength_ = 0;
+        return this;
+      }
+      
+      // repeated .BattleReplay replays = 13;
+      public java.util.List<proto.res.ResBattle.BattleReplay> getReplaysList() {
+        return java.util.Collections.unmodifiableList(result.replays_);
+      }
+      public int getReplaysCount() {
+        return result.getReplaysCount();
+      }
+      public proto.res.ResBattle.BattleReplay getReplays(int index) {
+        return result.getReplays(index);
+      }
+      public Builder setReplays(int index, proto.res.ResBattle.BattleReplay value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.replays_.set(index, value);
+        return this;
+      }
+      public Builder setReplays(int index, proto.res.ResBattle.BattleReplay.Builder builderForValue) {
+        result.replays_.set(index, builderForValue.build());
+        return this;
+      }
+      public Builder addReplays(proto.res.ResBattle.BattleReplay value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        if (result.replays_.isEmpty()) {
+          result.replays_ = new java.util.ArrayList<proto.res.ResBattle.BattleReplay>();
+        }
+        result.replays_.add(value);
+        return this;
+      }
+      public Builder addReplays(proto.res.ResBattle.BattleReplay.Builder builderForValue) {
+        if (result.replays_.isEmpty()) {
+          result.replays_ = new java.util.ArrayList<proto.res.ResBattle.BattleReplay>();
+        }
+        result.replays_.add(builderForValue.build());
+        return this;
+      }
+      public Builder addAllReplays(
+          java.lang.Iterable<? extends proto.res.ResBattle.BattleReplay> values) {
+        if (result.replays_.isEmpty()) {
+          result.replays_ = new java.util.ArrayList<proto.res.ResBattle.BattleReplay>();
+        }
+        super.addAll(values, result.replays_);
+        return this;
+      }
+      public Builder clearReplays() {
+        result.replays_ = java.util.Collections.emptyList();
+        return this;
+      }
+      
+      // repeated .ArenaSlot referees = 14;
+      public java.util.List<proto.res.ResArena.ArenaSlot> getRefereesList() {
+        return java.util.Collections.unmodifiableList(result.referees_);
+      }
+      public int getRefereesCount() {
+        return result.getRefereesCount();
+      }
+      public proto.res.ResArena.ArenaSlot getReferees(int index) {
+        return result.getReferees(index);
+      }
+      public Builder setReferees(int index, proto.res.ResArena.ArenaSlot value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.referees_.set(index, value);
+        return this;
+      }
+      public Builder setReferees(int index, proto.res.ResArena.ArenaSlot.Builder builderForValue) {
+        result.referees_.set(index, builderForValue.build());
+        return this;
+      }
+      public Builder addReferees(proto.res.ResArena.ArenaSlot value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        if (result.referees_.isEmpty()) {
+          result.referees_ = new java.util.ArrayList<proto.res.ResArena.ArenaSlot>();
+        }
+        result.referees_.add(value);
+        return this;
+      }
+      public Builder addReferees(proto.res.ResArena.ArenaSlot.Builder builderForValue) {
+        if (result.referees_.isEmpty()) {
+          result.referees_ = new java.util.ArrayList<proto.res.ResArena.ArenaSlot>();
+        }
+        result.referees_.add(builderForValue.build());
+        return this;
+      }
+      public Builder addAllReferees(
+          java.lang.Iterable<? extends proto.res.ResArena.ArenaSlot> values) {
+        if (result.referees_.isEmpty()) {
+          result.referees_ = new java.util.ArrayList<proto.res.ResArena.ArenaSlot>();
+        }
+        super.addAll(values, result.referees_);
+        return this;
+      }
+      public Builder clearReferees() {
+        result.referees_ = java.util.Collections.emptyList();
+        return this;
+      }
+      
+      // repeated .BattleAwards user_game_awards = 15;
+      public java.util.List<proto.res.ResBattle.BattleAwards> getUserGameAwardsList() {
+        return java.util.Collections.unmodifiableList(result.userGameAwards_);
+      }
+      public int getUserGameAwardsCount() {
+        return result.getUserGameAwardsCount();
+      }
+      public proto.res.ResBattle.BattleAwards getUserGameAwards(int index) {
+        return result.getUserGameAwards(index);
+      }
+      public Builder setUserGameAwards(int index, proto.res.ResBattle.BattleAwards value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.userGameAwards_.set(index, value);
+        return this;
+      }
+      public Builder setUserGameAwards(int index, proto.res.ResBattle.BattleAwards.Builder builderForValue) {
+        result.userGameAwards_.set(index, builderForValue.build());
+        return this;
+      }
+      public Builder addUserGameAwards(proto.res.ResBattle.BattleAwards value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        if (result.userGameAwards_.isEmpty()) {
+          result.userGameAwards_ = new java.util.ArrayList<proto.res.ResBattle.BattleAwards>();
+        }
+        result.userGameAwards_.add(value);
+        return this;
+      }
+      public Builder addUserGameAwards(proto.res.ResBattle.BattleAwards.Builder builderForValue) {
+        if (result.userGameAwards_.isEmpty()) {
+          result.userGameAwards_ = new java.util.ArrayList<proto.res.ResBattle.BattleAwards>();
+        }
+        result.userGameAwards_.add(builderForValue.build());
+        return this;
+      }
+      public Builder addAllUserGameAwards(
+          java.lang.Iterable<? extends proto.res.ResBattle.BattleAwards> values) {
+        if (result.userGameAwards_.isEmpty()) {
+          result.userGameAwards_ = new java.util.ArrayList<proto.res.ResBattle.BattleAwards>();
+        }
+        super.addAll(values, result.userGameAwards_);
+        return this;
+      }
+      public Builder clearUserGameAwards() {
+        result.userGameAwards_ = java.util.Collections.emptyList();
+        return this;
+      }
+      
+      // repeated .BattleAwards user_awards = 16;
+      public java.util.List<proto.res.ResBattle.BattleAwards> getUserAwardsList() {
+        return java.util.Collections.unmodifiableList(result.userAwards_);
+      }
+      public int getUserAwardsCount() {
+        return result.getUserAwardsCount();
+      }
+      public proto.res.ResBattle.BattleAwards getUserAwards(int index) {
+        return result.getUserAwards(index);
+      }
+      public Builder setUserAwards(int index, proto.res.ResBattle.BattleAwards value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.userAwards_.set(index, value);
+        return this;
+      }
+      public Builder setUserAwards(int index, proto.res.ResBattle.BattleAwards.Builder builderForValue) {
+        result.userAwards_.set(index, builderForValue.build());
+        return this;
+      }
+      public Builder addUserAwards(proto.res.ResBattle.BattleAwards value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        if (result.userAwards_.isEmpty()) {
+          result.userAwards_ = new java.util.ArrayList<proto.res.ResBattle.BattleAwards>();
+        }
+        result.userAwards_.add(value);
+        return this;
+      }
+      public Builder addUserAwards(proto.res.ResBattle.BattleAwards.Builder builderForValue) {
+        if (result.userAwards_.isEmpty()) {
+          result.userAwards_ = new java.util.ArrayList<proto.res.ResBattle.BattleAwards>();
+        }
+        result.userAwards_.add(builderForValue.build());
+        return this;
+      }
+      public Builder addAllUserAwards(
+          java.lang.Iterable<? extends proto.res.ResBattle.BattleAwards> values) {
+        if (result.userAwards_.isEmpty()) {
+          result.userAwards_ = new java.util.ArrayList<proto.res.ResBattle.BattleAwards>();
+        }
+        super.addAll(values, result.userAwards_);
+        return this;
+      }
+      public Builder clearUserAwards() {
+        result.userAwards_ = java.util.Collections.emptyList();
+        return this;
+      }
+      
+      // repeated .BattleAwards user_event_awards = 17;
+      public java.util.List<proto.res.ResBattle.BattleAwards> getUserEventAwardsList() {
+        return java.util.Collections.unmodifiableList(result.userEventAwards_);
+      }
+      public int getUserEventAwardsCount() {
+        return result.getUserEventAwardsCount();
+      }
+      public proto.res.ResBattle.BattleAwards getUserEventAwards(int index) {
+        return result.getUserEventAwards(index);
+      }
+      public Builder setUserEventAwards(int index, proto.res.ResBattle.BattleAwards value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.userEventAwards_.set(index, value);
+        return this;
+      }
+      public Builder setUserEventAwards(int index, proto.res.ResBattle.BattleAwards.Builder builderForValue) {
+        result.userEventAwards_.set(index, builderForValue.build());
+        return this;
+      }
+      public Builder addUserEventAwards(proto.res.ResBattle.BattleAwards value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        if (result.userEventAwards_.isEmpty()) {
+          result.userEventAwards_ = new java.util.ArrayList<proto.res.ResBattle.BattleAwards>();
+        }
+        result.userEventAwards_.add(value);
+        return this;
+      }
+      public Builder addUserEventAwards(proto.res.ResBattle.BattleAwards.Builder builderForValue) {
+        if (result.userEventAwards_.isEmpty()) {
+          result.userEventAwards_ = new java.util.ArrayList<proto.res.ResBattle.BattleAwards>();
+        }
+        result.userEventAwards_.add(builderForValue.build());
+        return this;
+      }
+      public Builder addAllUserEventAwards(
+          java.lang.Iterable<? extends proto.res.ResBattle.BattleAwards> values) {
+        if (result.userEventAwards_.isEmpty()) {
+          result.userEventAwards_ = new java.util.ArrayList<proto.res.ResBattle.BattleAwards>();
+        }
+        super.addAll(values, result.userEventAwards_);
+        return this;
+      }
+      public Builder clearUserEventAwards() {
+        result.userEventAwards_ = java.util.Collections.emptyList();
+        return this;
+      }
+      
+      // optional .Arena arenaSnapshot = 18;
+      public boolean hasArenaSnapshot() {
+        return result.hasArenaSnapshot();
+      }
+      public proto.res.ResArena.Arena getArenaSnapshot() {
+        return result.getArenaSnapshot();
+      }
+      public Builder setArenaSnapshot(proto.res.ResArena.Arena value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.hasArenaSnapshot = true;
+        result.arenaSnapshot_ = value;
+        return this;
+      }
+      public Builder setArenaSnapshot(proto.res.ResArena.Arena.Builder builderForValue) {
+        result.hasArenaSnapshot = true;
+        result.arenaSnapshot_ = builderForValue.build();
+        return this;
+      }
+      public Builder mergeArenaSnapshot(proto.res.ResArena.Arena value) {
+        if (result.hasArenaSnapshot() &&
+            result.arenaSnapshot_ != proto.res.ResArena.Arena.getDefaultInstance()) {
+          result.arenaSnapshot_ =
+            proto.res.ResArena.Arena.newBuilder(result.arenaSnapshot_).mergeFrom(value).buildPartial();
+        } else {
+          result.arenaSnapshot_ = value;
+        }
+        result.hasArenaSnapshot = true;
+        return this;
+      }
+      public Builder clearArenaSnapshot() {
+        result.hasArenaSnapshot = false;
+        result.arenaSnapshot_ = proto.res.ResArena.Arena.getDefaultInstance();
         return this;
       }
       
@@ -625,6 +1030,764 @@ public final class ResBattle {
     // @@protoc_insertion_point(class_scope:BattleList)
   }
   
+  public static final class BattleReplay extends
+      com.google.protobuf.GeneratedMessage {
+    // Use BattleReplay.newBuilder() to construct.
+    private BattleReplay() {
+      initFields();
+    }
+    private BattleReplay(boolean noInit) {}
+    
+    private static final BattleReplay defaultInstance;
+    public static BattleReplay getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public BattleReplay getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return proto.res.ResBattle.internal_static_BattleReplay_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return proto.res.ResBattle.internal_static_BattleReplay_fieldAccessorTable;
+    }
+    
+    // optional uint32 submitter_id = 1;
+    public static final int SUBMITTER_ID_FIELD_NUMBER = 1;
+    private boolean hasSubmitterId;
+    private int submitterId_ = 0;
+    public boolean hasSubmitterId() { return hasSubmitterId; }
+    public int getSubmitterId() { return submitterId_; }
+    
+    // optional string submitter_name = 2;
+    public static final int SUBMITTER_NAME_FIELD_NUMBER = 2;
+    private boolean hasSubmitterName;
+    private java.lang.String submitterName_ = "";
+    public boolean hasSubmitterName() { return hasSubmitterName; }
+    public java.lang.String getSubmitterName() { return submitterName_; }
+    
+    // optional string rep_file = 3;
+    public static final int REP_FILE_FIELD_NUMBER = 3;
+    private boolean hasRepFile;
+    private java.lang.String repFile_ = "";
+    public boolean hasRepFile() { return hasRepFile; }
+    public java.lang.String getRepFile() { return repFile_; }
+    
+    // optional string parser_output = 4;
+    public static final int PARSER_OUTPUT_FIELD_NUMBER = 4;
+    private boolean hasParserOutput;
+    private java.lang.String parserOutput_ = "";
+    public boolean hasParserOutput() { return hasParserOutput; }
+    public java.lang.String getParserOutput() { return parserOutput_; }
+    
+    // optional string text = 5;
+    public static final int TEXT_FIELD_NUMBER = 5;
+    private boolean hasText;
+    private java.lang.String text_ = "";
+    public boolean hasText() { return hasText; }
+    public java.lang.String getText() { return text_; }
+    
+    // optional fixed32 upload_time = 6;
+    public static final int UPLOAD_TIME_FIELD_NUMBER = 6;
+    private boolean hasUploadTime;
+    private int uploadTime_ = 0;
+    public boolean hasUploadTime() { return hasUploadTime; }
+    public int getUploadTime() { return uploadTime_; }
+    
+    // optional bool adopted = 7;
+    public static final int ADOPTED_FIELD_NUMBER = 7;
+    private boolean hasAdopted;
+    private boolean adopted_ = false;
+    public boolean hasAdopted() { return hasAdopted; }
+    public boolean getAdopted() { return adopted_; }
+    
+    private void initFields() {
+    }
+    public static proto.res.ResBattle.BattleReplay parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static proto.res.ResBattle.BattleReplay parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static proto.res.ResBattle.BattleReplay parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static proto.res.ResBattle.BattleReplay parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static proto.res.ResBattle.BattleReplay parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static proto.res.ResBattle.BattleReplay parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static proto.res.ResBattle.BattleReplay parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static proto.res.ResBattle.BattleReplay parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static proto.res.ResBattle.BattleReplay parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static proto.res.ResBattle.BattleReplay parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(proto.res.ResBattle.BattleReplay prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> {
+      private proto.res.ResBattle.BattleReplay result;
+      
+      // Construct using proto.res.ResBattle.BattleReplay.newBuilder()
+      private Builder() {}
+      
+      private static Builder create() {
+        Builder builder = new Builder();
+        builder.result = new proto.res.ResBattle.BattleReplay();
+        return builder;
+      }
+      
+      protected proto.res.ResBattle.BattleReplay internalGetResult() {
+        return result;
+      }
+      
+      public Builder clear() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "Cannot call clear() after build().");
+        }
+        result = new proto.res.ResBattle.BattleReplay();
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(result);
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return proto.res.ResBattle.BattleReplay.getDescriptor();
+      }
+      
+      public proto.res.ResBattle.BattleReplay getDefaultInstanceForType() {
+        return proto.res.ResBattle.BattleReplay.getDefaultInstance();
+      }
+      
+      public boolean isInitialized() {
+        return result.isInitialized();
+      }
+      public proto.res.ResBattle.BattleReplay build() {
+        if (result != null && !isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return buildPartial();
+      }
+      
+      private proto.res.ResBattle.BattleReplay buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        if (!isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return buildPartial();
+      }
+      
+      public proto.res.ResBattle.BattleReplay buildPartial() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "build() has already been called on this Builder.");
+        }
+        proto.res.ResBattle.BattleReplay returnMe = result;
+        result = null;
+        return returnMe;
+      }
+      
+      
+      // optional uint32 submitter_id = 1;
+      public boolean hasSubmitterId() {
+        return result.hasSubmitterId();
+      }
+      public int getSubmitterId() {
+        return result.getSubmitterId();
+      }
+      public Builder setSubmitterId(int value) {
+        result.hasSubmitterId = true;
+        result.submitterId_ = value;
+        return this;
+      }
+      public Builder clearSubmitterId() {
+        result.hasSubmitterId = false;
+        result.submitterId_ = 0;
+        return this;
+      }
+      
+      // optional string submitter_name = 2;
+      public boolean hasSubmitterName() {
+        return result.hasSubmitterName();
+      }
+      public java.lang.String getSubmitterName() {
+        return result.getSubmitterName();
+      }
+      public Builder setSubmitterName(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasSubmitterName = true;
+        result.submitterName_ = value;
+        return this;
+      }
+      public Builder clearSubmitterName() {
+        result.hasSubmitterName = false;
+        result.submitterName_ = getDefaultInstance().getSubmitterName();
+        return this;
+      }
+      
+      // optional string rep_file = 3;
+      public boolean hasRepFile() {
+        return result.hasRepFile();
+      }
+      public java.lang.String getRepFile() {
+        return result.getRepFile();
+      }
+      public Builder setRepFile(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasRepFile = true;
+        result.repFile_ = value;
+        return this;
+      }
+      public Builder clearRepFile() {
+        result.hasRepFile = false;
+        result.repFile_ = getDefaultInstance().getRepFile();
+        return this;
+      }
+      
+      // optional string parser_output = 4;
+      public boolean hasParserOutput() {
+        return result.hasParserOutput();
+      }
+      public java.lang.String getParserOutput() {
+        return result.getParserOutput();
+      }
+      public Builder setParserOutput(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasParserOutput = true;
+        result.parserOutput_ = value;
+        return this;
+      }
+      public Builder clearParserOutput() {
+        result.hasParserOutput = false;
+        result.parserOutput_ = getDefaultInstance().getParserOutput();
+        return this;
+      }
+      
+      // optional string text = 5;
+      public boolean hasText() {
+        return result.hasText();
+      }
+      public java.lang.String getText() {
+        return result.getText();
+      }
+      public Builder setText(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasText = true;
+        result.text_ = value;
+        return this;
+      }
+      public Builder clearText() {
+        result.hasText = false;
+        result.text_ = getDefaultInstance().getText();
+        return this;
+      }
+      
+      // optional fixed32 upload_time = 6;
+      public boolean hasUploadTime() {
+        return result.hasUploadTime();
+      }
+      public int getUploadTime() {
+        return result.getUploadTime();
+      }
+      public Builder setUploadTime(int value) {
+        result.hasUploadTime = true;
+        result.uploadTime_ = value;
+        return this;
+      }
+      public Builder clearUploadTime() {
+        result.hasUploadTime = false;
+        result.uploadTime_ = 0;
+        return this;
+      }
+      
+      // optional bool adopted = 7;
+      public boolean hasAdopted() {
+        return result.hasAdopted();
+      }
+      public boolean getAdopted() {
+        return result.getAdopted();
+      }
+      public Builder setAdopted(boolean value) {
+        result.hasAdopted = true;
+        result.adopted_ = value;
+        return this;
+      }
+      public Builder clearAdopted() {
+        result.hasAdopted = false;
+        result.adopted_ = false;
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:BattleReplay)
+    }
+    
+    static {
+      defaultInstance = new BattleReplay(true);
+      proto.res.ResBattle.internalForceInit();
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:BattleReplay)
+  }
+  
+  public static final class BattleAwards extends
+      com.google.protobuf.GeneratedMessage {
+    // Use BattleAwards.newBuilder() to construct.
+    private BattleAwards() {
+      initFields();
+    }
+    private BattleAwards(boolean noInit) {}
+    
+    private static final BattleAwards defaultInstance;
+    public static BattleAwards getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public BattleAwards getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return proto.res.ResBattle.internal_static_BattleAwards_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return proto.res.ResBattle.internal_static_BattleAwards_fieldAccessorTable;
+    }
+    
+    // optional string target = 1;
+    public static final int TARGET_FIELD_NUMBER = 1;
+    private boolean hasTarget;
+    private java.lang.String target_ = "";
+    public boolean hasTarget() { return hasTarget; }
+    public java.lang.String getTarget() { return target_; }
+    
+    // optional uint32 gold = 2;
+    public static final int GOLD_FIELD_NUMBER = 2;
+    private boolean hasGold;
+    private int gold_ = 0;
+    public boolean hasGold() { return hasGold; }
+    public int getGold() { return gold_; }
+    
+    // optional uint32 activity = 3;
+    public static final int ACTIVITY_FIELD_NUMBER = 3;
+    private boolean hasActivity;
+    private int activity_ = 0;
+    public boolean hasActivity() { return hasActivity; }
+    public int getActivity() { return activity_; }
+    
+    // optional float power = 4;
+    public static final int POWER_FIELD_NUMBER = 4;
+    private boolean hasPower;
+    private float power_ = 0F;
+    public boolean hasPower() { return hasPower; }
+    public float getPower() { return power_; }
+    
+    // optional float trueskill_mean = 5;
+    public static final int TRUESKILL_MEAN_FIELD_NUMBER = 5;
+    private boolean hasTrueskillMean;
+    private float trueskillMean_ = 0F;
+    public boolean hasTrueskillMean() { return hasTrueskillMean; }
+    public float getTrueskillMean() { return trueskillMean_; }
+    
+    // optional float trueskill_sd = 6;
+    public static final int TRUESKILL_SD_FIELD_NUMBER = 6;
+    private boolean hasTrueskillSd;
+    private float trueskillSd_ = 0F;
+    public boolean hasTrueskillSd() { return hasTrueskillSd; }
+    public float getTrueskillSd() { return trueskillSd_; }
+    
+    // optional uint32 total = 7;
+    public static final int TOTAL_FIELD_NUMBER = 7;
+    private boolean hasTotal;
+    private int total_ = 0;
+    public boolean hasTotal() { return hasTotal; }
+    public int getTotal() { return total_; }
+    
+    // optional uint32 win = 8;
+    public static final int WIN_FIELD_NUMBER = 8;
+    private boolean hasWin;
+    private int win_ = 0;
+    public boolean hasWin() { return hasWin; }
+    public int getWin() { return win_; }
+    
+    private void initFields() {
+    }
+    public static proto.res.ResBattle.BattleAwards parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static proto.res.ResBattle.BattleAwards parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static proto.res.ResBattle.BattleAwards parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static proto.res.ResBattle.BattleAwards parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static proto.res.ResBattle.BattleAwards parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static proto.res.ResBattle.BattleAwards parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static proto.res.ResBattle.BattleAwards parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static proto.res.ResBattle.BattleAwards parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static proto.res.ResBattle.BattleAwards parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static proto.res.ResBattle.BattleAwards parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(proto.res.ResBattle.BattleAwards prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> {
+      private proto.res.ResBattle.BattleAwards result;
+      
+      // Construct using proto.res.ResBattle.BattleAwards.newBuilder()
+      private Builder() {}
+      
+      private static Builder create() {
+        Builder builder = new Builder();
+        builder.result = new proto.res.ResBattle.BattleAwards();
+        return builder;
+      }
+      
+      protected proto.res.ResBattle.BattleAwards internalGetResult() {
+        return result;
+      }
+      
+      public Builder clear() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "Cannot call clear() after build().");
+        }
+        result = new proto.res.ResBattle.BattleAwards();
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(result);
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return proto.res.ResBattle.BattleAwards.getDescriptor();
+      }
+      
+      public proto.res.ResBattle.BattleAwards getDefaultInstanceForType() {
+        return proto.res.ResBattle.BattleAwards.getDefaultInstance();
+      }
+      
+      public boolean isInitialized() {
+        return result.isInitialized();
+      }
+      public proto.res.ResBattle.BattleAwards build() {
+        if (result != null && !isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return buildPartial();
+      }
+      
+      private proto.res.ResBattle.BattleAwards buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        if (!isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return buildPartial();
+      }
+      
+      public proto.res.ResBattle.BattleAwards buildPartial() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "build() has already been called on this Builder.");
+        }
+        proto.res.ResBattle.BattleAwards returnMe = result;
+        result = null;
+        return returnMe;
+      }
+      
+      
+      // optional string target = 1;
+      public boolean hasTarget() {
+        return result.hasTarget();
+      }
+      public java.lang.String getTarget() {
+        return result.getTarget();
+      }
+      public Builder setTarget(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasTarget = true;
+        result.target_ = value;
+        return this;
+      }
+      public Builder clearTarget() {
+        result.hasTarget = false;
+        result.target_ = getDefaultInstance().getTarget();
+        return this;
+      }
+      
+      // optional uint32 gold = 2;
+      public boolean hasGold() {
+        return result.hasGold();
+      }
+      public int getGold() {
+        return result.getGold();
+      }
+      public Builder setGold(int value) {
+        result.hasGold = true;
+        result.gold_ = value;
+        return this;
+      }
+      public Builder clearGold() {
+        result.hasGold = false;
+        result.gold_ = 0;
+        return this;
+      }
+      
+      // optional uint32 activity = 3;
+      public boolean hasActivity() {
+        return result.hasActivity();
+      }
+      public int getActivity() {
+        return result.getActivity();
+      }
+      public Builder setActivity(int value) {
+        result.hasActivity = true;
+        result.activity_ = value;
+        return this;
+      }
+      public Builder clearActivity() {
+        result.hasActivity = false;
+        result.activity_ = 0;
+        return this;
+      }
+      
+      // optional float power = 4;
+      public boolean hasPower() {
+        return result.hasPower();
+      }
+      public float getPower() {
+        return result.getPower();
+      }
+      public Builder setPower(float value) {
+        result.hasPower = true;
+        result.power_ = value;
+        return this;
+      }
+      public Builder clearPower() {
+        result.hasPower = false;
+        result.power_ = 0F;
+        return this;
+      }
+      
+      // optional float trueskill_mean = 5;
+      public boolean hasTrueskillMean() {
+        return result.hasTrueskillMean();
+      }
+      public float getTrueskillMean() {
+        return result.getTrueskillMean();
+      }
+      public Builder setTrueskillMean(float value) {
+        result.hasTrueskillMean = true;
+        result.trueskillMean_ = value;
+        return this;
+      }
+      public Builder clearTrueskillMean() {
+        result.hasTrueskillMean = false;
+        result.trueskillMean_ = 0F;
+        return this;
+      }
+      
+      // optional float trueskill_sd = 6;
+      public boolean hasTrueskillSd() {
+        return result.hasTrueskillSd();
+      }
+      public float getTrueskillSd() {
+        return result.getTrueskillSd();
+      }
+      public Builder setTrueskillSd(float value) {
+        result.hasTrueskillSd = true;
+        result.trueskillSd_ = value;
+        return this;
+      }
+      public Builder clearTrueskillSd() {
+        result.hasTrueskillSd = false;
+        result.trueskillSd_ = 0F;
+        return this;
+      }
+      
+      // optional uint32 total = 7;
+      public boolean hasTotal() {
+        return result.hasTotal();
+      }
+      public int getTotal() {
+        return result.getTotal();
+      }
+      public Builder setTotal(int value) {
+        result.hasTotal = true;
+        result.total_ = value;
+        return this;
+      }
+      public Builder clearTotal() {
+        result.hasTotal = false;
+        result.total_ = 0;
+        return this;
+      }
+      
+      // optional uint32 win = 8;
+      public boolean hasWin() {
+        return result.hasWin();
+      }
+      public int getWin() {
+        return result.getWin();
+      }
+      public Builder setWin(int value) {
+        result.hasWin = true;
+        result.win_ = value;
+        return this;
+      }
+      public Builder clearWin() {
+        result.hasWin = false;
+        result.win_ = 0;
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:BattleAwards)
+    }
+    
+    static {
+      defaultInstance = new BattleAwards(true);
+      proto.res.ResBattle.internalForceInit();
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:BattleAwards)
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_BattleMessage_descriptor;
   private static
@@ -635,6 +1798,16 @@ public final class ResBattle {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_BattleList_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_BattleReplay_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_BattleReplay_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_BattleAwards_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_BattleAwards_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -645,12 +1818,26 @@ public final class ResBattle {
   static {
     java.lang.String[] descriptorData = {
       "\n\020res_battle.proto\032\024res_war3detail.proto" +
-      "\032\nutil.proto\"\201\001\n\rBattleMessage\022\014\n\004uuid\030\001" +
-      " \002(\t\022\031\n\004war3\030\002 \001(\0132\013.War3Detail\022\014\n\004text\030" +
-      "\003 \001(\t\022\021\n\tstartTime\030\010 \001(\r\022\021\n\teventName\030\n " +
-      "\001(\t\022\023\n\013replay_file\030\013 \001(\t\"-\n\nBattleList\022\037" +
-      "\n\007battles\030\001 \003(\0132\016.BattleMessageB\r\n\tproto" +
-      ".resH\002"
+      "\032\017res_arena.proto\032\nutil.proto\"\357\002\n\rBattle" +
+      "Message\022\014\n\004uuid\030\001 \002(\t\022\031\n\004war3\030\002 \001(\0132\013.Wa" +
+      "r3Detail\022\014\n\004text\030\003 \001(\t\022\021\n\tstartTime\030\010 \001(" +
+      "\r\022\021\n\teventName\030\n \001(\t\022\023\n\013replay_file\030\013 \001(" +
+      "\t\022\030\n\020effective_length\030\014 \001(\r\022\036\n\007replays\030\r" +
+      " \003(\0132\r.BattleReplay\022\034\n\010referees\030\016 \003(\0132\n." +
+      "ArenaSlot\022\'\n\020user_game_awards\030\017 \003(\0132\r.Ba" +
+      "ttleAwards\022\"\n\013user_awards\030\020 \003(\0132\r.Battle" +
+      "Awards\022(\n\021user_event_awards\030\021 \003(\0132\r.Batt",
+      "leAwards\022\035\n\rarenaSnapshot\030\022 \001(\0132\006.Arena\"" +
+      "-\n\nBattleList\022\037\n\007battles\030\001 \003(\0132\016.BattleM" +
+      "essage\"\231\001\n\014BattleReplay\022\024\n\014submitter_id\030" +
+      "\001 \001(\r\022\026\n\016submitter_name\030\002 \001(\t\022\020\n\010rep_fil" +
+      "e\030\003 \001(\t\022\025\n\rparser_output\030\004 \001(\t\022\014\n\004text\030\005" +
+      " \001(\t\022\023\n\013upload_time\030\006 \001(\007\022\017\n\007adopted\030\007 \001" +
+      "(\010\"\227\001\n\014BattleAwards\022\016\n\006target\030\001 \001(\t\022\014\n\004g" +
+      "old\030\002 \001(\r\022\020\n\010activity\030\003 \001(\r\022\r\n\005power\030\004 \001" +
+      "(\002\022\026\n\016trueskill_mean\030\005 \001(\002\022\024\n\014trueskill_" +
+      "sd\030\006 \001(\002\022\r\n\005total\030\007 \001(\r\022\013\n\003win\030\010 \001(\rB\r\n\t",
+      "proto.resH\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -662,7 +1849,7 @@ public final class ResBattle {
           internal_static_BattleMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_BattleMessage_descriptor,
-              new java.lang.String[] { "Uuid", "War3", "Text", "StartTime", "EventName", "ReplayFile", },
+              new java.lang.String[] { "Uuid", "War3", "Text", "StartTime", "EventName", "ReplayFile", "EffectiveLength", "Replays", "Referees", "UserGameAwards", "UserAwards", "UserEventAwards", "ArenaSnapshot", },
               proto.res.ResBattle.BattleMessage.class,
               proto.res.ResBattle.BattleMessage.Builder.class);
           internal_static_BattleList_descriptor =
@@ -673,6 +1860,22 @@ public final class ResBattle {
               new java.lang.String[] { "Battles", },
               proto.res.ResBattle.BattleList.class,
               proto.res.ResBattle.BattleList.Builder.class);
+          internal_static_BattleReplay_descriptor =
+            getDescriptor().getMessageTypes().get(2);
+          internal_static_BattleReplay_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_BattleReplay_descriptor,
+              new java.lang.String[] { "SubmitterId", "SubmitterName", "RepFile", "ParserOutput", "Text", "UploadTime", "Adopted", },
+              proto.res.ResBattle.BattleReplay.class,
+              proto.res.ResBattle.BattleReplay.Builder.class);
+          internal_static_BattleAwards_descriptor =
+            getDescriptor().getMessageTypes().get(3);
+          internal_static_BattleAwards_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_BattleAwards_descriptor,
+              new java.lang.String[] { "Target", "Gold", "Activity", "Power", "TrueskillMean", "TrueskillSd", "Total", "Win", },
+              proto.res.ResBattle.BattleAwards.class,
+              proto.res.ResBattle.BattleAwards.Builder.class);
           return null;
         }
       };
@@ -680,6 +1883,7 @@ public final class ResBattle {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           proto.response.ResWar3Detail.getDescriptor(),
+          proto.res.ResArena.getDescriptor(),
           proto.util.Util.getDescriptor(),
         }, assigner);
   }

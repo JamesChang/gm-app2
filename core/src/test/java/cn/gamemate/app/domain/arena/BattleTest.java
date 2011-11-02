@@ -127,7 +127,7 @@ public class BattleTest {
 		Battle battle = Battle.createAndSave(arenaSnapshot);
 		UUID uuid = battle.getUuid();
 		
-		Battle retrievedBattle = Battle.get(uuid);
+		Battle retrievedBattle = Battle.get(uuid, Battle.class);
 		assertBattle(battle, retrievedBattle);
 	}
 	

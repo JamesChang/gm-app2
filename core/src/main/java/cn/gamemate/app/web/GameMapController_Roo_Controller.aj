@@ -5,16 +5,15 @@ package cn.gamemate.app.web;
 
 import cn.gamemate.app.domain.game.GameMap;
 import java.io.UnsupportedEncodingException;
+import java.lang.Integer;
 import java.lang.Long;
 import java.lang.String;
-import javax.annotation.PostConstruct;
+import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,84 +23,76 @@ import org.springframework.web.util.WebUtils;
 
 privileged aspect GameMapController_Roo_Controller {
     
-    @Autowired
-    private GenericConversionService GameMapController.conversionService;
-    
     @RequestMapping(method = RequestMethod.POST)
-    public String GameMapController.create(@Valid GameMap gameMap, BindingResult result, Model model, HttpServletRequest request) {
-        if (result.hasErrors()) {
-            model.addAttribute("gameMap", gameMap);
+    public String GameMapController.create(@Valid GameMap gameMap, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+        if (bindingResult.hasErrors()) {
+            uiModel.addAttribute("gameMap", gameMap);
             return "gamemaps/create";
         }
+        uiModel.asMap().clear();
         gameMap.persist();
-        return "redirect:/gamemaps/" + encodeUrlPathSegment(gameMap.getId().toString(), request);
+        return "redirect:/gamemaps/" + encodeUrlPathSegment(gameMap.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(params = "form", method = RequestMethod.GET)
-    public String GameMapController.createForm(Model model) {
-        model.addAttribute("gameMap", new GameMap());
+    public String GameMapController.createForm(Model uiModel) {
+        uiModel.addAttribute("gameMap", new GameMap());
         return "gamemaps/create";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String GameMapController.show(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("gamemap", GameMap.findGameMap(id));
-        model.addAttribute("itemId", id);
+    public String GameMapController.show(@PathVariable("id") Long id, Model uiModel) {
+        uiModel.addAttribute("gamemap", GameMap.findGameMap(id));
+        uiModel.addAttribute("itemId", id);
         return "gamemaps/show";
     }
     
     @RequestMapping(method = RequestMethod.GET)
-    public String GameMapController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
+    public String GameMapController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
-            model.addAttribute("gamemaps", GameMap.findGameMapEntries(page == null ? 0 : (page.intValue() - 1) * sizeNo, sizeNo));
+            uiModel.addAttribute("gamemaps", GameMap.findGameMapEntries(page == null ? 0 : (page.intValue() - 1) * sizeNo, sizeNo));
             float nrOfPages = (float) GameMap.countGameMaps() / sizeNo;
-            model.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
+            uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
         } else {
-            model.addAttribute("gamemaps", GameMap.findAllGameMaps());
+            uiModel.addAttribute("gamemaps", GameMap.findAllGameMaps());
         }
         return "gamemaps/list";
     }
     
     @RequestMapping(method = RequestMethod.PUT)
-    public String GameMapController.update(@Valid GameMap gameMap, BindingResult result, Model model, HttpServletRequest request) {
-        if (result.hasErrors()) {
-            model.addAttribute("gameMap", gameMap);
+    public String GameMapController.update(@Valid GameMap gameMap, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+        if (bindingResult.hasErrors()) {
+            uiModel.addAttribute("gameMap", gameMap);
             return "gamemaps/update";
         }
+        uiModel.asMap().clear();
         gameMap.merge();
-        return "redirect:/gamemaps/" + encodeUrlPathSegment(gameMap.getId().toString(), request);
+        return "redirect:/gamemaps/" + encodeUrlPathSegment(gameMap.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
-    public String GameMapController.updateForm(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("gameMap", GameMap.findGameMap(id));
+    public String GameMapController.updateForm(@PathVariable("id") Long id, Model uiModel) {
+        uiModel.addAttribute("gameMap", GameMap.findGameMap(id));
         return "gamemaps/update";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String GameMapController.delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
+    public String GameMapController.delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         GameMap.findGameMap(id).remove();
-        model.addAttribute("page", (page == null) ? "1" : page.toString());
-        model.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/gamemaps?page=" + ((page == null) ? "1" : page.toString()) + "&size=" + ((size == null) ? "10" : size.toString());
+        uiModel.asMap().clear();
+        uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
+        uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
+        return "redirect:/gamemaps";
     }
     
-    Converter<GameMap, String> GameMapController.getGameMapConverter() {
-        return new Converter<GameMap, String>() {
-            public String convert(GameMap gameMap) {
-                return new StringBuilder().append(gameMap.getName()).append(" ").append(gameMap.getDigest()).append(" ").append(gameMap.getFileSize()).toString();
-            }
-        };
+    @ModelAttribute("gamemaps")
+    public Collection<GameMap> GameMapController.populateGameMaps() {
+        return GameMap.findAllGameMaps();
     }
     
-    @PostConstruct
-    void GameMapController.registerConverters() {
-        conversionService.addConverter(getGameMapConverter());
-    }
-    
-    private String GameMapController.encodeUrlPathSegment(String pathSegment, HttpServletRequest request) {
-        String enc = request.getCharacterEncoding();
+    String GameMapController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
+        String enc = httpServletRequest.getCharacterEncoding();
         if (enc == null) {
             enc = WebUtils.DEFAULT_CHARACTER_ENCODING;
         }

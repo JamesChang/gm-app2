@@ -48,4 +48,12 @@ privileged aspect GameMap_Roo_JavaBean {
         this.attrsInJson = attrsInJson;
     }
     
+    public Integer GameMap.getPhysicalGameID() {
+        return this.physicalGameID;
+    }
+    
+    public void GameMap.setPhysicalGameID(Integer physicalGameID) {
+        this.physicalGameID = physicalGameID;
+    }
+    
 }

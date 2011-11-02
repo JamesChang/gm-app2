@@ -36,6 +36,8 @@ message UserModel{
   optional string campusArenaEventName  = 19; //deprecated
   optional string status_ex = 20;
   optional uint32 last_login = 21;
+  optional uint32 ban_to = 22; 
+  optional bool is_banned = 16; // termless banned
   
   optional int32 age = 23;
   optional string gender = 24;
@@ -56,6 +58,10 @@ message UserModel{
   optional int32 gold = 50;
   optional int32 activity = 51;
   optional int32 power = 52;
+
+  optional string hf_name = 53;
+  optional string vs_name = 54;
+  optional string sjtubn = 55;
   
   //TODO: Clan
   //TODO: Team
@@ -143,3 +149,6 @@ message UserListResponse{
 message CollegeListResponse{
   repeated string colleges = 1;  
 }
+
+
+

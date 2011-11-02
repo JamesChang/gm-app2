@@ -72,5 +72,25 @@ class DefaultGameDefinition {
 		Game.sc = game;
 		return game;
 	}
+	
+	@Bean
+	public Game lol() {
+		Game game = new Game();
+		game.setId(5);
+		game.setName("lol");
+		game.setPhysicalGame(PhysicalGame.findPhysicalGame(3));
+		Game.lol = game;
+		return game;
+	}
+	
+	@Bean
+	public Game cs() {
+		Game game = new Game();
+		game.setId(6);
+		game.setName("CS");
+		game.setPhysicalGame(PhysicalGame.findPhysicalGame(4));
+		Game.cs = game;
+		return game;
+	}
 
 }

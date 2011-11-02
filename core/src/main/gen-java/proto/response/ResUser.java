@@ -759,6 +759,20 @@ public final class ResUser {
     public boolean hasLastLogin() { return hasLastLogin; }
     public int getLastLogin() { return lastLogin_; }
     
+    // optional uint32 ban_to = 22;
+    public static final int BAN_TO_FIELD_NUMBER = 22;
+    private boolean hasBanTo;
+    private int banTo_ = 0;
+    public boolean hasBanTo() { return hasBanTo; }
+    public int getBanTo() { return banTo_; }
+    
+    // optional bool is_banned = 16;
+    public static final int IS_BANNED_FIELD_NUMBER = 16;
+    private boolean hasIsBanned;
+    private boolean isBanned_ = false;
+    public boolean hasIsBanned() { return hasIsBanned; }
+    public boolean getIsBanned() { return isBanned_; }
+    
     // optional int32 age = 23;
     public static final int AGE_FIELD_NUMBER = 23;
     private boolean hasAge;
@@ -884,6 +898,27 @@ public final class ResUser {
     private int power_ = 0;
     public boolean hasPower() { return hasPower; }
     public int getPower() { return power_; }
+    
+    // optional string hf_name = 53;
+    public static final int HF_NAME_FIELD_NUMBER = 53;
+    private boolean hasHfName;
+    private java.lang.String hfName_ = "";
+    public boolean hasHfName() { return hasHfName; }
+    public java.lang.String getHfName() { return hfName_; }
+    
+    // optional string vs_name = 54;
+    public static final int VS_NAME_FIELD_NUMBER = 54;
+    private boolean hasVsName;
+    private java.lang.String vsName_ = "";
+    public boolean hasVsName() { return hasVsName; }
+    public java.lang.String getVsName() { return vsName_; }
+    
+    // optional string sjtubn = 55;
+    public static final int SJTUBN_FIELD_NUMBER = 55;
+    private boolean hasSjtubn;
+    private java.lang.String sjtubn_ = "";
+    public boolean hasSjtubn() { return hasSjtubn; }
+    public java.lang.String getSjtubn() { return sjtubn_; }
     
     // optional int32 ca03_dota_score = 81;
     public static final int CA03_DOTA_SCORE_FIELD_NUMBER = 81;
@@ -1567,6 +1602,42 @@ public final class ResUser {
         return this;
       }
       
+      // optional uint32 ban_to = 22;
+      public boolean hasBanTo() {
+        return result.hasBanTo();
+      }
+      public int getBanTo() {
+        return result.getBanTo();
+      }
+      public Builder setBanTo(int value) {
+        result.hasBanTo = true;
+        result.banTo_ = value;
+        return this;
+      }
+      public Builder clearBanTo() {
+        result.hasBanTo = false;
+        result.banTo_ = 0;
+        return this;
+      }
+      
+      // optional bool is_banned = 16;
+      public boolean hasIsBanned() {
+        return result.hasIsBanned();
+      }
+      public boolean getIsBanned() {
+        return result.getIsBanned();
+      }
+      public Builder setIsBanned(boolean value) {
+        result.hasIsBanned = true;
+        result.isBanned_ = value;
+        return this;
+      }
+      public Builder clearIsBanned() {
+        result.hasIsBanned = false;
+        result.isBanned_ = false;
+        return this;
+      }
+      
       // optional int32 age = 23;
       public boolean hasAge() {
         return result.hasAge();
@@ -1930,6 +2001,69 @@ public final class ResUser {
       public Builder clearPower() {
         result.hasPower = false;
         result.power_ = 0;
+        return this;
+      }
+      
+      // optional string hf_name = 53;
+      public boolean hasHfName() {
+        return result.hasHfName();
+      }
+      public java.lang.String getHfName() {
+        return result.getHfName();
+      }
+      public Builder setHfName(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasHfName = true;
+        result.hfName_ = value;
+        return this;
+      }
+      public Builder clearHfName() {
+        result.hasHfName = false;
+        result.hfName_ = getDefaultInstance().getHfName();
+        return this;
+      }
+      
+      // optional string vs_name = 54;
+      public boolean hasVsName() {
+        return result.hasVsName();
+      }
+      public java.lang.String getVsName() {
+        return result.getVsName();
+      }
+      public Builder setVsName(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasVsName = true;
+        result.vsName_ = value;
+        return this;
+      }
+      public Builder clearVsName() {
+        result.hasVsName = false;
+        result.vsName_ = getDefaultInstance().getVsName();
+        return this;
+      }
+      
+      // optional string sjtubn = 55;
+      public boolean hasSjtubn() {
+        return result.hasSjtubn();
+      }
+      public java.lang.String getSjtubn() {
+        return result.getSjtubn();
+      }
+      public Builder setSjtubn(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasSjtubn = true;
+        result.sjtubn_ = value;
+        return this;
+      }
+      public Builder clearSjtubn() {
+        result.hasSjtubn = false;
+        result.sjtubn_ = getDefaultInstance().getSjtubn();
         return this;
       }
       
@@ -3320,7 +3454,7 @@ public final class ResUser {
       "\n\016res_user.proto\032\016res_clan.proto\032\022res_li" +
       "stbase.proto\"0\n\024UserTCPLoginResponse\022\013\n\003" +
       "sid\030\001 \001(\t\022\013\n\003uid\030\002 \001(\r\"\027\n\025UserTCPLogoutR" +
-      "esponse\"\025\n\023UserTCPDropResponse\"\343\n\n\tUserM" +
+      "esponse\"\025\n\023UserTCPDropResponse\"\270\013\n\tUserM" +
       "odel\022\n\n\002id\030\001 \002(\r\022\014\n\004name\030\002 \001(\t\022\017\n\007subnam" +
       "e\030\003 \001(\t\022\016\n\006status\030\004 \001(\t\022\r\n\005email\030\005 \001(\t\022\017" +
       "\n\007college\030\n \001(\t\022\020\n\010portrait\030\t \001(\t\022\036\n\004cla" +
@@ -3329,38 +3463,41 @@ public final class ResUser {
       "ingList\030\016 \001(\010\022\021\n\tisInArena\030\017 \001(\010\022\025\n\rcamp",
       "usArenaID\030\021 \001(\r\022\027\n\017campusArenaName\030\022 \001(\t" +
       "\022\034\n\024campusArenaEventName\030\023 \001(\t\022\021\n\tstatus" +
-      "_ex\030\024 \001(\t\022\022\n\nlast_login\030\025 \001(\r\022\013\n\003age\030\027 \001" +
-      "(\005\022\016\n\006gender\030\030 \001(\t\022\024\n\014jianghudiwei\030\031 \001(\t" +
-      "\022\020\n\010truename\030\032 \001(\t\022\020\n\010birthday\030\033 \001(\t\022\014\n\004" +
-      "city\030\034 \001(\t\022\022\n\ndepartment\030\035 \001(\t\022\r\n\005im_qq\030" +
-      ") \001(\t\022\016\n\006mobile\030* \001(\t\022\025\n\rflash_storage\030+" +
-      " \001(\t\022\016\n\006im_msn\030, \001(\t\022\022\n\nyearjoined\030. \001(\t" +
-      "\022\022\n\ndormintory\030/ \001(\t\022\r\n\005mouse\0300 \001(\t\022\020\n\010k" +
-      "eyboard\0301 \001(\t\022\014\n\004gold\0302 \001(\005\022\020\n\010activity\030",
-      "3 \001(\005\022\r\n\005power\0304 \001(\005\022\027\n\017ca03_dota_score\030" +
-      "Q \001(\005\022\027\n\017ca03_dota_level\030R \001(\r\022\"\n\032ca03_d" +
-      "ota_next_level_score\030S \001(\005\022\"\n\032ca03_dota_" +
-      "this_level_score\030T \001(\005\022\035\n\025ca03_dota_dail" +
-      "y_match\030U \001(\005\022\027\n\017ca03_dota_total\030V \001(\005\022\034" +
-      "\n\024ca03_dota_early_quit\030W \001(\005\022\025\n\rca03_dot" +
-      "a_win\030X \001(\005\022\025\n\rca03_sc_score\030[ \001(\005\022\025\n\rca" +
-      "03_sc_level\030\\ \001(\r\022 \n\030ca03_sc_next_level_" +
-      "score\030] \001(\005\022 \n\030ca03_sc_this_level_score\030" +
-      "^ \001(\005\022\033\n\023ca03_sc_daily_match\030_ \001(\005\022\025\n\rca",
-      "03_sc_total\030` \001(\005\022\032\n\022ca03_sc_early_quit\030" +
-      "a \001(\005\022\023\n\013ca03_sc_win\030b \001(\005\022\027\n\017ca03_war3_" +
-      "score\030e \001(\005\022\027\n\017ca03_war3_level\030f \001(\r\022\"\n\032" +
-      "ca03_war3_next_level_score\030g \001(\005\022\"\n\032ca03" +
-      "_war3_this_level_score\030h \001(\005\022\035\n\025ca03_war" +
-      "3_daily_match\030i \001(\005\022\027\n\017ca03_war3_total\030j" +
-      " \001(\005\022\034\n\024ca03_war3_early_quit\030k \001(\005\022\025\n\rca" +
-      "03_war3_win\030l \001(\005\022!\n\tgameStats\030o \003(\0132\016.U" +
-      "serGameStats\"Y\n\rUserGameStats\022\017\n\007game_id" +
-      "\030\001 \001(\r\022\r\n\005power\030\002 \001(\r\022\014\n\004rank\030\003 \001(\r\022\013\n\003w",
-      "in\030\004 \001(\r\022\r\n\005total\030\005 \001(\r\"J\n\020UserListRespo" +
-      "nse\022\031\n\005users\030\001 \003(\0132\n.UserModel\022\033\n\006params" +
-      "\030\002 \001(\0132\013.ListParams\"\'\n\023CollegeListRespon" +
-      "se\022\020\n\010colleges\030\001 \003(\tB\022\n\016proto.responseH\002"
+      "_ex\030\024 \001(\t\022\022\n\nlast_login\030\025 \001(\r\022\016\n\006ban_to\030" +
+      "\026 \001(\r\022\021\n\tis_banned\030\020 \001(\010\022\013\n\003age\030\027 \001(\005\022\016\n" +
+      "\006gender\030\030 \001(\t\022\024\n\014jianghudiwei\030\031 \001(\t\022\020\n\010t" +
+      "ruename\030\032 \001(\t\022\020\n\010birthday\030\033 \001(\t\022\014\n\004city\030" +
+      "\034 \001(\t\022\022\n\ndepartment\030\035 \001(\t\022\r\n\005im_qq\030) \001(\t" +
+      "\022\016\n\006mobile\030* \001(\t\022\025\n\rflash_storage\030+ \001(\t\022" +
+      "\016\n\006im_msn\030, \001(\t\022\022\n\nyearjoined\030. \001(\t\022\022\n\nd" +
+      "ormintory\030/ \001(\t\022\r\n\005mouse\0300 \001(\t\022\020\n\010keyboa",
+      "rd\0301 \001(\t\022\014\n\004gold\0302 \001(\005\022\020\n\010activity\0303 \001(\005" +
+      "\022\r\n\005power\0304 \001(\005\022\017\n\007hf_name\0305 \001(\t\022\017\n\007vs_n" +
+      "ame\0306 \001(\t\022\016\n\006sjtubn\0307 \001(\t\022\027\n\017ca03_dota_s" +
+      "core\030Q \001(\005\022\027\n\017ca03_dota_level\030R \001(\r\022\"\n\032c" +
+      "a03_dota_next_level_score\030S \001(\005\022\"\n\032ca03_" +
+      "dota_this_level_score\030T \001(\005\022\035\n\025ca03_dota" +
+      "_daily_match\030U \001(\005\022\027\n\017ca03_dota_total\030V " +
+      "\001(\005\022\034\n\024ca03_dota_early_quit\030W \001(\005\022\025\n\rca0" +
+      "3_dota_win\030X \001(\005\022\025\n\rca03_sc_score\030[ \001(\005\022" +
+      "\025\n\rca03_sc_level\030\\ \001(\r\022 \n\030ca03_sc_next_l",
+      "evel_score\030] \001(\005\022 \n\030ca03_sc_this_level_s" +
+      "core\030^ \001(\005\022\033\n\023ca03_sc_daily_match\030_ \001(\005\022" +
+      "\025\n\rca03_sc_total\030` \001(\005\022\032\n\022ca03_sc_early_" +
+      "quit\030a \001(\005\022\023\n\013ca03_sc_win\030b \001(\005\022\027\n\017ca03_" +
+      "war3_score\030e \001(\005\022\027\n\017ca03_war3_level\030f \001(" +
+      "\r\022\"\n\032ca03_war3_next_level_score\030g \001(\005\022\"\n" +
+      "\032ca03_war3_this_level_score\030h \001(\005\022\035\n\025ca0" +
+      "3_war3_daily_match\030i \001(\005\022\027\n\017ca03_war3_to" +
+      "tal\030j \001(\005\022\034\n\024ca03_war3_early_quit\030k \001(\005\022" +
+      "\025\n\rca03_war3_win\030l \001(\005\022!\n\tgameStats\030o \003(",
+      "\0132\016.UserGameStats\"Y\n\rUserGameStats\022\017\n\007ga" +
+      "me_id\030\001 \001(\r\022\r\n\005power\030\002 \001(\r\022\014\n\004rank\030\003 \001(\r" +
+      "\022\013\n\003win\030\004 \001(\r\022\r\n\005total\030\005 \001(\r\"J\n\020UserList" +
+      "Response\022\031\n\005users\030\001 \003(\0132\n.UserModel\022\033\n\006p" +
+      "arams\030\002 \001(\0132\013.ListParams\"\'\n\023CollegeListR" +
+      "esponse\022\020\n\010colleges\030\001 \003(\tB\022\n\016proto.respo" +
+      "nseH\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -3396,7 +3533,7 @@ public final class ResUser {
           internal_static_UserModel_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_UserModel_descriptor,
-              new java.lang.String[] { "Id", "Name", "Subname", "Status", "Email", "College", "Portrait", "Clan", "IsInParty", "IsInRivalList", "IsInGroupingList", "IsInArena", "CampusArenaID", "CampusArenaName", "CampusArenaEventName", "StatusEx", "LastLogin", "Age", "Gender", "Jianghudiwei", "Truename", "Birthday", "City", "Department", "ImQq", "Mobile", "FlashStorage", "ImMsn", "Yearjoined", "Dormintory", "Mouse", "Keyboard", "Gold", "Activity", "Power", "Ca03DotaScore", "Ca03DotaLevel", "Ca03DotaNextLevelScore", "Ca03DotaThisLevelScore", "Ca03DotaDailyMatch", "Ca03DotaTotal", "Ca03DotaEarlyQuit", "Ca03DotaWin", "Ca03ScScore", "Ca03ScLevel", "Ca03ScNextLevelScore", "Ca03ScThisLevelScore", "Ca03ScDailyMatch", "Ca03ScTotal", "Ca03ScEarlyQuit", "Ca03ScWin", "Ca03War3Score", "Ca03War3Level", "Ca03War3NextLevelScore", "Ca03War3ThisLevelScore", "Ca03War3DailyMatch", "Ca03War3Total", "Ca03War3EarlyQuit", "Ca03War3Win", "GameStats", },
+              new java.lang.String[] { "Id", "Name", "Subname", "Status", "Email", "College", "Portrait", "Clan", "IsInParty", "IsInRivalList", "IsInGroupingList", "IsInArena", "CampusArenaID", "CampusArenaName", "CampusArenaEventName", "StatusEx", "LastLogin", "BanTo", "IsBanned", "Age", "Gender", "Jianghudiwei", "Truename", "Birthday", "City", "Department", "ImQq", "Mobile", "FlashStorage", "ImMsn", "Yearjoined", "Dormintory", "Mouse", "Keyboard", "Gold", "Activity", "Power", "HfName", "VsName", "Sjtubn", "Ca03DotaScore", "Ca03DotaLevel", "Ca03DotaNextLevelScore", "Ca03DotaThisLevelScore", "Ca03DotaDailyMatch", "Ca03DotaTotal", "Ca03DotaEarlyQuit", "Ca03DotaWin", "Ca03ScScore", "Ca03ScLevel", "Ca03ScNextLevelScore", "Ca03ScThisLevelScore", "Ca03ScDailyMatch", "Ca03ScTotal", "Ca03ScEarlyQuit", "Ca03ScWin", "Ca03War3Score", "Ca03War3Level", "Ca03War3NextLevelScore", "Ca03War3ThisLevelScore", "Ca03War3DailyMatch", "Ca03War3Total", "Ca03War3EarlyQuit", "Ca03War3Win", "GameStats", },
               proto.response.ResUser.UserModel.class,
               proto.response.ResUser.UserModel.Builder.class);
           internal_static_UserGameStats_descriptor =

@@ -377,6 +377,13 @@ public final class MsgAlert {
     public boolean hasActivity() { return hasActivity; }
     public int getActivity() { return activity_; }
     
+    // optional int32 eventid = 8;
+    public static final int EVENTID_FIELD_NUMBER = 8;
+    private boolean hasEventid;
+    private int eventid_ = 0;
+    public boolean hasEventid() { return hasEventid; }
+    public int getEventid() { return eventid_; }
+    
     private void initFields() {
     }
     public static proto.msg.MsgAlert.GameResultAlertMessage parseFrom(
@@ -657,6 +664,24 @@ public final class MsgAlert {
         return this;
       }
       
+      // optional int32 eventid = 8;
+      public boolean hasEventid() {
+        return result.hasEventid();
+      }
+      public int getEventid() {
+        return result.getEventid();
+      }
+      public Builder setEventid(int value) {
+        result.hasEventid = true;
+        result.eventid_ = value;
+        return this;
+      }
+      public Builder clearEventid() {
+        result.hasEventid = false;
+        result.eventid_ = 0;
+        return this;
+      }
+      
       // @@protoc_insertion_point(builder_scope:GameResultAlertMessage)
     }
     
@@ -690,10 +715,11 @@ public final class MsgAlert {
     java.lang.String[] descriptorData = {
       "\n\017msg_alert.proto\"G\n\014AlertMessage\022\014\n\004tex" +
       "t\030\001 \002(\t\022\013\n\003uri\030\002 \002(\t\022\r\n\005image\030\004 \001(\t\022\r\n\005m" +
-      "odal\030\003 \001(\010\"\200\001\n\026GameResultAlertMessage\022\014\n" +
+      "odal\030\003 \001(\010\"\221\001\n\026GameResultAlertMessage\022\014\n" +
       "\004text\030\001 \002(\t\022\013\n\003uri\030\002 \002(\t\022\r\n\005image\030\004 \001(\t\022" +
       "\r\n\005modal\030\003 \001(\010\022\r\n\005power\030\005 \001(\005\022\014\n\004gold\030\006 " +
-      "\001(\005\022\020\n\010activity\030\007 \001(\005B\r\n\tproto.msgH\002"
+      "\001(\005\022\020\n\010activity\030\007 \001(\005\022\017\n\007eventid\030\010 \001(\005B\r" +
+      "\n\tproto.msgH\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -713,7 +739,7 @@ public final class MsgAlert {
           internal_static_GameResultAlertMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_GameResultAlertMessage_descriptor,
-              new java.lang.String[] { "Text", "Uri", "Image", "Modal", "Power", "Gold", "Activity", },
+              new java.lang.String[] { "Text", "Uri", "Image", "Modal", "Power", "Gold", "Activity", "Eventid", },
               proto.msg.MsgAlert.GameResultAlertMessage.class,
               proto.msg.MsgAlert.GameResultAlertMessage.Builder.class);
           return null;

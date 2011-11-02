@@ -7,6 +7,7 @@
         <field:input field="fileSize" id="c_cn_gamemate_app_domain_game_GameMap_fileSize" required="true" validationMessageCode="field_invalid_integer" z="3YkyjizLkalP3RbjUslegdMl5ww="/>
         <field:input field="fileLink" id="c_cn_gamemate_app_domain_game_GameMap_fileLink" z="NDIxyMPRQ/Fg226MrPageYonx7M="/>
         <field:input field="attrsInJson" id="c_cn_gamemate_app_domain_game_GameMap_attrsInJson" z="QH9DyGa7EaUctMypVpgieutVCDk="/>
+    <field:input field="physicalGameID" id="c_cn_gamemate_app_domain_game_GameMap_physicalGameID" validationMessageCode="field_invalid_integer" z="8Up7gWwyxRJpt4QGEXYyaQeRcHs="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_cn_gamemate_app_domain_game_GameMap" render="${not empty dependencies}" z="fUnD5phtSbIqt/kKCCDy9HiNblM="/>
 </div>

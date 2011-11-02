@@ -2,16 +2,27 @@ package cn.gamemate.app.domain.event;
 
 import java.util.ArrayList;
 
-import proto.response.ResGame;
+import proto.response.ResEvent;
 import cn.gamemate.app.domain.DomainModel;
 import cn.gamemate.app.domain.DomainModelRuntimeException;
 import cn.gamemate.app.domain.arena.UserSlot;
+import cn.gamemate.app.domain.event.awards.AwardsPackage;
 import cn.gamemate.app.domain.party.DefaultParty;
 import cn.gamemate.app.domain.party.PartyMember;
 import cn.gamemate.app.domain.user.User;
 
 abstract public class Event implements DomainModel{
 	protected Integer id;
+	private Iterable<AwardsPackage> awardsPackages = new ArrayList<AwardsPackage>();
+
+
+	public Iterable<AwardsPackage> getAwardsPackages() {
+		return awardsPackages;
+	}
+
+	public void setAwardsPackage(Iterable<AwardsPackage> awardsPackages) {
+		this.awardsPackages = awardsPackages;
+	}
 	
 	public Integer getId() {
 		return id;
@@ -82,6 +93,11 @@ abstract public class Event implements DomainModel{
 			}
 		}
 	}
+	
 	@Override
-	abstract public ResGame.EventGet.Builder toProtobuf();
+	public ResEvent.EventGet.Builder toProtobuf(){
+		return toProtobuf(99);
+	}
+	
+	abstract public ResEvent.EventGet.Builder toProtobuf(int verbose);
 }

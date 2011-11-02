@@ -58,7 +58,7 @@ privileged aspect GameMap_Roo_Entity {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            GameMap attached = this.entityManager.find(this.getClass(), this.id);
+            GameMap attached = GameMap.findGameMap(this.id);
             this.entityManager.remove(attached);
         }
     }
@@ -67,6 +67,12 @@ privileged aspect GameMap_Roo_Entity {
     public void GameMap.flush() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.flush();
+    }
+    
+    @Transactional
+    public void GameMap.clear() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        this.entityManager.clear();
     }
     
     @Transactional
@@ -84,11 +90,11 @@ privileged aspect GameMap_Roo_Entity {
     }
     
     public static long GameMap.countGameMaps() {
-        return entityManager().createQuery("select count(o) from GameMap o", Long.class).getSingleResult();
+        return entityManager().createQuery("SELECT COUNT(o) FROM GameMap o", Long.class).getSingleResult();
     }
     
     public static List<GameMap> GameMap.findAllGameMaps() {
-        return entityManager().createQuery("select o from GameMap o", GameMap.class).getResultList();
+        return entityManager().createQuery("SELECT o FROM GameMap o", GameMap.class).getResultList();
     }
     
     public static GameMap GameMap.findGameMap(Long id) {
@@ -97,7 +103,7 @@ privileged aspect GameMap_Roo_Entity {
     }
     
     public static List<GameMap> GameMap.findGameMapEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("select o from GameMap o", GameMap.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+        return entityManager().createQuery("SELECT o FROM GameMap o", GameMap.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
 }

@@ -75,7 +75,7 @@ public class MessageServiceInitializer {
 			String host = str.substring(0,str.indexOf(":"));
 			String port = str.substring(str.indexOf(":")+1);
 			try {
-				service = new NettyMessageService(host, Integer.parseInt(port));
+				service = new NettyMessageService(host, Integer.parseInt(port), false);
 //				service.checkConnection();
 			} catch (Exception e) {
 				logger.error(

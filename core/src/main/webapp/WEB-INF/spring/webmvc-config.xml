@@ -8,7 +8,8 @@
 	
 	<!-- Turns on support for mapping requests to Spring MVC @Controller methods
 	     Also registers default Formatters and Validators for use across all @Controllers -->
-	<mvc:annotation-driven/>
+	<!-- <mvc:annotation-driven conversion-service="applicationConversionService"/> -->
+	<mvc:annotation-driven conversion-service="applicationConversionService"/>
 	
 	<!-- register "global" interceptor beans to apply to all registered HandlerMappings -->
 	<mvc:interceptors>
@@ -90,5 +91,8 @@
 			</list>
 		</property>
 	</bean>
-    
+
+
+	<!--Installs application converters and formatters-->
+	<bean class="cn.gamemate.app.web.ApplicationConversionServiceFactoryBean" id="applicationConversionService"/>
 </beans>

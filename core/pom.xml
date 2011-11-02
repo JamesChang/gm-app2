@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>app-parent</artifactId>
@@ -40,8 +39,23 @@
 		</repository>
 
 	</repositories>
-	<pluginRepositories />
+	<properties>
+		<roo.version>1.1.5.RELEASE</roo.version>
+	</properties>
+	<pluginRepositories/>
 	<dependencies>
+		<!-- Game Mate -->
+		<dependency>
+			<groupId>cn.gamemate</groupId>
+			<artifactId>taskqueue-api</artifactId>
+			<version>1.0.0.M3</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.gamemate</groupId>
+			<artifactId>taskqueue-rabbitmq</artifactId>
+			<version>1.0.0.M3</version>
+		</dependency>
+	
 		<!-- General dependencies for standard applications -->
 		<dependency>
 			<groupId>mx4j</groupId>
@@ -443,6 +457,24 @@
 			<version>2.0.0</version>
 			<classifier>lgpl</classifier>
 		</dependency>
+	<dependency>
+		<groupId>com.rabbitmq</groupId>
+		<artifactId>amqp-client</artifactId>
+		<version>2.3.1</version>
+	</dependency>
+	<dependency>
+		<groupId>cn.gamemate</groupId>
+		<artifactId>skill</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+	
+	<dependency>
+    <groupId>org.dbunit</groupId>
+    <artifactId>dbunit</artifactId>
+    <version>2.4.8</version>
+	</dependency>
+	
+	
 	</dependencies>
 	<build>
 		<plugins>
@@ -616,7 +648,7 @@
 				<executions>
 					<execution>
 						<id>proto-gen-java</id>
-						<!--<phase>generate-sources</phase> -->
+						<phase>generate-sources</phase> 
 						<goals>
 							<goal>exec</goal>
 						</goals>

@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TimerTask;
 
+import proto.response.ResEvent;
 import proto.response.ResGame;
 
 import com.google.protobuf.GeneratedMessage.Builder;
@@ -285,7 +286,7 @@ public class Ladder05 extends Ladder{
 	}
 
 	@Override
-	public ResGame.EventGet.Builder toProtobuf() {
+	public ResEvent.EventGet.Builder toProtobuf(int verbose) {
 		throw new NotFullySupportedException("");
 	}
 }

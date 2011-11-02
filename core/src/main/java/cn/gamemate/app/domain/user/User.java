@@ -52,6 +52,9 @@ public class User implements UserDetails {
 
 	@NotNull
 	private String name;
+	
+	@NotNull
+	private String email;
 
 	@NotNull
 	private String portrait;
@@ -62,7 +65,32 @@ public class User implements UserDetails {
 	@NotNull
 	@Column(name = "dynamic_status")
 	private UserStatus status;
+	
 
+	@Column(name = "hf_name")
+	private String hfName;
+	
+
+	@Column(name = "sjtubn")
+	private String sjtubn;
+	
+	@Column(name = "vs_name")
+	private String vsName;
+
+	@Column(name = "im_qq")
+	private String qq;
+	
+	
+	private String mobile;
+	
+	
+	@Column(name = "chineseId")
+	private String chineseId;
+	
+	private String address;
+
+	private String truename;
+	
 	@NotNull
 	@Column
 	private int gold;
@@ -215,15 +243,10 @@ public class User implements UserDetails {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof User) {
-			User o = (User) obj;
-			if (o != null && o.id == this.id) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		return super.equals(obj);
+		if (this==obj){return true;}
+		if (!(obj instanceof User)){return false;}
+		User o = (User) obj;
+		return this.id == o.id;
 	}
 
 	@Override

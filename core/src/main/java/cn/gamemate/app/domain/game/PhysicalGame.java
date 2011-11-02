@@ -17,6 +17,8 @@ public class PhysicalGame implements DomainModel{
 	
 	private static PhysicalGame war3;
 	private static PhysicalGame sc;
+	private static PhysicalGame lol;
+	private static PhysicalGame cs;
 	static{
 		war3 = new PhysicalGame();
 		war3.setName("WarCraft 3");
@@ -34,6 +36,22 @@ public class PhysicalGame implements DomainModel{
 		sc.setMainFileName("starcraft.exe");
 		sc.setMainFileDigest("cd1f6ccab890dc72b95ee4d391c5a9a3");
 		sc.setId(1);
+		lol = new PhysicalGame();
+		lol.setVersion("1.15.1.1");
+		lol.setName("StarCraft");
+		lol.setMainFileName("");
+		lol.setVersionDisplay("1.15");
+		lol.setMainFileName("starcraft.exe");
+		lol.setMainFileDigest("cd1f6ccab890dc72b95ee4d391c5a9a3");
+		lol.setId(3);
+		cs = new PhysicalGame();
+		cs.setVersion("1.15.1.1");
+		cs.setName("StarCraft");
+		cs.setMainFileName("");
+		cs.setVersionDisplay("1.15");
+		cs.setMainFileName("starcraft.exe");
+		cs.setMainFileDigest("cd1f6ccab890dc72b95ee4d391c5a9a3");
+		cs.setId(4);
 	}
 	
 	public static PhysicalGame findPhysicalGame(int id){
@@ -42,6 +60,10 @@ public class PhysicalGame implements DomainModel{
 			return sc;
 		case 2:
 			return war3;
+		case 3:
+			return lol;
+		case 4:
+			return cs;
 		default:
 			throw new RuntimeException("can not reach here");
 		}

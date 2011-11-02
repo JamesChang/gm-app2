@@ -4,6 +4,18 @@ import org.springframework.core.NestedRuntimeException;
 
 public class DomainModelRuntimeException extends NestedRuntimeException{
 	
+	public String getData() {
+		return data;
+	}
+
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
+	private String data;
+	
+	
 	
 	public DomainModelRuntimeException(String msg) {
 		super(msg);

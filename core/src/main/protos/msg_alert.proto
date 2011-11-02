@@ -19,4 +19,5 @@ message GameResultAlertMessage {
   optional int32 power = 5;
   optional int32 gold = 6;
   optional int32 activity = 7;
+  optional int32 eventid = 8;
 }

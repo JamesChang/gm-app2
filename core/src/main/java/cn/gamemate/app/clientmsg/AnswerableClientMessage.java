@@ -84,7 +84,7 @@ public abstract class AnswerableClientMessage extends ClientMessage{
 			throw new DomainModelRuntimeException("expired");
 		}
 		if (!receivers.contains(user.getId())){
-			throw new Forbidden("");
+			throw new Forbidden();
 		}
 		if (!answeredUsers.add(user.getId())){
 			throw new DomainModelRuntimeException("User "+user.getId() + " has answered " +

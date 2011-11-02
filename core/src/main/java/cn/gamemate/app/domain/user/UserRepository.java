@@ -206,25 +206,40 @@ public class UserRepository implements UserRepositoryMBean{
 	public String showAllUserList(){
 		StringBuilder result = new StringBuilder();
 		result.append("{");
-		for (Entry<Integer, User> entry: users.entrySet()){			
+		for (Entry<Integer, User> entry: users.entrySet()){
 			User user = entry.getValue();
-			result.append("User{")
-				.append("ID:").append(user.getId()).append(", ")
-				.append("Name:").append(user.getName()).append(", ");
-			
-			UserStatus userStatus = user.getStatus();
-			Integer arenaId = user.getArenaId();
-			if (arenaId != null){
-				result.append("Status:").append("InArena").append(", ");
-			}else{
-				result.append("Status:").append(userStatus).append(", ");
-			}
-			result.append("},");
+			genUserStatusString(result, user);
+			result.append(",");
 		}
 		result.append("}");
 		return result.toString();
 	}
+
+	private void genUserStatusString(StringBuilder result,
+			User user) {
+		
+		result.append("User{")
+			.append("ID:").append(user.getId()).append(", ")
+			.append("Name:").append(user.getName()).append(", ")
+			.append("Relay:").append(user.getRelayServiceName()).append(", ");
+		
+		UserStatus userStatus = user.getStatus();
+		Integer arenaId = user.getArenaId();
+		if (arenaId != null){
+			result.append("Status:").append("InArena").append(", ");
+		}else{
+			result.append("Status:").append(userStatus).append(", ");
+		}
+		result.append("}");
+	}
 	
+	public String showUserStatus(String key){
+		User user = users.get(Integer.valueOf(key));
+		if (user == null) return null;
+		StringBuilder result = new StringBuilder();
+		genUserStatusString(result, user);
+		return result.toString();
+	}
 	
 	public UserRepositoryStats getStat(){
 		stats.doCount();

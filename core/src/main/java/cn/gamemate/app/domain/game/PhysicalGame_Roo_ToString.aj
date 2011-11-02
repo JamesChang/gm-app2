@@ -10,12 +10,12 @@ privileged aspect PhysicalGame_Roo_ToString {
     public String PhysicalGame.toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Id: ").append(getId()).append(", ");
-        sb.append("Name: ").append(getName()).append(", ");
-        sb.append("Mappath: ").append(getMappath()).append(", ");
-        sb.append("Version: ").append(getVersion()).append(", ");
-        sb.append("VersionDisplay: ").append(getVersionDisplay()).append(", ");
+        sb.append("MainFileDigest: ").append(getMainFileDigest()).append(", ");
         sb.append("MainFileName: ").append(getMainFileName()).append(", ");
-        sb.append("MainFileDigest: ").append(getMainFileDigest());
+        sb.append("Mappath: ").append(getMappath()).append(", ");
+        sb.append("Name: ").append(getName()).append(", ");
+        sb.append("Version: ").append(getVersion()).append(", ");
+        sb.append("VersionDisplay: ").append(getVersionDisplay());
         return sb.toString();
     }
     

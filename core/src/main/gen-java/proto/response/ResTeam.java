@@ -181,6 +181,13 @@ public final class ResTeam {
     public boolean hasHasApplied() { return hasHasApplied; }
     public boolean getHasApplied() { return hasApplied_; }
     
+    // optional string leaderName = 20;
+    public static final int LEADERNAME_FIELD_NUMBER = 20;
+    private boolean hasLeaderName;
+    private java.lang.String leaderName_ = "";
+    public boolean hasLeaderName() { return hasLeaderName; }
+    public java.lang.String getLeaderName() { return leaderName_; }
+    
     private void initFields() {
     }
     public static proto.response.ResTeam.TeamGetResponse parseFrom(
@@ -796,6 +803,27 @@ public final class ResTeam {
       public Builder clearHasApplied() {
         result.hasHasApplied = false;
         result.hasApplied_ = false;
+        return this;
+      }
+      
+      // optional string leaderName = 20;
+      public boolean hasLeaderName() {
+        return result.hasLeaderName();
+      }
+      public java.lang.String getLeaderName() {
+        return result.getLeaderName();
+      }
+      public Builder setLeaderName(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasLeaderName = true;
+        result.leaderName_ = value;
+        return this;
+      }
+      public Builder clearLeaderName() {
+        result.hasLeaderName = false;
+        result.leaderName_ = getDefaultInstance().getLeaderName();
         return this;
       }
       
@@ -1636,8 +1664,23 @@ public final class ResTeam {
     public boolean hasAnswer() { return hasAnswer; }
     public java.lang.String getAnswer() { return answer_; }
     
+    // optional string msgid = 3;
+    public static final int MSGID_FIELD_NUMBER = 3;
+    private boolean hasMsgid;
+    private java.lang.String msgid_ = "";
+    public boolean hasMsgid() { return hasMsgid; }
+    public java.lang.String getMsgid() { return msgid_; }
+    
+    // required .UserModel user = 4;
+    public static final int USER_FIELD_NUMBER = 4;
+    private boolean hasUser;
+    private proto.response.ResUser.UserModel user_;
+    public boolean hasUser() { return hasUser; }
+    public proto.response.ResUser.UserModel getUser() { return user_; }
+    
     private void initFields() {
       team_ = proto.response.ResTeam.TeamGetResponse.getDefaultInstance();
+      user_ = proto.response.ResUser.UserModel.getDefaultInstance();
     }
     public static proto.response.ResTeam.TeamApplication parseFrom(
         com.google.protobuf.ByteString data)
@@ -1840,6 +1883,64 @@ public final class ResTeam {
         return this;
       }
       
+      // optional string msgid = 3;
+      public boolean hasMsgid() {
+        return result.hasMsgid();
+      }
+      public java.lang.String getMsgid() {
+        return result.getMsgid();
+      }
+      public Builder setMsgid(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasMsgid = true;
+        result.msgid_ = value;
+        return this;
+      }
+      public Builder clearMsgid() {
+        result.hasMsgid = false;
+        result.msgid_ = getDefaultInstance().getMsgid();
+        return this;
+      }
+      
+      // required .UserModel user = 4;
+      public boolean hasUser() {
+        return result.hasUser();
+      }
+      public proto.response.ResUser.UserModel getUser() {
+        return result.getUser();
+      }
+      public Builder setUser(proto.response.ResUser.UserModel value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.hasUser = true;
+        result.user_ = value;
+        return this;
+      }
+      public Builder setUser(proto.response.ResUser.UserModel.Builder builderForValue) {
+        result.hasUser = true;
+        result.user_ = builderForValue.build();
+        return this;
+      }
+      public Builder mergeUser(proto.response.ResUser.UserModel value) {
+        if (result.hasUser() &&
+            result.user_ != proto.response.ResUser.UserModel.getDefaultInstance()) {
+          result.user_ =
+            proto.response.ResUser.UserModel.newBuilder(result.user_).mergeFrom(value).buildPartial();
+        } else {
+          result.user_ = value;
+        }
+        result.hasUser = true;
+        return this;
+      }
+      public Builder clearUser() {
+        result.hasUser = false;
+        result.user_ = proto.response.ResUser.UserModel.getDefaultInstance();
+        return this;
+      }
+      
       // @@protoc_insertion_point(builder_scope:TeamApplication)
     }
     
@@ -1888,7 +1989,7 @@ public final class ResTeam {
     java.lang.String[] descriptorData = {
       "\n\016res_team.proto\032\016res_clan.proto\032\016res_us" +
       "er.proto\032\022res_listbase.proto\032\rres_tag.pr" +
-      "oto\"\355\002\n\017TeamGetResponse\022\014\n\004uuid\030\001 \002(\t\022\014\n" +
+      "oto\"\201\003\n\017TeamGetResponse\022\014\n\004uuid\030\001 \002(\t\022\014\n" +
       "\004name\030\002 \001(\t\022\016\n\006prefix\030\003 \001(\t\022\014\n\004logo\030\004 \001(" +
       "\t\022\016\n\006slogan\030\005 \001(\t\022\033\n\007members\030\007 \003(\0132\n.Use" +
       "rModel\022\020\n\010leaderID\030\010 \001(\r\022\022\n\nassistants\030\t" +
@@ -1897,14 +1998,15 @@ public final class ResTeam {
       "er_count\030\014 \001(\r\022\r\n\005lg_id\030\r \001(\r\022\017\n\007lg_name" +
       "\030\016 \001(\t\022\r\n\005order\030\017 \001(\r\022\r\n\005score\030\020 \001(\r\022\014\n\004",
       "rank\030\021 \001(\r\022\022\n\004tags\030\022 \003(\0132\004.Tag\022\023\n\013has_ap" +
-      "plied\030\023 \001(\010\"P\n\020TeamListResponse\022\037\n\005teams" +
-      "\030\001 \003(\0132\020.TeamGetResponse\022\033\n\006params\030\002 \001(\013" +
-      "2\013.ListParams\"2\n\014TeamBulletin\022\017\n\007content" +
-      "\030\002 \002(\t\022\021\n\ttimestamp\030\003 \002(\r\"@\n\022MyTeamAppli" +
-      "cations\022*\n\020teamApplications\030\001 \003(\0132\020.Team" +
-      "Application\"A\n\017TeamApplication\022\036\n\004team\030\001" +
-      " \002(\0132\020.TeamGetResponse\022\016\n\006answer\030\002 \002(\tB\022" +
-      "\n\016proto.responseH\002"
+      "plied\030\023 \001(\010\022\022\n\nleaderName\030\024 \001(\t\"P\n\020TeamL" +
+      "istResponse\022\037\n\005teams\030\001 \003(\0132\020.TeamGetResp" +
+      "onse\022\033\n\006params\030\002 \001(\0132\013.ListParams\"2\n\014Tea" +
+      "mBulletin\022\017\n\007content\030\002 \002(\t\022\021\n\ttimestamp\030" +
+      "\003 \002(\r\"@\n\022MyTeamApplications\022*\n\020teamAppli" +
+      "cations\030\001 \003(\0132\020.TeamApplication\"j\n\017TeamA" +
+      "pplication\022\036\n\004team\030\001 \002(\0132\020.TeamGetRespon" +
+      "se\022\016\n\006answer\030\002 \002(\t\022\r\n\005msgid\030\003 \001(\t\022\030\n\004use" +
+      "r\030\004 \002(\0132\n.UserModelB\022\n\016proto.responseH\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -1916,7 +2018,7 @@ public final class ResTeam {
           internal_static_TeamGetResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_TeamGetResponse_descriptor,
-              new java.lang.String[] { "Uuid", "Name", "Prefix", "Logo", "Slogan", "Members", "LeaderID", "Assistants", "Bulletins", "CurrentMemberCount", "MaxMemberCount", "LgId", "LgName", "Order", "Score", "Rank", "Tags", "HasApplied", },
+              new java.lang.String[] { "Uuid", "Name", "Prefix", "Logo", "Slogan", "Members", "LeaderID", "Assistants", "Bulletins", "CurrentMemberCount", "MaxMemberCount", "LgId", "LgName", "Order", "Score", "Rank", "Tags", "HasApplied", "LeaderName", },
               proto.response.ResTeam.TeamGetResponse.class,
               proto.response.ResTeam.TeamGetResponse.Builder.class);
           internal_static_TeamListResponse_descriptor =
@@ -1948,7 +2050,7 @@ public final class ResTeam {
           internal_static_TeamApplication_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_TeamApplication_descriptor,
-              new java.lang.String[] { "Team", "Answer", },
+              new java.lang.String[] { "Team", "Answer", "Msgid", "User", },
               proto.response.ResTeam.TeamApplication.class,
               proto.response.ResTeam.TeamApplication.Builder.class);
           return null;

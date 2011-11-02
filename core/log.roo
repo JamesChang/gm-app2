@@ -19,3 +19,56 @@ quit
 // Spring Roo 1.1.0.RELEASE [rev 793f2b0] log opened at 2010-12-08 12:29:07
 // Spring Roo 1.1.0.RELEASE [rev 793f2b0] log closed at 2010-12-09 18:54:32
 // Spring Roo 1.1.0.RELEASE [rev 793f2b0] log opened at 2011-02-09 15:22:26
+// Spring Roo 1.1.0.RELEASE [rev 793f2b0] log opened at 2011-03-19 16:58:44
+// Spring Roo 1.1.0.RELEASE [rev 793f2b0] log closed at 2011-03-19 17:20:50
+// Spring Roo 1.1.0.RELEASE [rev 793f2b0] log opened at 2011-03-24 14:00:48
+// Spring Roo 1.1.0.RELEASE [rev 793f2b0] log closed at 2011-03-25 15:58:49
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-05-13 17:34:46
+addon list
+entity --class cn.gamemate.app.domain.event.awards.UserGameData
+field number --fieldName power --type int
+backup
+addon list
+// [failed] addon upgrade all
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-05-13 21:02:13
+addon upgrade available
+osgi obr url add --url http://spring-roo-repository.springsource.org/repository.xml
+osgi obr start --bundleSymbolicName org.springframework.roo.addon.backup
+osgi obr url remove --url http://spring-roo-repository.springsource.org/repository.xml
+// [failed] addon upgrade all
+quit
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-05-13 21:17:33
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-05-13 21:17:41
+test integration --entity cn.gamemate.app.domain.event.awards.UserGameData
+perform tests
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-05-20 15:00:38
+quit
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-05-20 15:06:11
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-05-20 16:21:23
+quit
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log closed at 2011-05-20 17:00:32
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-05-27 20:31:38
+// Spring Roo 1.1.2.RELEASE [rev fbc33bb] log opened at 2011-06-01 21:33:29
+// Spring Roo 1.1.0.RELEASE [rev 793f2b0] log opened at 2011-07-14 15:42:06
+// Spring Roo 1.1.0.RELEASE [rev 793f2b0] log closed at 2011-07-15 16:57:40
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-07-18 15:34:21
+entity --class cn.gamemate.app.domain.event.rts.RtsTeam
+field string --fieldName name --notNull --sizeMax 40
+field string --fieldName image --column logo --sizeMax 200 
+field string --fieldName slogan --sizeMax 200
+field string --fieldName prefix --sizeMax 200
+field string --fieldName uuid
+test mock 
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-07-19 15:27:52
+// [failed] test stub --class cn.gamemate.app.domain.event.EliminationMatch
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-07-19 20:02:08
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-07-22 12:50:22
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-07-24 13:30:16
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-07-28 14:44:29
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-08-03 18:30:11
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-09-16 15:45:23
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-09-26 15:08:03
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-10 14:13:41
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-13 14:12:08
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-25 17:27:45
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-27 16:18:27

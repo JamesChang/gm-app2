@@ -27,6 +27,7 @@ message TeamGetResponse{
   optional uint32 rank = 17;
   repeated Tag tags = 18;
   optional bool has_applied = 19;
+  optional string leaderName = 20;
 }
 
 message TeamListResponse{
@@ -47,4 +48,6 @@ message MyTeamApplications{
 message TeamApplication{
   required TeamGetResponse team =1;
   required string answer = 2;
+  optional string msgid = 3;
+  required UserModel user = 4;
 }

@@ -3,6 +3,7 @@ package cn.gamemate.app.domain.event;
 import java.util.ArrayList;
 import java.util.List;
 
+import proto.response.ResEvent;
 import proto.response.ResGame;
 
 import cn.gamemate.app.domain.DomainModel;
@@ -14,7 +15,9 @@ import cn.gamemate.app.domain.user.User;
 import cn.gamemate.common.annotation.ThreadSafe;
 
 @ThreadSafe
-abstract public class Hall extends Event {
+abstract public class Hall extends Event implements ReplaySupport{
+	
+	private boolean replayRequired = false;
 
 	/**
 	 * immutable after initialization. 
@@ -90,10 +93,10 @@ abstract public class Hall extends Event {
 		Arena05 arena;
 		if (mapId != null) {
 			assertMapAllowed(mapId);
-			DefaultArenaBuilder builder = (DefaultArenaBuilder) arenaBuilder
-					.copy();
-			builder.setGameMap(mapId).bisectSlots();
-			arena = (Arena05) builder.newArena();
+		//	DefaultArenaBuildearenaBuilderr builder = (DefaultArenaBuilder) arenaBuilder
+		//			.copy();
+			arenaBuilder.setGameMap(mapId).bisectSlots();
+			arena = (Arena05) arenaBuilder.newArena();
 		} else {
 			if (arenaBuilder.getGameMap()== null){
 				throw new DomainModelRuntimeException("game map must be specified.");
@@ -107,6 +110,10 @@ abstract public class Hall extends Event {
 		arena.setMode(mode);
 		arena.setEvent(this);
 		arena.userStatusEx = this.name;
+		
+		if (isReplayRequired()){
+			arena.getAttributes().put("replay_required", Boolean.toString(isReplayRequired()));
+		}
 
 		// TODO arena.setPrivate
 		arena.save();
@@ -139,14 +146,32 @@ abstract public class Hall extends Event {
 	
 
 	@Override
-	public ResGame.EventGet.Builder toProtobuf() {
-		ResGame.EventGet.Builder builder = ResGame.EventGet.newBuilder();
+	public ResEvent.EventGet.Builder toProtobuf(int verbose) {
+		ResEvent.EventGet.Builder builder = ResEvent.EventGet.newBuilder();
 		builder.setName(name).setId(id);
+		if (verbose < 1){
+			return builder;
+		}
+		
 		builder.setPhysicalGame(game.getPhysicalGame().toProtobuf());
+		builder.setLogicalGame(game.toProtobuf());
+		if (verbose < 2){
+			return builder;
+		}
+		
 		for (GameMap map : gameMaps){
 			builder.addOptionalMaps(map.toProtobuf());
 		}
 		return builder;
+	}
+	
+	public void setReplayRequired(boolean replayRequired) {
+		this.replayRequired = replayRequired;
+	}
+
+	@Override
+	public boolean isReplayRequired() {
+		return replayRequired;
 	}
 
 }

@@ -11,6 +11,7 @@ import java.util.TimerTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import proto.response.ResEvent;
 import proto.response.ResGame;
 import cn.gamemate.app.domain.DomainModel;
 import cn.gamemate.app.domain.DomainModelRuntimeException;
@@ -108,7 +109,7 @@ public class Ladder06 extends Ladder implements DomainModel{
 		GameMap map = gameMaps.get(random.nextInt(gameMaps.size()));
 		Arena arena = finalBuilder.newArena();
 		arena.setGameMap(map);
-		
+		arena.setMode(mode);
 		int i =0;
 		for (Party p1: context.getForce1Paries()){
 			DefaultParty pp = (DefaultParty) p1;
@@ -319,8 +320,8 @@ public class Ladder06 extends Ladder implements DomainModel{
 	
 
 	@Override
-	public ResGame.EventGet.Builder toProtobuf() {
-		ResGame.EventGet.Builder builder = ResGame.EventGet.newBuilder();
+	public ResEvent.EventGet.Builder toProtobuf(int verbose) {
+		ResEvent.EventGet.Builder builder = ResEvent.EventGet.newBuilder();
 		builder.setName(name).setId(id);
 		builder.setPhysicalGame(game.getPhysicalGame().toProtobuf());
 		for (GameMap map : gameMaps){

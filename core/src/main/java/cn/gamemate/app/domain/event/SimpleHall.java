@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 import proto.response.ResCampusArena.CampusArena03List;
 import proto.response.ResCampusArena.CampusArena03ListItem;
+import proto.response.ResEvent;
 import proto.response.ResGame;
 import cn.gamemate.app.domain.DomainModel;
 import cn.gamemate.app.domain.DomainModelRuntimeException;
@@ -23,6 +24,7 @@ import cn.gamemate.app.domain.game.GameMap;
 import cn.gamemate.app.domain.party.DefaultParty;
 import cn.gamemate.app.domain.party.PartyManager;
 import cn.gamemate.app.domain.party.PartyMember;
+import cn.gamemate.app.domain.user.AlertMessage;
 import cn.gamemate.app.domain.user.User;
 import cn.gamemate.common.annotation.ThreadSafe;
 
@@ -94,6 +96,11 @@ public class SimpleHall extends Hall {
 
 	synchronized public Arena05 userCreateArena(User operator, String mode,
 			Integer mapId, String customName, boolean isPrivate) {
+		//check relay
+		if (operator.getRelayServiceName() == null){
+			new AlertMessage(operator, "无法确认游戏服务器。请检查您的网络连接", true).send();
+			throw new DomainModelRuntimeException("your status is not online.");
+		}
 
 		Arena05 arena = super.userCreateArena(operator, mode, mapId,
 				customName, isPrivate);
@@ -129,8 +136,8 @@ public class SimpleHall extends Hall {
 	}
 
 	@Override
-	public ResGame.EventGet.Builder toProtobuf() {
-		ResGame.EventGet.Builder builder = ResGame.EventGet.newBuilder();
+	public ResEvent.EventGet.Builder toProtobuf() {
+		ResEvent.EventGet.Builder builder = ResEvent.EventGet.newBuilder();
 		builder.setName(name).setId(id);
 		builder.setPhysicalGame(game.getPhysicalGame().toProtobuf());
 		for (GameMap map : gameMaps) {

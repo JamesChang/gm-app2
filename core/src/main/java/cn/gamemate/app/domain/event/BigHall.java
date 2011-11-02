@@ -31,6 +31,7 @@ import cn.gamemate.app.domain.party.DefaultParty;
 import cn.gamemate.app.domain.party.PartyManager;
 import cn.gamemate.app.domain.party.PartyMember;
 import cn.gamemate.app.domain.party.PartyMemberUpdateMessage;
+import cn.gamemate.app.domain.user.AlertMessage;
 import cn.gamemate.app.domain.user.User;
 import cn.gamemate.common.annotation.GuardedBy;
 import cn.gamemate.common.annotation.ThreadSafe;
@@ -234,6 +235,14 @@ public class BigHall extends Hall implements BigHallMBean {
 	@Override
 	public Arena05 userCreateArena(User operator, String mode, Integer mapId,
 			String customName, boolean isPrivate) {
+		
+		//check relay
+		if (operator.getRelayServiceName() == null){
+			new AlertMessage(operator, "无法确认游戏服务器。请检查您的网络连接", true).send();
+			throw new DomainModelRuntimeException("your status is not online.");
+		}
+		
+		
 		Arena05 arena = super.userCreateArena(operator, mode, mapId,
 				customName, isPrivate);
 		new ArenaJoinedMessage(arena, operator).send();

@@ -3067,6 +3067,853 @@ public final class ResCampusArena {
     // @@protoc_insertion_point(class_scope:CampusArena03Home)
   }
   
+  public static final class CA078_Leader_Board extends
+      com.google.protobuf.GeneratedMessage {
+    // Use CA078_Leader_Board.newBuilder() to construct.
+    private CA078_Leader_Board() {
+      initFields();
+    }
+    private CA078_Leader_Board(boolean noInit) {}
+    
+    private static final CA078_Leader_Board defaultInstance;
+    public static CA078_Leader_Board getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public CA078_Leader_Board getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return proto.response.ResCampusArena.internal_static_CA078_Leader_Board_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return proto.response.ResCampusArena.internal_static_CA078_Leader_Board_fieldAccessorTable;
+    }
+    
+    // repeated .CA078_Leader_Board_Item items = 1;
+    public static final int ITEMS_FIELD_NUMBER = 1;
+    private java.util.List<proto.response.ResCampusArena.CA078_Leader_Board_Item> items_ =
+      java.util.Collections.emptyList();
+    public java.util.List<proto.response.ResCampusArena.CA078_Leader_Board_Item> getItemsList() {
+      return items_;
+    }
+    public int getItemsCount() { return items_.size(); }
+    public proto.response.ResCampusArena.CA078_Leader_Board_Item getItems(int index) {
+      return items_.get(index);
+    }
+    
+    private void initFields() {
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(proto.response.ResCampusArena.CA078_Leader_Board prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> {
+      private proto.response.ResCampusArena.CA078_Leader_Board result;
+      
+      // Construct using proto.response.ResCampusArena.CA078_Leader_Board.newBuilder()
+      private Builder() {}
+      
+      private static Builder create() {
+        Builder builder = new Builder();
+        builder.result = new proto.response.ResCampusArena.CA078_Leader_Board();
+        return builder;
+      }
+      
+      protected proto.response.ResCampusArena.CA078_Leader_Board internalGetResult() {
+        return result;
+      }
+      
+      public Builder clear() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "Cannot call clear() after build().");
+        }
+        result = new proto.response.ResCampusArena.CA078_Leader_Board();
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(result);
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return proto.response.ResCampusArena.CA078_Leader_Board.getDescriptor();
+      }
+      
+      public proto.response.ResCampusArena.CA078_Leader_Board getDefaultInstanceForType() {
+        return proto.response.ResCampusArena.CA078_Leader_Board.getDefaultInstance();
+      }
+      
+      public boolean isInitialized() {
+        return result.isInitialized();
+      }
+      public proto.response.ResCampusArena.CA078_Leader_Board build() {
+        if (result != null && !isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return buildPartial();
+      }
+      
+      private proto.response.ResCampusArena.CA078_Leader_Board buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        if (!isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return buildPartial();
+      }
+      
+      public proto.response.ResCampusArena.CA078_Leader_Board buildPartial() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "build() has already been called on this Builder.");
+        }
+        if (result.items_ != java.util.Collections.EMPTY_LIST) {
+          result.items_ =
+            java.util.Collections.unmodifiableList(result.items_);
+        }
+        proto.response.ResCampusArena.CA078_Leader_Board returnMe = result;
+        result = null;
+        return returnMe;
+      }
+      
+      
+      // repeated .CA078_Leader_Board_Item items = 1;
+      public java.util.List<proto.response.ResCampusArena.CA078_Leader_Board_Item> getItemsList() {
+        return java.util.Collections.unmodifiableList(result.items_);
+      }
+      public int getItemsCount() {
+        return result.getItemsCount();
+      }
+      public proto.response.ResCampusArena.CA078_Leader_Board_Item getItems(int index) {
+        return result.getItems(index);
+      }
+      public Builder setItems(int index, proto.response.ResCampusArena.CA078_Leader_Board_Item value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.items_.set(index, value);
+        return this;
+      }
+      public Builder setItems(int index, proto.response.ResCampusArena.CA078_Leader_Board_Item.Builder builderForValue) {
+        result.items_.set(index, builderForValue.build());
+        return this;
+      }
+      public Builder addItems(proto.response.ResCampusArena.CA078_Leader_Board_Item value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        if (result.items_.isEmpty()) {
+          result.items_ = new java.util.ArrayList<proto.response.ResCampusArena.CA078_Leader_Board_Item>();
+        }
+        result.items_.add(value);
+        return this;
+      }
+      public Builder addItems(proto.response.ResCampusArena.CA078_Leader_Board_Item.Builder builderForValue) {
+        if (result.items_.isEmpty()) {
+          result.items_ = new java.util.ArrayList<proto.response.ResCampusArena.CA078_Leader_Board_Item>();
+        }
+        result.items_.add(builderForValue.build());
+        return this;
+      }
+      public Builder addAllItems(
+          java.lang.Iterable<? extends proto.response.ResCampusArena.CA078_Leader_Board_Item> values) {
+        if (result.items_.isEmpty()) {
+          result.items_ = new java.util.ArrayList<proto.response.ResCampusArena.CA078_Leader_Board_Item>();
+        }
+        super.addAll(values, result.items_);
+        return this;
+      }
+      public Builder clearItems() {
+        result.items_ = java.util.Collections.emptyList();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:CA078_Leader_Board)
+    }
+    
+    static {
+      defaultInstance = new CA078_Leader_Board(true);
+      proto.response.ResCampusArena.internalForceInit();
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:CA078_Leader_Board)
+  }
+  
+  public static final class CA078_Leader_Board_Item extends
+      com.google.protobuf.GeneratedMessage {
+    // Use CA078_Leader_Board_Item.newBuilder() to construct.
+    private CA078_Leader_Board_Item() {
+      initFields();
+    }
+    private CA078_Leader_Board_Item(boolean noInit) {}
+    
+    private static final CA078_Leader_Board_Item defaultInstance;
+    public static CA078_Leader_Board_Item getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public CA078_Leader_Board_Item getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return proto.response.ResCampusArena.internal_static_CA078_Leader_Board_Item_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return proto.response.ResCampusArena.internal_static_CA078_Leader_Board_Item_fieldAccessorTable;
+    }
+    
+    // optional string name = 1;
+    public static final int NAME_FIELD_NUMBER = 1;
+    private boolean hasName;
+    private java.lang.String name_ = "";
+    public boolean hasName() { return hasName; }
+    public java.lang.String getName() { return name_; }
+    
+    // optional uint32 rank = 2;
+    public static final int RANK_FIELD_NUMBER = 2;
+    private boolean hasRank;
+    private int rank_ = 0;
+    public boolean hasRank() { return hasRank; }
+    public int getRank() { return rank_; }
+    
+    // optional int32 power = 3;
+    public static final int POWER_FIELD_NUMBER = 3;
+    private boolean hasPower;
+    private int power_ = 0;
+    public boolean hasPower() { return hasPower; }
+    public int getPower() { return power_; }
+    
+    // optional uint32 win = 4;
+    public static final int WIN_FIELD_NUMBER = 4;
+    private boolean hasWin;
+    private int win_ = 0;
+    public boolean hasWin() { return hasWin; }
+    public int getWin() { return win_; }
+    
+    // optional uint32 total = 5;
+    public static final int TOTAL_FIELD_NUMBER = 5;
+    private boolean hasTotal;
+    private int total_ = 0;
+    public boolean hasTotal() { return hasTotal; }
+    public int getTotal() { return total_; }
+    
+    // optional uint32 userid = 6;
+    public static final int USERID_FIELD_NUMBER = 6;
+    private boolean hasUserid;
+    private int userid_ = 0;
+    public boolean hasUserid() { return hasUserid; }
+    public int getUserid() { return userid_; }
+    
+    // optional float trueskill_mean = 7;
+    public static final int TRUESKILL_MEAN_FIELD_NUMBER = 7;
+    private boolean hasTrueskillMean;
+    private float trueskillMean_ = 0F;
+    public boolean hasTrueskillMean() { return hasTrueskillMean; }
+    public float getTrueskillMean() { return trueskillMean_; }
+    
+    // optional float trueskill_sd = 8;
+    public static final int TRUESKILL_SD_FIELD_NUMBER = 8;
+    private boolean hasTrueskillSd;
+    private float trueskillSd_ = 0F;
+    public boolean hasTrueskillSd() { return hasTrueskillSd; }
+    public float getTrueskillSd() { return trueskillSd_; }
+    
+    // optional string image = 9;
+    public static final int IMAGE_FIELD_NUMBER = 9;
+    private boolean hasImage;
+    private java.lang.String image_ = "";
+    public boolean hasImage() { return hasImage; }
+    public java.lang.String getImage() { return image_; }
+    
+    // optional int32 first = 10;
+    public static final int FIRST_FIELD_NUMBER = 10;
+    private boolean hasFirst;
+    private int first_ = 0;
+    public boolean hasFirst() { return hasFirst; }
+    public int getFirst() { return first_; }
+    
+    // optional int32 second = 11;
+    public static final int SECOND_FIELD_NUMBER = 11;
+    private boolean hasSecond;
+    private int second_ = 0;
+    public boolean hasSecond() { return hasSecond; }
+    public int getSecond() { return second_; }
+    
+    // optional int32 third = 12;
+    public static final int THIRD_FIELD_NUMBER = 12;
+    private boolean hasThird;
+    private int third_ = 0;
+    public boolean hasThird() { return hasThird; }
+    public int getThird() { return third_; }
+    
+    // optional int32 rts_score = 13;
+    public static final int RTS_SCORE_FIELD_NUMBER = 13;
+    private boolean hasRtsScore;
+    private int rtsScore_ = 0;
+    public boolean hasRtsScore() { return hasRtsScore; }
+    public int getRtsScore() { return rtsScore_; }
+    
+    // optional string id = 14;
+    public static final int ID_FIELD_NUMBER = 14;
+    private boolean hasId;
+    private java.lang.String id_ = "";
+    public boolean hasId() { return hasId; }
+    public java.lang.String getId() { return id_; }
+    
+    // optional string force_type = 15;
+    public static final int FORCE_TYPE_FIELD_NUMBER = 15;
+    private boolean hasForceType;
+    private java.lang.String forceType_ = "";
+    public boolean hasForceType() { return hasForceType; }
+    public java.lang.String getForceType() { return forceType_; }
+    
+    // optional uint32 draw = 16;
+    public static final int DRAW_FIELD_NUMBER = 16;
+    private boolean hasDraw;
+    private int draw_ = 0;
+    public boolean hasDraw() { return hasDraw; }
+    public int getDraw() { return draw_; }
+    
+    private void initFields() {
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board_Item parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board_Item parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board_Item parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board_Item parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board_Item parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board_Item parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board_Item parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board_Item parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board_Item parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static proto.response.ResCampusArena.CA078_Leader_Board_Item parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(proto.response.ResCampusArena.CA078_Leader_Board_Item prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> {
+      private proto.response.ResCampusArena.CA078_Leader_Board_Item result;
+      
+      // Construct using proto.response.ResCampusArena.CA078_Leader_Board_Item.newBuilder()
+      private Builder() {}
+      
+      private static Builder create() {
+        Builder builder = new Builder();
+        builder.result = new proto.response.ResCampusArena.CA078_Leader_Board_Item();
+        return builder;
+      }
+      
+      protected proto.response.ResCampusArena.CA078_Leader_Board_Item internalGetResult() {
+        return result;
+      }
+      
+      public Builder clear() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "Cannot call clear() after build().");
+        }
+        result = new proto.response.ResCampusArena.CA078_Leader_Board_Item();
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(result);
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return proto.response.ResCampusArena.CA078_Leader_Board_Item.getDescriptor();
+      }
+      
+      public proto.response.ResCampusArena.CA078_Leader_Board_Item getDefaultInstanceForType() {
+        return proto.response.ResCampusArena.CA078_Leader_Board_Item.getDefaultInstance();
+      }
+      
+      public boolean isInitialized() {
+        return result.isInitialized();
+      }
+      public proto.response.ResCampusArena.CA078_Leader_Board_Item build() {
+        if (result != null && !isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return buildPartial();
+      }
+      
+      private proto.response.ResCampusArena.CA078_Leader_Board_Item buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        if (!isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return buildPartial();
+      }
+      
+      public proto.response.ResCampusArena.CA078_Leader_Board_Item buildPartial() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "build() has already been called on this Builder.");
+        }
+        proto.response.ResCampusArena.CA078_Leader_Board_Item returnMe = result;
+        result = null;
+        return returnMe;
+      }
+      
+      
+      // optional string name = 1;
+      public boolean hasName() {
+        return result.hasName();
+      }
+      public java.lang.String getName() {
+        return result.getName();
+      }
+      public Builder setName(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasName = true;
+        result.name_ = value;
+        return this;
+      }
+      public Builder clearName() {
+        result.hasName = false;
+        result.name_ = getDefaultInstance().getName();
+        return this;
+      }
+      
+      // optional uint32 rank = 2;
+      public boolean hasRank() {
+        return result.hasRank();
+      }
+      public int getRank() {
+        return result.getRank();
+      }
+      public Builder setRank(int value) {
+        result.hasRank = true;
+        result.rank_ = value;
+        return this;
+      }
+      public Builder clearRank() {
+        result.hasRank = false;
+        result.rank_ = 0;
+        return this;
+      }
+      
+      // optional int32 power = 3;
+      public boolean hasPower() {
+        return result.hasPower();
+      }
+      public int getPower() {
+        return result.getPower();
+      }
+      public Builder setPower(int value) {
+        result.hasPower = true;
+        result.power_ = value;
+        return this;
+      }
+      public Builder clearPower() {
+        result.hasPower = false;
+        result.power_ = 0;
+        return this;
+      }
+      
+      // optional uint32 win = 4;
+      public boolean hasWin() {
+        return result.hasWin();
+      }
+      public int getWin() {
+        return result.getWin();
+      }
+      public Builder setWin(int value) {
+        result.hasWin = true;
+        result.win_ = value;
+        return this;
+      }
+      public Builder clearWin() {
+        result.hasWin = false;
+        result.win_ = 0;
+        return this;
+      }
+      
+      // optional uint32 total = 5;
+      public boolean hasTotal() {
+        return result.hasTotal();
+      }
+      public int getTotal() {
+        return result.getTotal();
+      }
+      public Builder setTotal(int value) {
+        result.hasTotal = true;
+        result.total_ = value;
+        return this;
+      }
+      public Builder clearTotal() {
+        result.hasTotal = false;
+        result.total_ = 0;
+        return this;
+      }
+      
+      // optional uint32 userid = 6;
+      public boolean hasUserid() {
+        return result.hasUserid();
+      }
+      public int getUserid() {
+        return result.getUserid();
+      }
+      public Builder setUserid(int value) {
+        result.hasUserid = true;
+        result.userid_ = value;
+        return this;
+      }
+      public Builder clearUserid() {
+        result.hasUserid = false;
+        result.userid_ = 0;
+        return this;
+      }
+      
+      // optional float trueskill_mean = 7;
+      public boolean hasTrueskillMean() {
+        return result.hasTrueskillMean();
+      }
+      public float getTrueskillMean() {
+        return result.getTrueskillMean();
+      }
+      public Builder setTrueskillMean(float value) {
+        result.hasTrueskillMean = true;
+        result.trueskillMean_ = value;
+        return this;
+      }
+      public Builder clearTrueskillMean() {
+        result.hasTrueskillMean = false;
+        result.trueskillMean_ = 0F;
+        return this;
+      }
+      
+      // optional float trueskill_sd = 8;
+      public boolean hasTrueskillSd() {
+        return result.hasTrueskillSd();
+      }
+      public float getTrueskillSd() {
+        return result.getTrueskillSd();
+      }
+      public Builder setTrueskillSd(float value) {
+        result.hasTrueskillSd = true;
+        result.trueskillSd_ = value;
+        return this;
+      }
+      public Builder clearTrueskillSd() {
+        result.hasTrueskillSd = false;
+        result.trueskillSd_ = 0F;
+        return this;
+      }
+      
+      // optional string image = 9;
+      public boolean hasImage() {
+        return result.hasImage();
+      }
+      public java.lang.String getImage() {
+        return result.getImage();
+      }
+      public Builder setImage(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasImage = true;
+        result.image_ = value;
+        return this;
+      }
+      public Builder clearImage() {
+        result.hasImage = false;
+        result.image_ = getDefaultInstance().getImage();
+        return this;
+      }
+      
+      // optional int32 first = 10;
+      public boolean hasFirst() {
+        return result.hasFirst();
+      }
+      public int getFirst() {
+        return result.getFirst();
+      }
+      public Builder setFirst(int value) {
+        result.hasFirst = true;
+        result.first_ = value;
+        return this;
+      }
+      public Builder clearFirst() {
+        result.hasFirst = false;
+        result.first_ = 0;
+        return this;
+      }
+      
+      // optional int32 second = 11;
+      public boolean hasSecond() {
+        return result.hasSecond();
+      }
+      public int getSecond() {
+        return result.getSecond();
+      }
+      public Builder setSecond(int value) {
+        result.hasSecond = true;
+        result.second_ = value;
+        return this;
+      }
+      public Builder clearSecond() {
+        result.hasSecond = false;
+        result.second_ = 0;
+        return this;
+      }
+      
+      // optional int32 third = 12;
+      public boolean hasThird() {
+        return result.hasThird();
+      }
+      public int getThird() {
+        return result.getThird();
+      }
+      public Builder setThird(int value) {
+        result.hasThird = true;
+        result.third_ = value;
+        return this;
+      }
+      public Builder clearThird() {
+        result.hasThird = false;
+        result.third_ = 0;
+        return this;
+      }
+      
+      // optional int32 rts_score = 13;
+      public boolean hasRtsScore() {
+        return result.hasRtsScore();
+      }
+      public int getRtsScore() {
+        return result.getRtsScore();
+      }
+      public Builder setRtsScore(int value) {
+        result.hasRtsScore = true;
+        result.rtsScore_ = value;
+        return this;
+      }
+      public Builder clearRtsScore() {
+        result.hasRtsScore = false;
+        result.rtsScore_ = 0;
+        return this;
+      }
+      
+      // optional string id = 14;
+      public boolean hasId() {
+        return result.hasId();
+      }
+      public java.lang.String getId() {
+        return result.getId();
+      }
+      public Builder setId(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasId = true;
+        result.id_ = value;
+        return this;
+      }
+      public Builder clearId() {
+        result.hasId = false;
+        result.id_ = getDefaultInstance().getId();
+        return this;
+      }
+      
+      // optional string force_type = 15;
+      public boolean hasForceType() {
+        return result.hasForceType();
+      }
+      public java.lang.String getForceType() {
+        return result.getForceType();
+      }
+      public Builder setForceType(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasForceType = true;
+        result.forceType_ = value;
+        return this;
+      }
+      public Builder clearForceType() {
+        result.hasForceType = false;
+        result.forceType_ = getDefaultInstance().getForceType();
+        return this;
+      }
+      
+      // optional uint32 draw = 16;
+      public boolean hasDraw() {
+        return result.hasDraw();
+      }
+      public int getDraw() {
+        return result.getDraw();
+      }
+      public Builder setDraw(int value) {
+        result.hasDraw = true;
+        result.draw_ = value;
+        return this;
+      }
+      public Builder clearDraw() {
+        result.hasDraw = false;
+        result.draw_ = 0;
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:CA078_Leader_Board_Item)
+    }
+    
+    static {
+      defaultInstance = new CA078_Leader_Board_Item(true);
+      proto.response.ResCampusArena.internalForceInit();
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:CA078_Leader_Board_Item)
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_CampusArenaGet_descriptor;
   private static
@@ -3107,6 +3954,16 @@ public final class ResCampusArena {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_CampusArena03Home_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_CA078_Leader_Board_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_CA078_Leader_Board_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_CA078_Leader_Board_Item_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_CA078_Leader_Board_Item_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -3147,8 +4004,17 @@ public final class ResCampusArena {
       "me\022\021\n\tbulletins\030\004 \003(\t\022(\n\007scStats\030\005 \003(\0132\027" +
       ".CampusArena03StatsItem\022*\n\twar3Stats\030\006 \003",
       "(\0132\027.CampusArena03StatsItem\022*\n\tdotaStats" +
-      "\030\007 \003(\0132\027.CampusArena03StatsItemB\022\n\016proto" +
-      ".responseH\002"
+      "\030\007 \003(\0132\027.CampusArena03StatsItem\"=\n\022CA078" +
+      "_Leader_Board\022\'\n\005items\030\001 \003(\0132\030.CA078_Lea" +
+      "der_Board_Item\"\234\002\n\027CA078_Leader_Board_It" +
+      "em\022\014\n\004name\030\001 \001(\t\022\014\n\004rank\030\002 \001(\r\022\r\n\005power\030" +
+      "\003 \001(\005\022\013\n\003win\030\004 \001(\r\022\r\n\005total\030\005 \001(\r\022\016\n\006use" +
+      "rid\030\006 \001(\r\022\026\n\016trueskill_mean\030\007 \001(\002\022\024\n\014tru" +
+      "eskill_sd\030\010 \001(\002\022\r\n\005image\030\t \001(\t\022\r\n\005first\030" +
+      "\n \001(\005\022\016\n\006second\030\013 \001(\005\022\r\n\005third\030\014 \001(\005\022\021\n\t" +
+      "rts_score\030\r \001(\005\022\n\n\002id\030\016 \001(\t\022\022\n\nforce_typ",
+      "e\030\017 \001(\t\022\014\n\004draw\030\020 \001(\rB\022\n\016proto.responseH" +
+      "\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -3219,6 +4085,22 @@ public final class ResCampusArena {
               new java.lang.String[] { "Bulletins", "ScStats", "War3Stats", "DotaStats", },
               proto.response.ResCampusArena.CampusArena03Home.class,
               proto.response.ResCampusArena.CampusArena03Home.Builder.class);
+          internal_static_CA078_Leader_Board_descriptor =
+            getDescriptor().getMessageTypes().get(8);
+          internal_static_CA078_Leader_Board_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_CA078_Leader_Board_descriptor,
+              new java.lang.String[] { "Items", },
+              proto.response.ResCampusArena.CA078_Leader_Board.class,
+              proto.response.ResCampusArena.CA078_Leader_Board.Builder.class);
+          internal_static_CA078_Leader_Board_Item_descriptor =
+            getDescriptor().getMessageTypes().get(9);
+          internal_static_CA078_Leader_Board_Item_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_CA078_Leader_Board_Item_descriptor,
+              new java.lang.String[] { "Name", "Rank", "Power", "Win", "Total", "Userid", "TrueskillMean", "TrueskillSd", "Image", "First", "Second", "Third", "RtsScore", "Id", "ForceType", "Draw", },
+              proto.response.ResCampusArena.CA078_Leader_Board_Item.class,
+              proto.response.ResCampusArena.CA078_Leader_Board_Item.Builder.class);
           return null;
         }
       };

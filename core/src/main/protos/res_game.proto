@@ -52,11 +52,3 @@ message MapList{
 	optional ListParams params = 2;
 }
 
-message EventGet{
-  optional uint32 id = 1;
-  optional string name = 2;
-  optional PhysicalGame physical_game = 3;
-  repeated Map required_maps = 4;
-  repeated Map optional_maps = 5;
-
-}

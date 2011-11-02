@@ -1,0 +1,135 @@
+option java_package = "proto.response";
+
+option optimize_for = CODE_SIZE;
+
+import "res_activity.proto";
+import "res_clan.proto";
+import "res_game.proto";
+import "res_listbase.proto";
+import "res_user.proto";
+import "res_team.proto";
+import "res_war3detail.proto";
+import "res_campus_arena.proto";
+message EventGet{
+  optional uint32 id = 1;
+  optional string name = 2;
+  optional PhysicalGame physical_game = 3;
+  repeated Map required_maps = 4;
+  repeated Map optional_maps = 5;
+  optional LogicalGame logical_game= 6;
+  optional string type = 8;
+
+  //my
+  optional string record = 7;
+  optional int32 my_best_round = 28;
+  optional EventGet my_next_match = 27;
+  optional bool has_registered = 26;
+  optional uint32 viewer = 25;
+  
+  
+
+  optional string text = 29;
+  optional uint32 participants = 30;
+
+
+  
+  
+
+  //elimination match
+  optional uint32 required_win = 31;
+  optional EventForce home = 32; 
+  optional EventForce away = 33; 
+  optional float home_score = 34;
+  optional float away_score = 35;
+  optional string expected_time = 38;
+  //todo battles
+  optional uint32 parent_id = 37;
+  
+
+
+  //road to starswar, elimination match
+  optional string play_ground = 51;
+  optional string status = 52;
+  optional Map map = 53;
+  repeated EliminationBattle battle = 54; //should be pl.
+  
+  //elimination
+  optional string event_force_type = 61;
+  optional uint32 registered_force_count = 62;
+  repeated EliminationRound rounds = 63;
+  optional int64 registeration_deadline = 64;
+
+  repeated EventForce registered_forces = 65;
+  optional bool allow_registeration = 66;
+  repeated EventForce leaderboard = 67;
+  optional bool allow_fight = 68;
+  repeated UserModel administrators = 69;
+  optional int32 registeration_limit = 70;
+  optional string rules = 71;
+  repeated DynamicField required_player_info = 72;
+  repeated string operations = 73;
+  optional CA078_Leader_Board ca078_leader_board = 74;
+
+  optional bool check_in_required= 75;
+  optional int64 check_in_start = 76;
+  optional int64 check_in_end = 77;
+
+  //registration management
+  optional bool allow_player_register = 80;
+  optional int32 expected_registration_start_time = 81;
+  optional int32 expected_registration_end_time = 82;
+  optional bool allow_player_register_after_prepared = 83;
+  optional bool enable_auto_extra_check = 84;
+  optional int32 auto_extra_check_duration = 85;
+
+  
+  repeated EventGet children = 100;
+
+  
+
+
+  //rts home
+  repeated string modes = 101; 
+}
+
+
+message UserEventList{
+  repeated EventGet events = 1;
+}
+
+message EventForce{
+
+  required string type =1;
+  
+  optional UserModel user =2 ;
+  optional TeamGetResponse team  = 3; 
+  optional string name = 4;
+  optional string im_qq = 5;
+  optional string image = 6;
+  optional string id = 7;
+  repeated DynamicField extra_fields = 8;
+  optional uint32 force_id = 9;
+  optional bool checked = 10;
+  optional bool quit = 11;
+}
+
+message EliminationBattle{
+  optional uint32 sequence =1;
+  optional int32 winner = 2;
+  optional bool disputed = 3;
+  optional string map_name = 4;
+  optional string expected_time = 5;
+  optional War3Detail war3Detail = 6;
+  optional bool home_away_swap = 7;
+}
+message EliminationRound{
+  required uint32 ro = 1;
+  repeated EventGet events = 2;
+}
+
+message DynamicField{
+  required string name = 1;
+  optional string text = 2;
+  optional string value = 3;
+  optional bool selected = 4;
+}

@@ -22,7 +22,7 @@ public final class PP {
 				System.out.print(t.charAt(t.length() - 1));
 				System.out.print(" ");
 				i++;
-				if (i >= 20) {
+				if (i >= 10) {
 					System.out.println();
 					i = 0;
 				}

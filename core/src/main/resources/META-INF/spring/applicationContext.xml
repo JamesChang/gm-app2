@@ -45,7 +45,7 @@
 	-->
     <context:component-scan base-package="cn.gamemate.app">
         <context:exclude-filter expression=".*_Roo_.*" type="regex"/>
-        <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+        <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>        
     </context:component-scan>
     
     
@@ -79,4 +79,189 @@
 	
 	
 	<bean class ="cn.gamemate.common.management.Mx4jTool"></bean>
+	
+	
+	<!-- Dota Replay Processing -->
+	<!-- <bean id = "taskQueueFactory"
+	class = "cn.gamemate.taskqueue.rabbitmq.RabbitTaskQueueFactory" 
+	init-method="prepareAndBind">
+		<constructor-arg value="${amqp.host}"></constructor-arg>
+		<property name="queues">
+			<list>
+				<bean class="cn.gamemate.taskqueue.rabbitmq.TaskQueueConfiguration">
+					<property name="name" value="dota_replay_parsed" />
+					<property name="asyncReceive" value="true" />
+					<property name="autoAck" value="false" />
+					<property name="amqpName" value="dota_replay_parsed" />
+				</bean>
+			</list>
+		</property>	
+	</bean> -->
+	
+	<bean id="commonAwards" 
+		class="cn.gamemate.app.domain.event.awards.CommonAwardsCalculator" 
+		scope="prototype"/>
+	<bean id="group310Awards" 
+		class="cn.gamemate.app.domain.event.awards.Group310Awards" 
+		scope="prototype"/>
+	<bean id="Deprecated2010Awards" 
+	class="cn.gamemate.app.domain.event.awards.Deprecated2010AwardsCalculator" 
+	scope="prototype"/>
+	<bean id="trueSkillAwards" 
+		class="cn.gamemate.app.domain.event.awards.TrueSkillAwardsCalculator"
+		scope="prototype" >
+		<property name="gameInfo">
+			<bean class="cn.gamemate.skill.GameInfo" />			
+		</property>
+	</bean>
+	<bean id="powerAwards" 
+		class="cn.gamemate.app.domain.event.awards.PowerAwardsCaculator"
+		scope="prototype" 
+		>
+		<property name="gameInfo">
+			<bean class="cn.gamemate.skill.GameInfo" />			
+		</property>
+	</bean>
+	<bean id="userGameAwardsUpdator" 
+		class="cn.gamemate.app.domain.event.awards.UserGameAwardsUpdator"
+		scope="prototype" 
+		/>
+	<bean id="userAwardsUpdator" 
+		class="cn.gamemate.app.domain.event.awards.UserAwardsUpdator"
+		scope="prototype" 
+		/>
+	<bean id="userEventAwardsUpdator" 
+		class="cn.gamemate.app.domain.event.awards.UserEventAwardsUpdator"
+		scope="prototype" 
+		/>
+	<!-- <bean id="p1" class="cn.gamemate.app.domain.event.awards.AwardsPackage" scope="prototype">
+		<property name="updator" ref="userGameAwardsUpdator" />
+		<property name="calculators">
+			<list>
+				<ref bean="commonAwards" />
+				<ref bean="trueSkillAwards" />
+				<ref bean="powerAwards" />
+			</list>
+		</property>
+	</bean>
+	<bean id="p3" class="cn.gamemate.app.domain.event.awards.AwardsPackage" scope="prototype">
+		<property name="updator" ref="userEventAwardsUpdator" />
+		<property name="calculators">
+			<list>
+				<ref bean="commonAwards" />
+			</list>
+		</property>
+	</bean>
+	<bean id="p2" class="cn.gamemate.app.domain.event.awards.AwardsPackage" scope="prototype">
+		<property name="updator" ref="userAwardsUpdator" />
+		<property name="calculators">
+			<list>
+				<ref bean="Deprecated2010Awards" />
+			</list>
+		</property>
+	</bean>
+	<bean class = "cn.gamemate.app.domain.event.dota.DefaultDotaRepProcessingService" 
+		init-method="start" 
+		depends-on="event6 defaultDotaArenaListEvent">
+		<constructor-arg ref="battleDao" />
+		<property name="eventCenter" ref="eventCenter" />
+	</bean> -->
+	<!-- 
+	<bean class = "cn.gamemate.app.domain.event.dota.ConfigurableDefaultDataProcessingService" 
+		init-method="start">
+		<constructor-arg ref="battleDao" />
+		<property name="eventAwardsPackages">
+			<map key-type="java.lang.Integer">
+				<entry key="2">
+					<list>
+						<ref bean="p1" />
+					</list>
+				</entry>
+				<entry key="3">
+					<list>
+						<ref bean="p1" />
+					</list>
+				</entry>
+				<entry key="4">
+					<list>
+						<ref bean="p1" />
+						<ref bean="p2" />
+					</list>
+				</entry>
+				<entry key="5">
+					<list>
+						<ref bean="p1" />
+						<ref bean="p2" />
+					</list>
+				</entry>
+				<entry key="6">
+					<list>
+						<ref bean="p1" />
+						<ref bean="p2" />
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	 -->
+	
+	<!-- Battle Dao -->
+	<bean id = "battleDao" 
+		class="cn.gamemate.app.domain.event.dota.cass.CassandraDotaBattleDao">
+		<constructor-arg ref="gmKeyspace" />
+	</bean>
+	
+	<!-- Rts Dao -->
+	<bean class="cn.gamemate.app.domain.event.rts.RtsJdbcHelper" />
+	
+	
+		<bean id="rtsUserGameAwardsUpdator" 
+		class="cn.gamemate.app.domain.event.rts.RtsUserGameUpdator"
+		scope="prototype" 
+		/>
+	<bean class="cn.gamemate.app.domain.event.rts.RtsJdbcHelper" />
+	
+	
+		<bean id="rtsUserEventAwardsUpdator" 
+		class="cn.gamemate.app.domain.event.rts.RtsUserEventAwardsUpdator"
+		scope="prototype" 
+		/>
+	<bean id="rtsUserEventModeAwardsUpdator" 
+		class="cn.gamemate.app.domain.event.rts.RtsUserEventModeAwardsUpdator"
+		scope="prototype" 
+		/>
+	<bean id="sjtuAwardsPackage" class="cn.gamemate.app.domain.event.rts.RtsAwardsPackage" scope="prototype">
+		<property name="updator" ref="rtsUserGameAwardsUpdator" />
+		<property name="calculators">
+			<list>
+				<ref bean="commonAwards" />
+			</list>
+		</property>
+	</bean>
+	<bean id="rtsAwardsPackage" class="cn.gamemate.app.domain.event.rts.RtsAwardsPackage" scope="prototype">
+		<property name="updator" ref="rtsUserEventModeAwardsUpdator" />
+		<property name="calculators">
+			<list>
+				<bean class="cn.gamemate.app.domain.event.rts.RtsScoreCalculator"></bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="awardsPackageLoader" class="cn.gamemate.app.domain.event.rts.RtsAwardsPackageLoader" >
+		<property name="rtsAwardsPackage"  >
+			<list>
+				<ref bean="rtsAwardsPackage" />
+				<!-- <ref bean="sjtuAwardsPackage" /> -->
+			</list>
+		</property>
+		<property name="sjtuAwardsPackage" ref="sjtuAwardsPackage" />
+		<property name="group310" ref="group321AwardsPackage" />
+	</bean>
+	<bean id="group321AwardsPackage" class="cn.gamemate.app.domain.event.rts.RtsAwardsPackage" scope="prototype">
+		<property name="updator" ref="rtsUserEventAwardsUpdator" />
+		<property name="calculators">
+			<list>
+				<ref bean="group310Awards" />
+			</list>
+		</property>
+	</bean>
 </beans>

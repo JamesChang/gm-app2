@@ -1529,13 +1529,13 @@ public final class MsgArena {
     // optional .EventGet event = 6;
     public static final int EVENT_FIELD_NUMBER = 6;
     private boolean hasEvent;
-    private proto.response.ResGame.EventGet event_;
+    private proto.response.ResEvent.EventGet event_;
     public boolean hasEvent() { return hasEvent; }
-    public proto.response.ResGame.EventGet getEvent() { return event_; }
+    public proto.response.ResEvent.EventGet getEvent() { return event_; }
     
     private void initFields() {
       inviter_ = proto.response.ResUser.UserModel.getDefaultInstance();
-      event_ = proto.response.ResGame.EventGet.getDefaultInstance();
+      event_ = proto.response.ResEvent.EventGet.getDefaultInstance();
     }
     public static proto.msg.MsgArena.ArenaInvitation parseFrom(
         com.google.protobuf.ByteString data)
@@ -1799,10 +1799,10 @@ public final class MsgArena {
       public boolean hasEvent() {
         return result.hasEvent();
       }
-      public proto.response.ResGame.EventGet getEvent() {
+      public proto.response.ResEvent.EventGet getEvent() {
         return result.getEvent();
       }
-      public Builder setEvent(proto.response.ResGame.EventGet value) {
+      public Builder setEvent(proto.response.ResEvent.EventGet value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -1810,16 +1810,16 @@ public final class MsgArena {
         result.event_ = value;
         return this;
       }
-      public Builder setEvent(proto.response.ResGame.EventGet.Builder builderForValue) {
+      public Builder setEvent(proto.response.ResEvent.EventGet.Builder builderForValue) {
         result.hasEvent = true;
         result.event_ = builderForValue.build();
         return this;
       }
-      public Builder mergeEvent(proto.response.ResGame.EventGet value) {
+      public Builder mergeEvent(proto.response.ResEvent.EventGet value) {
         if (result.hasEvent() &&
-            result.event_ != proto.response.ResGame.EventGet.getDefaultInstance()) {
+            result.event_ != proto.response.ResEvent.EventGet.getDefaultInstance()) {
           result.event_ =
-            proto.response.ResGame.EventGet.newBuilder(result.event_).mergeFrom(value).buildPartial();
+            proto.response.ResEvent.EventGet.newBuilder(result.event_).mergeFrom(value).buildPartial();
         } else {
           result.event_ = value;
         }
@@ -1828,7 +1828,7 @@ public final class MsgArena {
       }
       public Builder clearEvent() {
         result.hasEvent = false;
-        result.event_ = proto.response.ResGame.EventGet.getDefaultInstance();
+        result.event_ = proto.response.ResEvent.EventGet.getDefaultInstance();
         return this;
       }
       
@@ -3791,34 +3791,34 @@ public final class MsgArena {
     java.lang.String[] descriptorData = {
       "\n\017msg_arena.proto\032\017res_arena.proto\032\021res_" +
       "gameres.proto\032\016res_user.proto\032\016res_game." +
-      "proto\"$\n\013ArenaJoined\022\025\n\005arena\030\002 \001(\0132\006.Ar" +
-      "ena\"\036\n\013ArenaLeaved\022\017\n\007arenaID\030\001 \001(\r\"}\n\017U" +
-      "serJoinedArena\022\017\n\007arenaID\030\001 \001(\r\022\016\n\006userI" +
-      "D\030\002 \001(\r\022\030\n\004user\030\006 \001(\0132\n.UserModel\022\014\n\004rol" +
-      "e\030\007 \001(\t\022\020\n\010position\030\010 \001(\005\022\017\n\007actions\030\t \003" +
-      "(\t\"2\n\017UserLeavedArena\022\017\n\007arenaID\030\001 \001(\r\022\016" +
-      "\n\006userID\030\002 \001(\r\"\211\001\n\022ArenaMemberUpdated\022\017\n" +
-      "\007arenaID\030\001 \002(\r\022\016\n\006userID\030\002 \002(\r\022\022\n\nuserSt",
-      "atus\030\003 \001(\t\022\014\n\004role\030\004 \001(\t\022\020\n\010position\030\005 \001" +
-      "(\005\022\017\n\007actions\030\006 \003(\t\022\r\n\005ready\030\007 \001(\010\"\225\001\n\017A" +
-      "renaInvitation\022\033\n\007inviter\030\001 \001(\0132\n.UserMo" +
-      "del\022\021\n\tarenaName\030\002 \001(\t\022\021\n\teventName\030\003 \001(" +
-      "\t\022\017\n\007arenaID\030\004 \001(\r\022\024\n\014targetUserID\030\005 \001(\r" +
-      "\022\030\n\005event\030\006 \001(\0132\t.EventGet\":\n\022ArenaLeade" +
-      "rChanged\022\017\n\007arenaID\030\001 \002(\r\022\023\n\013newLeaderID" +
-      "\030\002 \002(\r\"K\n\027ArenaForceStatusUpdated\022\017\n\007are" +
-      "naID\030\001 \001(\r\022\017\n\007forceID\030\002 \001(\r\022\016\n\006status\030\003 " +
-      "\001(\t\"5\n\nArenaStart\022\025\n\005arena\030\001 \002(\0132\006.Arena",
-      "\022\020\n\010battleID\030\002 \001(\t\"K\n\022ArenaStatusUpdated" +
-      "\022\017\n\007arenaID\030\001 \002(\r\022\016\n\006status\030\002 \002(\t\022\024\n\014pri" +
-      "vate_flag\030\003 \002(\010\"`\n\nArenaEnded\022\017\n\007arenaID" +
-      "\030\001 \002(\r\022\034\n\006result\030\002 \001(\0132\014.GameMessage\022\024\n\014" +
-      "winner_force\030\003 \001(\005\022\r\n\005error\030\004 \001(\t\"X\n\031Are" +
-      "naUserAttributeUpdated\022\017\n\007arenaID\030\001 \001(\r\022" +
-      "\016\n\006userID\030\002 \001(\r\022\013\n\003key\030\003 \001(\t\022\r\n\005value\030\004 " +
-      "\001(\t\"H\n\024ArenaSlotLockUpdated\022\017\n\007arenaID\030\001" +
-      " \002(\r\022\016\n\006slotID\030\002 \002(\r\022\017\n\007enabled\030\003 \001(\010B\r\n" +
-      "\tproto.msgH\002"
+      "proto\032\017res_event.proto\"$\n\013ArenaJoined\022\025\n" +
+      "\005arena\030\002 \001(\0132\006.Arena\"\036\n\013ArenaLeaved\022\017\n\007a" +
+      "renaID\030\001 \001(\r\"}\n\017UserJoinedArena\022\017\n\007arena" +
+      "ID\030\001 \001(\r\022\016\n\006userID\030\002 \001(\r\022\030\n\004user\030\006 \001(\0132\n" +
+      ".UserModel\022\014\n\004role\030\007 \001(\t\022\020\n\010position\030\010 \001" +
+      "(\005\022\017\n\007actions\030\t \003(\t\"2\n\017UserLeavedArena\022\017" +
+      "\n\007arenaID\030\001 \001(\r\022\016\n\006userID\030\002 \001(\r\"\211\001\n\022Aren" +
+      "aMemberUpdated\022\017\n\007arenaID\030\001 \002(\r\022\016\n\006userI",
+      "D\030\002 \002(\r\022\022\n\nuserStatus\030\003 \001(\t\022\014\n\004role\030\004 \001(" +
+      "\t\022\020\n\010position\030\005 \001(\005\022\017\n\007actions\030\006 \003(\t\022\r\n\005" +
+      "ready\030\007 \001(\010\"\225\001\n\017ArenaInvitation\022\033\n\007invit" +
+      "er\030\001 \001(\0132\n.UserModel\022\021\n\tarenaName\030\002 \001(\t\022" +
+      "\021\n\teventName\030\003 \001(\t\022\017\n\007arenaID\030\004 \001(\r\022\024\n\014t" +
+      "argetUserID\030\005 \001(\r\022\030\n\005event\030\006 \001(\0132\t.Event" +
+      "Get\":\n\022ArenaLeaderChanged\022\017\n\007arenaID\030\001 \002" +
+      "(\r\022\023\n\013newLeaderID\030\002 \002(\r\"K\n\027ArenaForceSta" +
+      "tusUpdated\022\017\n\007arenaID\030\001 \001(\r\022\017\n\007forceID\030\002" +
+      " \001(\r\022\016\n\006status\030\003 \001(\t\"5\n\nArenaStart\022\025\n\005ar",
+      "ena\030\001 \002(\0132\006.Arena\022\020\n\010battleID\030\002 \001(\t\"K\n\022A" +
+      "renaStatusUpdated\022\017\n\007arenaID\030\001 \002(\r\022\016\n\006st" +
+      "atus\030\002 \002(\t\022\024\n\014private_flag\030\003 \002(\010\"`\n\nAren" +
+      "aEnded\022\017\n\007arenaID\030\001 \002(\r\022\034\n\006result\030\002 \001(\0132" +
+      "\014.GameMessage\022\024\n\014winner_force\030\003 \001(\005\022\r\n\005e" +
+      "rror\030\004 \001(\t\"X\n\031ArenaUserAttributeUpdated\022" +
+      "\017\n\007arenaID\030\001 \001(\r\022\016\n\006userID\030\002 \001(\r\022\013\n\003key\030" +
+      "\003 \001(\t\022\r\n\005value\030\004 \001(\t\"H\n\024ArenaSlotLockUpd" +
+      "ated\022\017\n\007arenaID\030\001 \002(\r\022\016\n\006slotID\030\002 \002(\r\022\017\n" +
+      "\007enabled\030\003 \001(\010B\r\n\tproto.msgH\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -3939,6 +3939,7 @@ public final class MsgArena {
           proto.response.ResGameres.getDescriptor(),
           proto.response.ResUser.getDescriptor(),
           proto.response.ResGame.getDescriptor(),
+          proto.response.ResEvent.getDescriptor(),
         }, assigner);
   }
   

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import proto.res.ResArena;
 import proto.res.ResArena.Arena.Builder;
 import proto.response.ResGameres.GameMessage;
 import proto.response.ResSc.StarCraftData;
@@ -16,6 +17,7 @@ import proto.response.ResWar3Detail.War3Detail.DotaPlayer;
 import proto.response.ResWar3Detail.War3Detail.RPGDota;
 import proto.util.Util.StringDictItem;
 import cn.gamemate.app.clientmsg.MessageService;
+import cn.gamemate.app.clientmsg.MessageServiceException;
 import cn.gamemate.app.clientmsg.RelayServices;
 import cn.gamemate.app.domain.DomainModelRuntimeException;
 import cn.gamemate.app.domain.Forbidden;
@@ -39,6 +41,8 @@ import cn.gamemate.app.domain.arena.msg.ArenaStartMessage;
 import cn.gamemate.app.domain.arena.msg.ArenaStatusUpdated;
 import cn.gamemate.app.domain.arena.msg.ArenaUserAttributeUpdatedMessage;
 import cn.gamemate.app.domain.arena.msg.UserJoinedArenaMessage;
+import cn.gamemate.app.domain.event.awards.AwardsPackage;
+import cn.gamemate.app.domain.event.awards.BattleAwards;
 import cn.gamemate.app.domain.user.AlertMessage;
 import cn.gamemate.app.domain.user.User;
 import cn.gamemate.app.domain.user.User.UserStatus;
@@ -53,7 +57,6 @@ public class Arena05 extends Arena {
 	
 	private java.util.Random random = new Random(System.currentTimeMillis());
 	
-
 
 	static 
 	public void assertUserNotInArena(User operator){
@@ -131,7 +134,7 @@ public class Arena05 extends Arena {
 	}
 
 	private void autoClose() {
-		if (getPlayerCount() == 0) {
+		if (getPlayerCount() == 0 && getRefereeCount() == 0) {
 			close();
 		}
 	}
@@ -334,9 +337,9 @@ public class Arena05 extends Arena {
 
 
 	@Override
-	public Builder toProtobuf() {
+	public ResArena.Arena.Builder toProtobuf() {
 
-		Builder protobuf = super.toProtobuf();
+		ResArena.Arena.Builder protobuf = super.toProtobuf();
 		if (leader != null) {
 			protobuf.addAttributes(StringDictItem.newBuilder().setKey("leader")
 					.setValue(String.valueOf(this.leader.getId())));
@@ -348,7 +351,7 @@ public class Arena05 extends Arena {
 	protected void assertLeader(User user) {
 		if (leader != null && leader.equals(user))
 			return;
-		throw new Forbidden("must be leader");
+		throw new Forbidden("必须是队长");
 	}
 
 	// ///////////////////////////////////////
@@ -372,7 +375,7 @@ public class Arena05 extends Arena {
 		MessageService leaderRelayService = RelayServices.getRelayService(leader);
 		MessageService myRelayService = RelayServices.getRelayService(operator);
 		if (myRelayService != leaderRelayService){
-			new AlertMessage(operator, "无法加入游戏。因为游戏主机在另一个服务器", true);
+			new AlertMessage(operator, "无法加入游戏。因为游戏主机在另一个服务器", true).send();
 			throw new DomainModelRuntimeException("game host is at a different server");
 		}
 
@@ -498,17 +501,31 @@ public class Arena05 extends Arena {
 		
 		attributes.put("hostID", String.valueOf(this.leader.getId()));
 		// TODO: FriendStatusChanged
+		
 		for (ArenaSlot slot:slots){
 			if (slot.getUser() != null){
 				slot.setGaming(true);
 			}
 		}
+		
+		for(AwardsPackage ap: event.getAwardsPackages()){
+			ap.prepareOriginalData(this);
+		}
+		
 		updateStatus(GAMING);
 		proto.res.ResArena.Arena arenaSnapshot = this.toProtobuf().setName(Integer.toString(random.nextInt(100000000))).build();
 		Battle battle = Battle.createAndSave(arenaSnapshot);
 		this.lastBattle = battle;
 		ArenaStartMessage arenaStartMessage = new ArenaStartMessage(this, arenaSnapshot);
-		arenaStartMessage.send();
+		try{
+			arenaStartMessage.send();
+		}catch(MessageServiceException e){
+			logger.error("failed to send arenaStart message", e);
+			end();
+			ArrayList<Integer> receivers = new ArrayList<Integer>();
+			this.setUserIdList(receivers);
+			new AlertMessage(receivers, "开始游戏过程中失败，无法连接游戏服务器", true).send();
+		}
 	}
 	
 	public synchronized void userCancel(User operator) {

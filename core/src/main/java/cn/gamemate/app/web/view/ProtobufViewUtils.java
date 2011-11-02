@@ -12,6 +12,7 @@ import com.google.protobuf.GeneratedMessage;
 
 import proto.response.ResBase;
 import proto.response.ResBase.ResponseError;
+import proto.response.ResBase.ResponseError.Builder;
 
 
 public class ProtobufViewUtils {
@@ -50,9 +51,13 @@ public class ProtobufViewUtils {
 			DomainModelRuntimeException dmex = (DomainModelRuntimeException)ex;
 			ResBase.Response.Builder builder = ResBase.Response.newBuilder();
 			builder.setCode((int)dmex.getErrorCode());
-			builder.addErrors(
-					ResponseError.newBuilder().setCode((int)dmex.getErrorCode()).setDesc(ex.getMessage())
-			);
+			Builder errBuilder = ResponseError.newBuilder()
+			.setCode((int)dmex.getErrorCode())
+			.setDesc(ex.getMessage());
+			if (dmex.getData()!=null){
+				errBuilder.setErrorData(dmex.getData());
+			}
+			builder.addErrors(errBuilder);
 			return builder.build();
 		}else{
 			return serverError;

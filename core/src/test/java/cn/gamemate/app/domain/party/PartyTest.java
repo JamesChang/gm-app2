@@ -19,7 +19,7 @@ import cn.gamemate.app.domain.user.User;
 import cn.gamemate.app.domain.user.UserRepository;
 
 @Configuration
-class Config{
+class PartyTestConfig{
 	public @Bean UserRepository userRepository(){
 		UserRepository users = new UserRepository();
 		users.login(new User(1,"user1", "http://"));
@@ -57,7 +57,7 @@ public class PartyTest {
 	
 	@Before
 	public void setUp(){
-		ctx = new AnnotationConfigApplicationContext(Config.class);
+		ctx = new AnnotationConfigApplicationContext(PartyTestConfig.class);
 		users = ctx.getBean("userRepository", UserRepository.class);
 		partyManager = ctx.getBean(PartyManager.class);
 		user1=users.getUser(1);

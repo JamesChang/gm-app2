@@ -1,5 +1,7 @@
 package cn.gamemate.app.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,8 @@ import com.google.protobuf.GeneratedMessage.Builder;
 @Controller
 public class UserController {
 	
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Autowired(required=true)
 	UserRepository userRepository;
 	
@@ -39,6 +43,7 @@ public class UserController {
 			ModelMap modelMap){
 		User user = userRepository.getUser(userId);
 		RelayServices.setRelayServiceForUser(user, service);
+		logger.debug("set relay: {} {}", userId, service);
         return "";
 	}
 	
@@ -49,6 +54,7 @@ public class UserController {
 		User user = userRepository.getUser(userId);
 		RelayServices.clearRelayServiceForUser(user, service);
 		userRepository.fireUserBrowseOnly(user);
+		logger.debug("reset relay: {} {}", userId, service);
         return "";
 	}
 	
@@ -57,6 +63,7 @@ public class UserController {
 			@RequestParam(value="msgname", required=false) String msgname, 
 			ModelMap modelMap){
 		userRepository.login(userId);
+		logger.debug("user {} login ", userId);
 		if (msgname !=null && !msgname.equals("")){
 			CompoundMessageService service = (CompoundMessageService)messageService;
 			service.specifyServiceForUser(userId, msgname);
@@ -67,12 +74,14 @@ public class UserController {
 	@RequestMapping(value = "/{id}/drop")
 	public String userDrop(@PathVariable("id") Integer userId, ModelMap modelMap){
 		userRepository.drop(userId);
+		logger.debug("user {} drop ", userId);
         return "";
 	}
 	
 	@RequestMapping(value = "/{id}/logout")
 	public String userLogout(@PathVariable("id") Integer userId, ModelMap modelMap){
 		userRepository.drop(userId);
+		logger.debug("user {} logout ", userId);
         return "";
 	}
 	

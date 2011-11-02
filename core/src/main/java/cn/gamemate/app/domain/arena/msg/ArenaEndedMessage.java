@@ -16,6 +16,7 @@ public class ArenaEndedMessage extends ClientMessage{
 		arena.setUserIdList(receivers);
 		rootBuilder.setArenaEnded(ArenaEnded.newBuilder().setArenaID(arena.getInt32Id()).setWinnerForce(winnerForce));
 	}
+	
 	public ArenaEndedMessage(Arena arena, String errorMsg) {
 		arena.setUserIdList(receivers);
 		rootBuilder.setArenaEnded(

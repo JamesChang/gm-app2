@@ -5,25 +5,28 @@ import java.util.Map;
 
 import javax.persistence.Transient;
 
-import org.springframework.roo.addon.beaninfo.RooBeanInfo;
-import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.tostring.RooToString;
+import proto.response.ResGame;
+import proto.response.ResGame.LogicalGame;
 
+import cn.gamemate.app.domain.DomainModel;
 import cn.gamemate.app.domain.attr.Field;
 
 import com.google.common.base.Objects;
+import com.google.protobuf.GeneratedMessage.Builder;
 
 
 
 
 // 值对象
 
-public class Game {
+public class Game implements DomainModel{
 	
 	//these games are instanced at DefaultGameDefinition
 	static Game war3;
 	static Game dota;
 	static Game sc;
+	static Game lol;
+	static Game cs;
 	
 	private String name;
 	private int id;
@@ -62,6 +65,10 @@ public class Game {
 			return dota;
 		case 3:
 			return sc;
+		case 5:
+			return lol;
+		case 6:
+			return cs;
 		default:
 		}
 		//TODO 
@@ -91,6 +98,13 @@ public class Game {
 			.add("id", id)
 			.add("name",name)
 			.toString();
+	}
+
+	@Override
+	public ResGame.LogicalGame.Builder toProtobuf() {
+		proto.response.ResGame.LogicalGame.Builder lgBuilder =
+			LogicalGame.newBuilder().setId(getId()).setName(getName());
+		return lgBuilder;
 	}
 	
 }
